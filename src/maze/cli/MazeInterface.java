@@ -2,7 +2,6 @@ package maze.cli;
 
 import maze.logic.Main;
 import maze.logic.Status;
-//"PEOPLE WHO GET STUFF CAN GO AND F*** T******"
 import java.util.Scanner;
 
 public class MazeInterface {
