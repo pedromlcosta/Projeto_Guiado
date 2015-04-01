@@ -12,7 +12,7 @@ public class Hero extends Element {
 
 	public void setHeroAlive(boolean isHeroAlive) {
 		this.isHeroAlive = isHeroAlive;
-	} 
+	}
 
 	public Hero(int x, int y, char figure) {
 		super(x, y, figure);
@@ -40,6 +40,7 @@ public class Hero extends Element {
 	}
 
 	public int getnDarts() {
+		System.out.println(nDarts);
 		return nDarts;
 	}
 
@@ -50,8 +51,6 @@ public class Hero extends Element {
 	public void decDarts() {
 		nDarts--;
 	}
-
-
 
 	public void setnDarts(int nDarts) {
 		this.nDarts = nDarts;

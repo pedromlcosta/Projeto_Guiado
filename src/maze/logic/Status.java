@@ -43,14 +43,14 @@ public class Status {
 		maze = new Maze(0);
 
 	}
-   
+
 	public Dragon[] getDragons() {
 		return dragons;
 	}
 
 	public void Init_Numbers() {
-		dragons = new Dragon[Main.random(maze.getMaze().length / 2) + 1];
-		darts = new Darts[Main.random(maze.getMaze().length / 2) + 3];
+		dragons = new Dragon[Main.random(maze.getMaze().length / 2)];
+		darts = new Darts[Main.random(maze.getMaze().length / 2)];
 
 	}
 
@@ -176,14 +176,12 @@ public class Status {
 
 	public void heroDarts() {
 
-		if (hero.getnDarts() == 0)
-			return;
 		for (int i = 0; i < darts.length; i++) {
 			if (!darts[i].isPickedUp()) {
 				if (darts[i].getX() == hero.getX() && darts[i].getY() == hero.getY()) {
 
 					darts[i].setPickedUp(true);
-				 	hero.incDarts();
+					hero.incDarts();
 				}
 			}
 		}

@@ -24,42 +24,40 @@ public class MazeInterface {
 
 		print_maze(s.getMaze().getMaze());
 
-		/////-----MAIN GAME CYCLE-----/////
-		while (!((s.getHero().getX() == s.getExit().getX() && s.getHero()
-				.getY() == s.getExit().getY()))
-				&& s.getHero().isHeroAlive() == true) {
+		// ///-----MAIN GAME CYCLE-----/////
+		while (!((s.getHero().getX() == s.getExit().getX() && s.getHero().getY() == s.getExit().getY())) && s.getHero().isHeroAlive() == true) {
 
-			/////------READS USER INPUT------/////
+			// ///------READS USER INPUT------/////
 			System.out.println("Press W/A/S/D/E/T "); /* char option */
 			answer = read.next().charAt(0);
 
 			if (answer == 'T' || answer == 't') {
 				if (s.getHero().getnDarts() != 0) {
-
-					System.out.println("Press W/A/S/D ");
+					System.out.println("Press W/A/S/D/C (C cancela o lançamento) ");
 					answer = read.next().charAt(0);
-					s.throwDart(answer);
+					if (answer != 'C') {
+						s.throwDart(answer);
+					}
 					read.nextLine();
 				}
 			}
-			
-		/////------UPDATES BOARD ACCORDINGLY------/////
+
+			// ///------UPDATES BOARD ACCORDINGLY------/////
 			s.updateBoard(answer);
-		
-		/////------PRINTS CURRENT MAZE------/////
+
+			// ///------PRINTS CURRENT MAZE------/////
 			print_maze(s.getMaze().getMaze());
-			
-		/////-----CHECKS IF GAME IS FINISHED------/////
-			//TODO Matar tudo ao finalizar o jogo
+
+			// ///-----CHECKS IF GAME IS FINISHED------/////
+			// TODO Matar tudo ao finalizar o jogo
 			if (s.getHero().isArmed()) {
-				if (s.getHero().getX() == s.getExit().getX()
-						&& s.getHero().getY() == s.getExit().getY())
+				if (s.getHero().getX() == s.getExit().getX() && s.getHero().getY() == s.getExit().getY())
 					break;
-			}		
+			}
 		}
-		
+
 		print_maze(s.getMaze().getMaze());
-		
+
 		if (!s.getHero().isHeroAlive())
 			System.out.println("The hero has died in battle.");
 
@@ -87,8 +85,7 @@ public class MazeInterface {
 
 				read.reset();
 				do {
-					System.out
-							.println("Pick the size of the board: (The size of the board must be Odd)");
+					System.out.println("Pick the size of the board: (The size of the board must be Odd)");
 					read = new Scanner(System.in);
 					size = read.nextInt();
 
@@ -96,12 +93,10 @@ public class MazeInterface {
 				// STUB FOR THE USER TO DECIDE THE DRAGON CHOICE
 				int dragonChoice;
 				do {
-					System.out
-							.println("Which mode would you like for the dragon? ");
+					System.out.println("Which mode would you like for the dragon? ");
 					System.out.println("1 - Static Dragon");
 					System.out.println("2 - Random Moving Dragon");
-					System.out
-							.println("3 - Random Moving Dragon w/ sleep time");
+					System.out.println("3 - Random Moving Dragon w/ sleep time");
 					read = new Scanner(System.in);
 					dragonChoice = read.nextInt();
 					read.reset();
@@ -131,15 +126,9 @@ public class MazeInterface {
 
 	public static void defaultMaze(Status status) {
 
-		char maze[][] = { { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
-				{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
-				{ 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' },
-				{ 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' },
-				{ 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' },
-				{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', 'X', ' ', 'S' },
-				{ 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' },
-				{ 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' },
-				{ 'X', ' ', 'X', 'X', ' ', ' ', ' ', ' ', ' ', 'X' },
+		char maze[][] = { { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' }, { 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' }, { 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' },
+				{ 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' }, { 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' }, { 'X', ' ', ' ', ' ', ' ', ' ', ' ', 'X', ' ', 'S' },
+				{ 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' }, { 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' }, { 'X', ' ', 'X', 'X', ' ', ' ', ' ', ' ', ' ', 'X' },
 				{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
 
 		status.getMaze().setMaze(maze);
