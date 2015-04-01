@@ -413,14 +413,11 @@ public class Status {
 			return false;
 		}
 		
-		else if (maze.getMaze()[newX][newY] == 'S'){
-			if(!hero.isArmed() || dragonsAlive()){
-				return false;
-			}
+		else if (maze.getMaze()[newX][newY] == 'S' && !(hero.isArmed() && !dragonsAlive())){
+			return false;
 		}
 		
 		// Movimentos validos - espada, escudo, espaco vazio, dardo e saida
-		// (condicionalmente)
 		else {
 
 			if (maze.getMaze()[newX][newY] == 'E') {
@@ -468,8 +465,8 @@ public class Status {
 			heroDarts();
 			return true;
 		}
-		return true;
-	}	// adaptar para classes
+	}	
+	
 	public boolean move_dragon(Dragon dragon) {
 
 		int new_x = 0, new_y = 0;
@@ -593,11 +590,11 @@ public class Status {
 
 		if (hero.isArmed() && !dragonsAlive()) {
 			if (hero.getX() == exit.getX() && hero.getY() == exit.getY()) {
-				setGameOver(true);
+				gameOver = true;
 			}
 		}
 		if (!hero.isHeroAlive()) {
-			setGameOver(true);
+			gameOver = true;
 		}
 
 	}
