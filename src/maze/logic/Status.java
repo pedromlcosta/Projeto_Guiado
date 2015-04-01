@@ -48,10 +48,10 @@ public class Status {
 		return dragons;
 	}
 
+	//TODO: mudar para "i"
 	public void Init_Numbers() {
 		dragons = new Dragon[Main.random(maze.getMaze().length / 2)];
 		darts = new Darts[Main.random(maze.getMaze().length / 2)];
-
 	}
 
 	public void initDragons() {
@@ -174,6 +174,14 @@ public class Status {
 		}
 	}
 
+	public boolean dragonsAlive(){
+		for (int i = 0; i < dragons.length; i++){
+			if(dragons[i].isDragonAlive())
+				return true;   // se ha algum vivo, da true
+		}
+		return false; // se nao houve nenhum vivo, e false
+	}
+	
 	public void heroDarts() {
 
 		for (int i = 0; i < darts.length; i++) {
@@ -319,6 +327,7 @@ public class Status {
 		// call a function which depending on the size of the board will "count"
 		// the number of dragons
 		initDragon('D');
+		//TODO: substituir por funcao?
 		for (int i = 0; i < dragons.length; i++)
 			maze.generateCharacter(dragons[i]);
 		initDarts('-');
