@@ -4,6 +4,8 @@ import maze.logic.Status;
 
 import java.util.Scanner;
 
+import sun.print.resources.serviceui;
+
 public class MazeInterface {
 	private static final char DEFAULT_MAZE = '1';
 	private static final char RANDOM_MAZE = '2';
@@ -47,6 +49,13 @@ public class MazeInterface {
 
 			// ///------PRINTS CURRENT MAZE------/////
 			print_maze(s.getMaze().getMaze());
+			
+			if(!s.getHero().isHeroAlive()){
+				System.out.println("Morreu.");
+			}
+			else{
+				System.out.println("Esta vivo");
+			}
 
 			// ///-----CHECKS IF GAME IS FINISHED------/////
 			// TODO Matar tudo ao finalizar o jogo
@@ -120,6 +129,8 @@ public class MazeInterface {
 			}
 			System.out.println("");
 		}
+		
+		System.out.println("");
 	}
 
 	public static void defaultMaze(Status status) {

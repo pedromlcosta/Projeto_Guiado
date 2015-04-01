@@ -621,6 +621,9 @@ public class Status {
 				setGameOver(true);
 			}
 		}
+		if(!hero.isHeroAlive()){
+			setGameOver(true);
+		}
 
 	}
 }
