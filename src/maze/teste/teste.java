@@ -47,8 +47,8 @@ public class teste {
 	public void Death() {
 		Status s = new Status();
 		MazeInterface.defaultMaze(s);
-		Status s2 = new Status();
-		MazeInterface.defaultMaze(s2);
+		s.updateBoard('s');
+		assertEquals(false,s.getHero().isHeroAlive());
 
 	}
 

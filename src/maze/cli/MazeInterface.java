@@ -130,7 +130,7 @@ public class MazeInterface {
 				{ 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' }, { 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' }, { 'X', ' ', ' ', ' ', ' ', ' ', ' ', 'X', ' ', 'S' },
 				{ 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' }, { 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' }, { 'X', ' ', 'X', 'X', ' ', ' ', ' ', ' ', ' ', 'X' },
 				{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
-
+		status.setMazeChoice(1);
 		status.getMaze().setMaze(maze);
 		status.setHeroPos(1, 1);
 		status.setExitPos(5, 9);
@@ -140,6 +140,7 @@ public class MazeInterface {
 	}
 
 	public static void randomMaze(Status status, int size) {
+		status.setMazeChoice(2);
 		status.getMaze().setMaze(new char[size][size]);
 		status.generate();
 	}
