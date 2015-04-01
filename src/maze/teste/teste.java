@@ -11,7 +11,7 @@ public class teste {
 	public void moveTest() {
 		Status s = new Status();
 		MazeInterface.defaultMaze(s);
-		MazeInterface.print_maze(s.getMaze().getMaze());
+		//MazeInterface.print_maze(s.getMaze().getMaze());
 		s.updateBoard('d');
 		assertEquals(2, s.getHero().getY());
 		s.updateBoard('d');
@@ -39,7 +39,7 @@ public class teste {
 		s.move_hero(3, 4);
 		s.updateBoard('s');
 		assertEquals(true, s.getHero().isArmed());
-		MazeInterface.print_maze(s.getMaze().getMaze());
+		//MazeInterface.print_maze(s.getMaze().getMaze());
 
 	}
 
@@ -68,11 +68,11 @@ public class teste {
 	public void randomTest() {
 		Status s = new Status();
 		MazeInterface.randomMaze(s, 13);
-		s.updateBoard('d');
+	/*	s.updateBoard('d');
 		s.updateBoard('d');
 		s.updateBoard('a');
 		s.updateBoard('s');
-		s.updateBoard('w');
+		s.updateBoard('w');*/
 
 	}
 
@@ -87,7 +87,7 @@ public class teste {
 		s.updateBoard('s');
 		assertEquals(false, s.dragonsAlive());
 		s.move_hero(5, 8);
-		MazeInterface.print_maze(s.getMaze().getMaze());
+	//	MazeInterface.print_maze(s.getMaze().getMaze());
 
 		s.updateBoard('d');
 		assertEquals(true, s.isGameOver());
