@@ -88,7 +88,7 @@ public class teste {
 		assertEquals(false, s.dragonsAlive());
 		s.move_hero(5, 8);
 		s.updateBoard('d');
-
+  
 	}
 
 }
