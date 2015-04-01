@@ -50,7 +50,7 @@ public class Status {
 
 	public void Init_Numbers() {
 		dragons = new Dragon[Main.random(maze.getMaze().length / 2) + 1];
-		darts = new Darts[Main.random(maze.getMaze().length / 2)+3];
+		darts = new Darts[Main.random(maze.getMaze().length / 2) + 3];
 
 	}
 
