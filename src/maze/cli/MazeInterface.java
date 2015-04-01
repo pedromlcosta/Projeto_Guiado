@@ -10,7 +10,7 @@ public class MazeInterface {
 	static Scanner read = new Scanner(System.in);
 
 	public static void main(String args[]) {
-
+ 
 		game();
 
 	}
@@ -79,7 +79,7 @@ public class MazeInterface {
 					read.nextLine();
 				}
 			}
-			Main.updateBoard(s, answer);
+			s.updateBoard( answer);
 			if (s.getHero().isArmed()) {
 				if (s.getHero().getX() == s.getExit().getX() && s.getHero().getY() == s.getExit().getY())
 					break;
@@ -114,6 +114,6 @@ public class MazeInterface {
 		status.getMaze().setMaze(new char[size][size]);
 		// char[][] maze = new char[size][size]; Maze lab = new Maze(maze);
 		// status.setMaze(lab);
-		Main.generate(status);
+		status.generate();
 	}
 }

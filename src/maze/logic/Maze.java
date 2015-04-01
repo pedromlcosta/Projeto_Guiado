@@ -8,7 +8,7 @@ public class Maze {
 	public Maze(int Size) {
 		maze = new char[Size][Size];
 	}
- 
+
 	public Maze(char[][] maze) {
 		this.maze = maze;
 	}
@@ -95,7 +95,7 @@ public class Maze {
 	// Adaptada a classes
 	public boolean generateExit(Status s) {
 		int pos1, pos2;
- 
+
 		while (true) {
 			pos1 = Main.random(s.getMaze().getMaze().length);
 			pos2 = Main.random(s.getMaze().getMaze().length);
@@ -122,5 +122,19 @@ public class Maze {
 				return true;
 			}
 		}
+	}
+
+	public String toString() {
+		String resp = "";
+		for (int i = 0; i < maze.length; i++) {
+			for (int j = 0; j < maze[0].length; j++) {//constante
+
+				resp += maze[i][j];
+
+				resp += " ";
+			}
+			resp += "\n";
+		}
+		return resp;
 	}
 }

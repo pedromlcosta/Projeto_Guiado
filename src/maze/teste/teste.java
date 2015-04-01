@@ -7,18 +7,18 @@ import org.junit.Test;
 
 public class teste {
 
-	@Test 
+	@Test
 	public void moveTest() {
 		Status s = new Status();
 		MazeInterface.defaultMaze(s);
 		Main.print_maze(s.getMaze().getMaze());
-		Main.updateBoard(s, 'd');
+		s.updateBoard('d');
 		assertEquals(2, s.getHero().getY());
-		Main.updateBoard(s, 'd');
-		Main.updateBoard(s, 'd');
-		Main.updateBoard(s, 'a');
-		Main.updateBoard(s, 's');
-		Main.updateBoard(s, 'w');
+		s.updateBoard('d');
+		s.updateBoard('d');
+		s.updateBoard('a');
+		s.updateBoard('s');
+		s.updateBoard('w');
 
 	}
 
@@ -26,8 +26,8 @@ public class teste {
 	public void standStillTest() {
 		Status s = new Status();
 		MazeInterface.defaultMaze(s);
-		Main.updateBoard(s, 'a');
-		Main.updateBoard(s, 'w');
+		s.updateBoard('a');
+		s.updateBoard('w');
 		assertEquals(1, s.getHero().getY());
 
 	}
@@ -36,10 +36,19 @@ public class teste {
 	public void swordTest() {
 		Status s = new Status();
 		MazeInterface.defaultMaze(s);
-		Main.move_hero(s, 3, 4);
-		Main.updateBoard(s, 's');
+		s.move_hero(3, 4);
+		s.updateBoard('s');
 		assertEquals(true, s.getHero().isArmed());
 		Main.print_maze(s.getMaze().getMaze());
+
+	}
+
+	@Test
+	public void Death() {
+		Status s = new Status();
+		MazeInterface.defaultMaze(s);
+		Status s2 = new Status();
+		MazeInterface.defaultMaze(s2);
 
 	}
 
@@ -47,12 +56,11 @@ public class teste {
 	public void RandomTest() {
 		Status s = new Status();
 		MazeInterface.randomMaze(s, 13);
-		Main.updateBoard(s, 'd');
-		Main.updateBoard(s, 'd');
-		Main.updateBoard(s, 'a');
-		Main.updateBoard(s, 's');
-		Main.updateBoard(s, 'w');
+		s.updateBoard('d');
+		s.updateBoard('d');
+		s.updateBoard('a');
+		s.updateBoard('s');
+		s.updateBoard('w');
 
-		
 	}
 }
