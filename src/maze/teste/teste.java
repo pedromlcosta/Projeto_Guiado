@@ -44,7 +44,7 @@ public class teste {
 	}
 
 	@Test
-	public void Death() {
+	public void death() {
 		Status s = new Status();
 		MazeInterface.defaultMaze(s);
 		s.updateBoard('s');
@@ -53,7 +53,19 @@ public class teste {
 	}
 
 	@Test
-	public void RandomTest() {
+	public void killDragon() {
+		Status s = new Status();
+		MazeInterface.defaultMaze(s);
+		s.move_hero(3, 4);
+		s.updateBoard('s');
+		assertEquals(true, s.getHero().isArmed());
+		s.move_hero(1, 1);
+		s.updateBoard('s');
+		assertEquals(false, s.dragonsAlive());
+	}
+
+	@Test
+	public void randomTest() {
 		Status s = new Status();
 		MazeInterface.randomMaze(s, 13);
 		s.updateBoard('d');
@@ -63,4 +75,20 @@ public class teste {
 		s.updateBoard('w');
 
 	}
+
+	@Test
+	public void victory() {
+		Status s = new Status();
+		MazeInterface.defaultMaze(s);
+		s.move_hero(3, 4);
+		s.updateBoard('s');
+		assertEquals(true, s.getHero().isArmed());
+		s.move_hero(1, 1);
+		s.updateBoard('s');
+		assertEquals(false, s.dragonsAlive());
+		s.move_hero(5, 8);
+		s.updateBoard('d');
+
+	}
+
 }
