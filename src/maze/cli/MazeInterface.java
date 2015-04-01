@@ -55,6 +55,7 @@ public class MazeInterface {
 					break;
 			}
 		}
+		
 
 		s.setGameOver(true);
 		
