@@ -528,11 +528,7 @@ public class Status {
 			}
 		} while (maze.getMaze()[new_x][new_y] != ' '
 				|| (new_x == sword.getX() && new_y == sword.getY()));
-		if (maze.getMaze()[new_x][new_y] == 'E') {
-			// -> If the
-			// dragon
-			// lands on the
-			// sword
+		if (maze.getMaze()[new_x][new_y] == 'E') { //Dragon landed on the sword
 			maze.getMaze()[new_x][new_y] = 'F';
 			maze.getMaze()[dragon.getX()][dragon.getY()] = ' ';
 			dragon.setSwordDragon(true);
