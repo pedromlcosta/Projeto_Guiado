@@ -49,8 +49,8 @@ public class Status {
 	}
 
 	public void Init_Numbers() {
-		dragons = new Dragon[Main.random(maze.getMaze().length / 4)];
-		darts = new Darts[Main.random(maze.getMaze().length / 4)];
+		dragons = new Dragon[Main.random(maze.getMaze().length / 2) + 1];
+		darts = new Darts[Main.random(maze.getMaze().length / 2)+3];
 
 	}
 
@@ -398,9 +398,6 @@ public class Status {
 	public boolean move_hero(int newX, int newY) {
 
 		if (maze.getMaze()[newX][newY] == 'X' || maze.getMaze()[newX][newY] == 'Z') {// ver
-																						// situação
-																						// do
-																						// Z
 			return false;
 		}
 
@@ -434,16 +431,18 @@ public class Status {
 				}
 			}
 
-			if (hero.isArmed() && hero.isHasShield())
-				hero.setFigure('K');// maze.getMaze()[newX][newY] = 'K';
-			else if (hero.isHasShield() && (!hero.isArmed())) {
+			if (hero.isArmed() && hero.isHasShield()) {
+				hero.setFigure('K');
+				maze.getMaze()[newX][newY] = 'K';
+			} else if (hero.isHasShield() && (!hero.isArmed())) {
 				if (maze.getMaze()[newX][newY] == 'D')// check dragon and stuff
 					return false;
-				hero.setFigure('p');// maze.getMaze()[newX][newY] = 'p';
+				hero.setFigure('p');
+				maze.getMaze()[newX][newY] = 'p';
 			}
 			if (hero.isArmed() && (!hero.isHasShield())) { // Esta
 				hero.setFigure('A'); // armado
-				// maze.getMaze()[newX][newY] = 'A';
+				maze.getMaze()[newX][newY] = 'A';
 			} else {
 				if (maze.getMaze()[newX][newY] == 'S') {
 					return false;
@@ -451,11 +450,11 @@ public class Status {
 
 				if (!(hero.isArmed() || hero.isHasShield())) {
 					hero.setFigure('H');
-					// maze.getMaze()[newX][newY] = 'H';
+					maze.getMaze()[newX][newY] = 'H';
 				}
 			}
 
-			// maze.getMaze()[hero.getX()][hero.getY()] = ' ';
+			maze.getMaze()[hero.getX()][hero.getY()] = ' ';
 			hero.setX(newX);
 			hero.setY(newY);
 			heroDarts();
