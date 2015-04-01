@@ -5,8 +5,8 @@ import maze.logic.Status;
 import java.util.Scanner;
 
 public class MazeInterface {
-	private static final int DEFAULT_MAZE = 1;
-	private static final int RANDOM_MAZE = 2;
+	private static final char DEFAULT_MAZE = '1';
+	private static final char RANDOM_MAZE = '2';
 	static Scanner read = new Scanner(System.in);
 
 	public static void main(String args[]) {
