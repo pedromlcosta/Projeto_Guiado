@@ -404,16 +404,27 @@ public class Status {
 	// TODO: Alterar para ver se a mudanca for valida, mudar so x e y, senao
 	// ficar
 	// O resto das alteracoes, passar para a funcao updateStatus
+	
+	
 	public boolean move_hero(int newX, int newY) {
 
+		// Movimentos invalidos - parede, dragao adormecido ou ir para a saida quando nao pode
 		if (maze.getMaze()[newX][newY] == 'X' || maze.getMaze()[newX][newY] == 'Z') {// ver
 			return false;
 		}
-
+		
+		else if (maze.getMaze()[newX][newY] == 'S'){
+			if(!hero.isArmed() || dragonsAlive()){
+				return false;
+			}
+		}
+		
+		// Movimentos validos - espada, escudo, espaco vazio, dardo e saida
+		// (condicionalmente)
 		else {
 
 			if (maze.getMaze()[newX][newY] == 'E') {
-				// encontrou espada
+				// Encontrou espada
 				hero.setArmed(true);
 
 				if (hero.isHasShield()) {
@@ -425,9 +436,8 @@ public class Status {
 				}
 			}
 
-			if (maze.getMaze()[newX][newY] == 'P')// need to change this
-			{
-				// encontrou escudo
+			if (maze.getMaze()[newX][newY] == 'P') {
+				// Encontrou escudo
 				hero.setHasShield(true);
 
 				if (hero.isArmed()) {
@@ -441,39 +451,25 @@ public class Status {
 			}
 
 			if (hero.isArmed() && hero.isHasShield()) {
-				hero.setFigure('K');
 				maze.getMaze()[newX][newY] = 'K';
 			} else if (hero.isHasShield() && (!hero.isArmed())) {
-				if (maze.getMaze()[newX][newY] == 'D')// check dragon and stuff
+				if (maze.getMaze()[newX][newY] == 'D') // if he has the shield, he can move next to the dragon, we need to limit the movment
 					return false;
-				hero.setFigure('p');
 				maze.getMaze()[newX][newY] = 'p';
-			}
-			if (hero.isArmed() && (!hero.isHasShield())) { // Esta
-				hero.setFigure('A'); // armado
+			} else if (hero.isArmed() && (!hero.isHasShield())) {
 				maze.getMaze()[newX][newY] = 'A';
-			} else {
-				if (maze.getMaze()[newX][newY] == 'S') {
-
-					return false;
-				}
-
-				if (!(hero.isArmed() || hero.isHasShield())) {
-					hero.setFigure('H');
-					maze.getMaze()[newX][newY] = 'H';
-				}
+			} else if (!hero.isArmed() && !hero.isHasShield()) {
+				maze.getMaze()[newX][newY] = 'H';
 			}
 
-			maze.getMaze()[hero.getX()][hero.getY()] = ' ';
+			maze.getMaze()[hero.getX()][hero.getY()] = ' '; //Place where he was becomes empty
 			hero.setX(newX);
 			hero.setY(newY);
 			heroDarts();
 			return true;
 		}
-
-	}
-
-	// adaptar para classes
+		return true;
+	}	// adaptar para classes
 	public boolean move_dragon(Dragon dragon) {
 
 		int new_x = 0, new_y = 0;

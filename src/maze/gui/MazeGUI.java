@@ -1,6 +1,6 @@
 package maze.gui;
 
-import java.awt.Dimension;
+import java.awt.Dimension; 
 import java.awt.EventQueue;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
@@ -33,17 +33,12 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 	}
 
 	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					MazeGUI window = new MazeGUI();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-
+		JFrame f = new JFrame("Maze");
+		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);		
+		f.setPreferredSize(new Dimension(500,500));
+		f.getContentPane().add(new MazeGUI());
+        f.pack();
+        f.setVisible(true);
 	}
 
 	/**
