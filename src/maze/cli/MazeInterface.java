@@ -138,7 +138,7 @@ public class MazeInterface {
 		status.initDragon('D');
 		status.setDragonPos(3, 1);
 	}
-
+    
 	public static void randomMaze(Status status, int size) {
 		status.setMazeChoice(2);
 		status.getMaze().setMaze(new char[size][size]);
