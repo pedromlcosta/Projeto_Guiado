@@ -43,7 +43,7 @@ public class Status {
 		maze = new Maze(0);
 
 	}
-
+   
 	public Dragon[] getDragons() {
 		return dragons;
 	}
