@@ -10,10 +10,17 @@ public class Status {
 	Sword sword;
 	Shield shield;
 	Darts darts[];
-	boolean end;
 	Maze maze;
-	int dragonChoice;
-	int mazeChoice;
+	int dragonChoice, mazeChoice;
+	boolean gameOver;
+	
+	public boolean isGameOver() {
+		return gameOver;
+	}
+
+	public void setGameOver(boolean gameOver) {
+		this.gameOver = gameOver;
+	}
 
 	public int getMazeChoice() {
 		return mazeChoice;
@@ -33,7 +40,7 @@ public class Status {
 
 	public Status() {
 		// quantos dragões devem existir
-		end = false;
+		gameOver = false;
 		dragons = new Dragon[1];
 		darts = new Darts[1];
 		hero = new Hero(0, 0, 'H');
@@ -102,14 +109,6 @@ public class Status {
 
 	public void setDarts(Darts[] darts) {
 		this.darts = darts;
-	}
-
-	public boolean isEnd() {
-		return end;
-	}
-
-	public void setEnd(boolean end) {
-		this.end = end;
 	}
 
 	public Maze getMaze() {
