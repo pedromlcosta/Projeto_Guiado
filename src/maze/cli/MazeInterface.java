@@ -24,8 +24,8 @@ public class MazeInterface {
 
 		print_maze(s.getMaze().getMaze());
 
-		// ///-----MAIN GAME CYCLE-----/////
-		while (!((s.getHero().getX() == s.getExit().getX() && s.getHero().getY() == s.getExit().getY())) && s.getHero().isHeroAlive() == true) {
+		/////-----MAIN GAME CYCLE-----/////
+		while (true) {
 
 			// ///------READS USER INPUT------/////
 			System.out.println("Press W/A/S/D/E/T "); /* char option */
@@ -50,7 +50,7 @@ public class MazeInterface {
 
 			// ///-----CHECKS IF GAME IS FINISHED------/////
 			// TODO Matar tudo ao finalizar o jogo
-			if (s.getHero().isArmed()) {
+			if (s.getHero().isArmed() && !s.dragonsAlive()) {
 				if (s.getHero().getX() == s.getExit().getX() && s.getHero().getY() == s.getExit().getY())
 					break;
 			}
