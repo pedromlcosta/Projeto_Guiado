@@ -71,6 +71,7 @@ public class Status {
 	public void setHero(Hero hero) {
 		this.hero = hero;
 	}
+	// HELLO
 
 	public Exit getExit() {
 		return exit;
