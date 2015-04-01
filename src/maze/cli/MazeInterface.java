@@ -56,6 +56,8 @@ public class MazeInterface {
 			}
 		}
 
+		s.setGameOver(true);
+		
 		print_maze(s.getMaze().getMaze());
 
 		if (!s.getHero().isHeroAlive())
