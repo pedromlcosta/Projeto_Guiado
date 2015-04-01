@@ -1,7 +1,7 @@
 package maze.cli;
 
-import maze.logic.Main;
 import maze.logic.Status;
+
 import java.util.Scanner;
 
 public class MazeInterface {
@@ -10,7 +10,7 @@ public class MazeInterface {
 	static Scanner read = new Scanner(System.in);
 
 	public static void main(String args[]) {
- 
+
 		game();
 
 	}
@@ -56,7 +56,6 @@ public class MazeInterface {
 				s.setDragonChoice(dragonChoice);
 				s.setMazeChoice(RANDOM_MAZE);
 				randomMaze(s, size);
-				 
 
 			}
 
@@ -64,7 +63,7 @@ public class MazeInterface {
 				break;
 
 		} while (answer != '1' && answer != '2');
-		Main.print_maze(s.getMaze().getMaze());
+		 print_maze(s.getMaze().getMaze());
 		while (!((s.getHero().getX() == s.getExit().getX() && s.getHero().getY() == s.getExit().getY())) && s.getHero().isHeroAlive() == true) {
 
 			System.out.println("Press W/A/S/D/E/T "); /* char option */
@@ -79,15 +78,15 @@ public class MazeInterface {
 					read.nextLine();
 				}
 			}
-			s.updateBoard( answer);
+			s.updateBoard(answer);
 			if (s.getHero().isArmed()) {
 				if (s.getHero().getX() == s.getExit().getX() && s.getHero().getY() == s.getExit().getY())
 					break;
 			}
 
-			Main.print_maze(s.getMaze().getMaze());
+			print_maze(s.getMaze().getMaze());
 		}
-		Main.print_maze(s.getMaze().getMaze());
+		print_maze(s.getMaze().getMaze());
 		if (!s.getHero().isHeroAlive())
 			System.out.println("The hero has died in battle.");
 
@@ -95,10 +94,24 @@ public class MazeInterface {
 		read.close();
 	}
 
+	public static void print_maze(char[][] maze) {
+		for (int i = 0; i < maze.length; i++) {
+			for (int j = 0; j < maze[0].length; j++) {
+
+				System.out.print(maze[i][j]);
+
+				System.out.print(" ");
+			}
+			System.out.println("");
+		}
+	}
+
 	public static void defaultMaze(Status status) {
 
-		char maze[][] = { { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' }, { 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' }, { 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' }, { 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' }, { 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' },
-				{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', 'X', ' ', 'S' }, { 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' }, { 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' }, { 'X', ' ', 'X', 'X', ' ', ' ', ' ', ' ', ' ', 'X' }, { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
+		char maze[][] = { { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' }, { 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' }, { 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' },
+				{ 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' }, { 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' }, { 'X', ' ', ' ', ' ', ' ', ' ', ' ', 'X', ' ', 'S' },
+				{ 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' }, { 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' }, { 'X', ' ', 'X', 'X', ' ', ' ', ' ', ' ', ' ', 'X' },
+				{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
 
 		// Maze lab = new Maze(maze);
 		status.getMaze().setMaze(maze);

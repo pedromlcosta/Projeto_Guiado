@@ -372,8 +372,8 @@ public class Status {
 													// MOVE
 						if (number == 0 || number == 1) {
 							dragons[i].setAsleep(false);
-							dragons[i].setFigure('D');// maze.getMaze()[dragons[i].getX()][dragons[i].getY()]
-														// = 'D';
+							dragons[i].setFigure('D');
+							maze.getMaze()[dragons[i].getX()][dragons[i].getY()] = 'D';
 							move_dragon(dragons[i]);
 						}
 					} else { // IF NOT ASLEEP, HAS 10% CHANCE TO GO ASLEEP AND
@@ -381,8 +381,8 @@ public class Status {
 								// CHANCE TO MOVE
 						if (number == 0) {
 							dragons[i].setAsleep(true);
-							dragons[i].setFigure('Z');// maze.getMaze()[dragons[i].getX()][dragons[i].getY()]
-														// = 'Z';
+							dragons[i].setFigure('Z');
+							maze.getMaze()[dragons[i].getX()][dragons[i].getY()] = 'Z';
 						} else
 							move_dragon(dragons[i]);
 					}
@@ -410,10 +410,13 @@ public class Status {
 				// encontrou espada
 				hero.setArmed(true);
 
-				if (hero.isHasShield())
-					hero.setFigure('K');// maze.getMaze()[newX][newY] = 'K';
-				else
-					hero.setFigure('A');// maze.getMaze()[newX][newY] = 'A';
+				if (hero.isHasShield()) {
+					hero.setFigure('K');
+					maze.getMaze()[newX][newY] = 'K';
+				} else {
+					hero.setFigure('A');
+					maze.getMaze()[newX][newY] = 'A';
+				}
 			}
 
 			if (maze.getMaze()[newX][newY] == 'P')// need to change this
@@ -421,10 +424,12 @@ public class Status {
 				// encontrou escudo
 				hero.setHasShield(true);
 
-				if (hero.isArmed())
-					hero.setFigure('K');// maze.getMaze()[newX][newY] = 'K';
-				else {
-					hero.setFigure('p');// maze.getMaze()[newX][newY] = 'p';
+				if (hero.isArmed()) {
+					hero.setFigure('K');
+					maze.getMaze()[newX][newY] = 'K';
+				} else {
+					hero.setFigure('p');
+					maze.getMaze()[newX][newY] = 'p';
 
 				}
 			}
@@ -499,25 +504,22 @@ public class Status {
 			default:
 				break;
 			}
-		} while (maze.getMaze()[new_x][new_y] != ' ' || (new_x == sword.getX() && new_y == sword.getY()));// (new_x//ver
-																											// 1º
-																											// condição
-
-		if (new_x == sword.getX() && new_y == sword.getY()) {// maze.getMaze()[new_x][new_y]
-																// == 'E') { //
-																// -> If the
-																// dragon
+		} while (maze.getMaze()[new_x][new_y] != ' ' || (new_x == sword.getX() && new_y == sword.getY()));
+		if (maze.getMaze()[new_x][new_y] == 'E') {
+			// -> If the
+			// dragon
 			// lands on the
 			// sword
 			maze.getMaze()[new_x][new_y] = 'F';
 			maze.getMaze()[dragon.getX()][dragon.getY()] = ' ';
 			dragon.setSwordDragon(true);
 		} else { // -> If the dragon doesn't land on the sword
-			dragon.setFigure('D');// maze.getMaze()[new_x][new_y] = 'D';// check
+			dragon.setFigure('D');
+			maze.getMaze()[new_x][new_y] = 'D';// check
 			if (dragon.isSwordDragon()) { // -> Was on the sword's place and
 											// left it
-				dragon.setFigure('E');// maze.getMaze()[dragon.getX()][dragon.getY()]
-										// = 'E';
+				dragon.setFigure('E');
+				maze.getMaze()[dragon.getX()][dragon.getY()] = 'E';
 			} else {
 				maze.getMaze()[dragon.getX()][dragon.getY()] = ' ';
 			}
@@ -547,8 +549,7 @@ public class Status {
 						if (distance(hero.getX(), hero.getY(), dragons[i].getX(), dragons[i].getY(), 3)) {
 							if (!obstacles(hero.getX(), hero.getY(), dragons[i].getX(), dragons[i].getY())) {
 								hero.setHeroAlive(false);
-								// maze.getMaze()[hero.getX()][hero.getY()]
-								// = ' ';
+								maze.getMaze()[hero.getX()][hero.getY()] = ' ';
 							}
 						}
 					}
@@ -559,15 +560,15 @@ public class Status {
 					// System.out.println("Dragao adjacente");
 					if (hero.isArmed()) {
 						dragons[i].setDragonAlive(false);
-						dragons[i].setFigure(' ');// maze.getMaze()[dragons[i].getX()][dragons[i].getY()]
-													// = ' ';
-						if (hero.isHasShield())
-							hero.setFigure('K');// maze.getMaze()[hero.getX()][hero.getY()]
-												// = 'K';
-						else
-							hero.setFigure('A');// maze.getMaze()[hero.getX()][hero.getY()]
-												// = 'A';
-
+						dragons[i].setFigure(' ');
+						maze.getMaze()[dragons[i].getX()][dragons[i].getY()] = ' ';
+						if (hero.isHasShield()) {
+							hero.setFigure('K');
+							maze.getMaze()[hero.getX()][hero.getY()] = 'K';
+						} else {
+							hero.setFigure('A');
+							maze.getMaze()[hero.getX()][hero.getY()] = 'A';
+						}
 					} else {
 						if (!dragons[i].isAsleep()) { // IF DRAGON IS
 														// AWAKE, HERO
@@ -575,9 +576,8 @@ public class Status {
 							hero.setHeroAlive(false);
 							dragons[i].setFigure('D');
 							hero.setFigure(' ');
-							// maze.getMaze()[dragons[i].getX()][dragons[i].getY()]
-							// = 'D';
-							// maze.getMaze()[hero.getX()][hero.getY()] = ' ';
+							maze.getMaze()[dragons[i].getX()][dragons[i].getY()] = 'D';
+							maze.getMaze()[hero.getX()][hero.getY()] = ' ';
 						}
 						if (dragons[i].isAsleep()) {
 							// if dragon is asleep, nothing happens to the
@@ -591,5 +591,4 @@ public class Status {
 		}
 
 	}
-
 }

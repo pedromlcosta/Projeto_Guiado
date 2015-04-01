@@ -22,19 +22,7 @@ public class Main {
 	}
 
 
-	public static void print_maze(char[][] maze) {
-		for (int i = 0; i < maze.length; i++) {
-			for (int j = 0; j < maze[0].length; j++) {
-
-				System.out.print(maze[i][j]);
-
-				System.out.print(" ");
-			}
-			System.out.println("");
-		}
-	}
-
-
+	
 
 	public static void fillArray(int[] direction) {
 		for (int t = 0; t < direction.length;) {

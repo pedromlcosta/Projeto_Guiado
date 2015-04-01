@@ -11,7 +11,7 @@ public class teste {
 	public void moveTest() {
 		Status s = new Status();
 		MazeInterface.defaultMaze(s);
-		Main.print_maze(s.getMaze().getMaze());
+		MazeInterface.print_maze(s.getMaze().getMaze());
 		s.updateBoard('d');
 		assertEquals(2, s.getHero().getY());
 		s.updateBoard('d');
@@ -39,7 +39,7 @@ public class teste {
 		s.move_hero(3, 4);
 		s.updateBoard('s');
 		assertEquals(true, s.getHero().isArmed());
-		Main.print_maze(s.getMaze().getMaze());
+		MazeInterface.print_maze(s.getMaze().getMaze());
 
 	}
 
