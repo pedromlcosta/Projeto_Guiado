@@ -174,7 +174,17 @@ public class Status {
 		}
 	}
 
+	public boolean dragonsAlive() {
+		for (int i = 0; i < dragons.length; i++) {
+			if (dragons[i].isDragonAlive())
+				return true; // se ha algum vivo, da true
+		}
+		return false; // se nao houve nenhum vivo, e false
+	}
+
 	public void heroDarts() {
+		if (mazeChoice == 1)
+			return;
 
 		for (int i = 0; i < darts.length; i++) {
 			if (!darts[i].isPickedUp()) {
