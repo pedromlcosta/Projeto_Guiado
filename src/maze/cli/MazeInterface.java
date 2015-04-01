@@ -24,7 +24,7 @@ public class MazeInterface {
 
 		print_maze(s.getMaze().getMaze());
 
-		/////-----MAIN GAME CYCLE-----/////
+		// ///-----MAIN GAME CYCLE-----/////
 		while (true) {
 
 			// ///------READS USER INPUT------/////
@@ -50,15 +50,10 @@ public class MazeInterface {
 
 			// ///-----CHECKS IF GAME IS FINISHED------/////
 			// TODO Matar tudo ao finalizar o jogo
-			if (s.getHero().isArmed() && !s.dragonsAlive()) {
-				if (s.getHero().getX() == s.getExit().getX() && s.getHero().getY() == s.getExit().getY())
-					break;
-			}
+			if (s.isGameOver())
+				break;
 		}
-		
 
-		s.setGameOver(true);
-		
 		print_maze(s.getMaze().getMaze());
 
 		if (!s.getHero().isHeroAlive())
@@ -111,10 +106,10 @@ public class MazeInterface {
 
 			}
 
-			if (answer == '1' || answer == '2')
+			if (answer == DEFAULT_MAZE || answer == RANDOM_MAZE)
 				break;
 
-		} while (answer != '1' && answer != '2');
+		} while (answer != DEFAULT_MAZE && answer != RANDOM_MAZE);
 	}
 
 	public static void print_maze(char[][] maze) {
@@ -141,7 +136,7 @@ public class MazeInterface {
 		status.initDragon('D');
 		status.setDragonPos(3, 1);
 	}
-    
+
 	public static void randomMaze(Status status, int size) {
 		status.setMazeChoice(2);
 		status.getMaze().setMaze(new char[size][size]);

@@ -87,7 +87,10 @@ public class teste {
 		s.updateBoard('s');
 		assertEquals(false, s.dragonsAlive());
 		s.move_hero(5, 8);
+		MazeInterface.print_maze(s.getMaze().getMaze());
+
 		s.updateBoard('d');
+		assertEquals(true, s.isGameOver());
 
 	}
 
