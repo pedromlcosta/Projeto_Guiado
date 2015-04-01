@@ -58,7 +58,7 @@ public class Status {
 		for (int i = 0; i < dragons.length; i++)
 			maze.generateCharacter(dragons[i]);
 
-	}
+	}  
 
 	public void setDragons(Dragon[] dragons) {
 		this.dragons = dragons;
