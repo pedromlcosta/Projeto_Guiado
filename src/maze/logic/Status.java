@@ -58,7 +58,7 @@ public class Status {
 		for (int i = 0; i < dragons.length; i++)
 			maze.generateCharacter(dragons[i]);
 
-	}  
+	}
 
 	public void setDragons(Dragon[] dragons) {
 		this.dragons = dragons;
@@ -71,7 +71,6 @@ public class Status {
 	public void setHero(Hero hero) {
 		this.hero = hero;
 	}
-	// HELLO
 
 	public Exit getExit() {
 		return exit;
@@ -184,7 +183,7 @@ public class Status {
 				if (darts[i].getX() == hero.getX() && darts[i].getY() == hero.getY()) {
 
 					darts[i].setPickedUp(true);
-					hero.incDarts();
+				 	hero.incDarts();
 				}
 			}
 		}
