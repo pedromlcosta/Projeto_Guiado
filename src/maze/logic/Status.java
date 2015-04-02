@@ -548,6 +548,7 @@ public class Status {
 						if (distance(hero.getX(), hero.getY(), dragons[i].getX(), dragons[i].getY(),dragonRange)) {
 							if (!obstacles(hero.getX(), hero.getY(), dragons[i].getX(), dragons[i].getY())) {
 	
+								System.out.println("551");
 								hero.setHeroAlive(false);
 								maze.getMaze()[hero.getX()][hero.getY()] = ' ';
 							}
@@ -574,7 +575,7 @@ public class Status {
 					} else {
 						if (!dragons[i].isAsleep()) { // IF DRAGON IS
 														// AWAKE, HERO
-														// DIES
+							System.out.println("579");							// DIES
 							hero.setHeroAlive(false);
 							dragons[i].setFigure('D');
 							hero.setFigure(' ');
