@@ -42,7 +42,7 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 	Status s;
 	int x1 = 0, y1 = 0, x2 = 0, y2 = 0;
 	BufferedImage floor;
-	BufferedImage empty;
+	BufferedImage empty;   
 	BufferedImage dragon;
 	BufferedImage hero;
 	BufferedImage sword;
