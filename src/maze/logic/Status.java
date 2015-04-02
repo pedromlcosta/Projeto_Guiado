@@ -531,6 +531,7 @@ public class Status {
 
 		return true;
 	}
+	
 
 	// Updates status - is only called after the coordinates change(after the units move)
 
