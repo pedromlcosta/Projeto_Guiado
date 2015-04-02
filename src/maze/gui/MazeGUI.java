@@ -95,7 +95,7 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 		super.paintComponent(g); // limpa fundo ...
 		g.setColor(Color.BLUE);
 		paintMaze(g);
-	}
+	} 
 
 	public void paintMaze(Graphics g) {
 
