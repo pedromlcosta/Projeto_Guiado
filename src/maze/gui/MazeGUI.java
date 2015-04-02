@@ -42,25 +42,42 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 	Status s;
 	int x1 = 0, y1 = 0, x2 = 0, y2 = 0;
 	BufferedImage floor;
-	BufferedImage empty;   
+	BufferedImage empty;
 	BufferedImage dragon;
 	BufferedImage hero;
 	BufferedImage sword;
 	BufferedImage darts;
 	BufferedImage shield;
 	BufferedImage exit;
+	JFrame frame;
 
 	/**
 	 * Launch the application.
 	 */
 
 	public MazeGUI() {
+		init();
 		this.addMouseListener(this);
 		this.addMouseMotionListener(this);
 		this.addKeyListener(this);
+
+		JButton btnNewButton = new JButton("New Game");
+
+		btnNewButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				s = new Status();
+				s.setDragonChoice(3);
+				MazeInterface.randomMaze(s, 25);
+
+			}
+		});
+		// add(btnNewButton);
+
+		btnNewButton.setBounds(12, 142, 97, 25);
 		s = new Status();
 		s.setDragonChoice(3);
 		MazeInterface.randomMaze(s, 25);
+
 		try {
 			floor = ImageIO.read(new File("images\\wall.png"));
 			empty = ImageIO.read(new File("images\\empty.png"));
@@ -79,18 +96,24 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 	public static void main(String[] args) {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
-				JFrame f = new JFrame("Maze ");
-				f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-				f.setPreferredSize(new Dimension(400, 400));
 				MazeGUI panel = new MazeGUI();
-				f.getContentPane().add(panel);
-				f.pack();
-				panel.setRequestFocusEnabled(true);
-				panel.grabFocus(); // para receber eventos do teclado
-				panel.requestFocus();
-				f.setVisible(true);
+				panel.frame.setVisible(true);
 			}
 		});
+	}
+
+	public void init() {
+		frame = new JFrame();
+		frame.setTitle("Celsius Converter");
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setPreferredSize(new Dimension(400, 400));
+		frame.getContentPane().add(this);
+		frame.pack();
+		this.setRequestFocusEnabled(true);
+		this.grabFocus(); // para receber eventos do teclado
+		this.requestFocus();
+		frame.setVisible(true);
+
 	}
 
 	public void paintComponent(Graphics g) {
