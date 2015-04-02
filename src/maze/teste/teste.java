@@ -74,7 +74,7 @@ public class teste {
 		s.updateBoard('s');
 		s.updateBoard('w');
 
-	}
+	}      
 
 	@Test
 	public void victory() {
