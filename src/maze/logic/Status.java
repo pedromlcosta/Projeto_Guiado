@@ -3,6 +3,7 @@ package maze.logic;
 import maze.logic.Main;
 import maze.logic.Hero;
 
+
 public class Status {
 	Dragon dragons[];
 	Hero hero;
@@ -260,7 +261,7 @@ public class Status {
 	}
 
 	public boolean distance(int x, int y, int x1, int y1, int dist) {
-		return ((x == x1 && y1 >= (y - dist) && y1 <= (y + dist)) || (y1 == y && x1 >= (x - dist) && x1 <= (x + dist)));
+		return ((x == x1 && Math.abs(y1-y) <= dist) || (y1 == y && Math.abs(x1-x) <= dist));
 	}
 
 	public boolean obstacles(int x, int y, int x1, int y1) {
@@ -272,7 +273,7 @@ public class Status {
 
 				for (int i = 0; i < dist; i++) {
 					if (maze.getMaze()[x][y + i] == 'X') {
-						// System.out.println(true);
+						System.out.println(true);
 						return true;
 					}
 				}
@@ -282,7 +283,7 @@ public class Status {
 
 				for (int i = 0; i < dist; i--) {
 					if (maze.getMaze()[x][y + i] == 'X') {
-						// System.out.println(true);
+						System.out.println(true);
 						return true;
 					}
 				}
@@ -295,7 +296,7 @@ public class Status {
 			if (x < x1) {
 				for (int i = 0; i < dist; i++) {
 					if (maze.getMaze()[x + i][y] == 'X') {
-						// System.out.println(true);
+						System.out.println(true);
 						return true;
 					}
 				}
@@ -304,7 +305,7 @@ public class Status {
 			} else {
 				for (int i = 0; i < dist; i--) {
 					if (maze.getMaze()[x + i][y] == 'X') {
-						// System.out.println(true);
+						System.out.println(true);
 						return true;
 					}
 				}
@@ -408,7 +409,7 @@ public class Status {
 	
 	public boolean move_hero(int newX, int newY) {
 
-		// Movimentos invalidos - parede, dragao adormecido ou ir para a saida quando nao pode
+		// INVALID MOVEMENTS - parede, dragao adormecido ou ir para a saida quando nao pode
 		if (maze.getMaze()[newX][newY] == 'X' || maze.getMaze()[newX][newY] == 'Z') {// ver
 			return false;
 		}
@@ -417,7 +418,7 @@ public class Status {
 			return false;
 		}
 		
-		// Movimentos validos - espada, escudo, espaco vazio, dardo e saida
+		// VALID MOVEMENTS - espada, escudo, espaco vazio, dardo e saida
 		else {
 
 			if (maze.getMaze()[newX][newY] == 'E') {
@@ -459,6 +460,7 @@ public class Status {
 				maze.getMaze()[newX][newY] = 'H';
 			}
 
+			////-----UPDATES POSITION-----////
 			maze.getMaze()[hero.getX()][hero.getY()] = ' '; //Place where he was becomes empty
 			hero.setX(newX);
 			hero.setY(newY);
@@ -529,25 +531,30 @@ public class Status {
 
 		return true;
 	}
+	
 
-	// Updates status - is only called after the coordinates change(after the
-	// hero and dragon move
+	// Updates status - is only called after the coordinates change(after the units move)
 
 	private void update_status() {
 
 		for (int i = 0; i < getDragons().length; i++) {
-
+			int dragonRange = 1;
 			if (dragons[i].isDragonAlive()) {
-
-				// only worth checking if the hero is 3<= distance from the
-				// dragon if doesn´t have the shield
+				if(mazeChoice == '2')
+					dragonRange = 3;
+				
 				if (!hero.isHasShield()) {
 
 					if (!dragons[i].isAsleep()) {
-						if (distance(hero.getX(), hero.getY(), dragons[i].getX(), dragons[i].getY(), 3)) {
+						if (distance(hero.getX(), hero.getY(), dragons[i].getX(), dragons[i].getY(),dragonRange)) {
+							System.out.println("distancia menor q 3");
 							if (!obstacles(hero.getX(), hero.getY(), dragons[i].getX(), dragons[i].getY())) {
+								System.out.println("nao tem obstaculos");
 								hero.setHeroAlive(false);
 								maze.getMaze()[hero.getX()][hero.getY()] = ' ';
+							}
+							else{
+								System.out.println("tem obstaculos");
 							}
 						}
 					}
