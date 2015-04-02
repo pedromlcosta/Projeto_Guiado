@@ -273,7 +273,7 @@ public class Status {
 
 				for (int i = 0; i < dist; i++) {
 					if (maze.getMaze()[x][y + i] == 'X') {
-						System.out.println(true);
+						//System.out.println(true);
 						return true;
 					}
 				}
@@ -281,9 +281,9 @@ public class Status {
 
 			} else {
 
-				for (int i = 0; i < dist; i--) {
-					if (maze.getMaze()[x][y + i] == 'X') {
-						System.out.println(true);
+				for (int i = 0; i < dist; i++) {
+					if (maze.getMaze()[x][y - i] == 'X') {
+						//System.out.println(true);
 						return true;
 					}
 				}
@@ -296,16 +296,15 @@ public class Status {
 			if (x < x1) {
 				for (int i = 0; i < dist; i++) {
 					if (maze.getMaze()[x + i][y] == 'X') {
-						System.out.println(true);
+						//System.out.println(true);
 						return true;
 					}
 				}
 				return false;
 
 			} else {
-				for (int i = 0; i < dist; i--) {
-					if (maze.getMaze()[x + i][y] == 'X') {
-						System.out.println(true);
+				for (int i = 0; i < dist; i++) {
+					if (maze.getMaze()[x - i][y] == 'X') {
 						return true;
 					}
 				}
