@@ -7,8 +7,8 @@ import java.util.Scanner;
 import sun.print.resources.serviceui;
 
 public class MazeInterface {
-	private static final char DEFAULT_MAZE = '1';
-	private static final char RANDOM_MAZE = '2';
+	private static final int DEFAULT_MAZE = 1;
+	private static final int RANDOM_MAZE = 2;
 	static Scanner read = new Scanner(System.in);
 
 	public static void main(String args[]) {
@@ -115,10 +115,10 @@ public class MazeInterface {
 
 			}
 
-			if (answer == DEFAULT_MAZE || answer == RANDOM_MAZE)
+			if (answer == '1' || answer == '2')
 				break;
 
-		} while (answer != DEFAULT_MAZE && answer != RANDOM_MAZE);
+		} while (answer != '1' && answer != '2');
 	}
 
 	public static void print_maze(char[][] maze) {
@@ -140,6 +140,7 @@ public class MazeInterface {
 				{ 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' }, { 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' }, { 'X', ' ', 'X', 'X', ' ', ' ', ' ', ' ', ' ', 'X' },
 				{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
 		status.setMazeChoice(1);
+		status.setDragonChoice(1);
 		status.getMaze().setMaze(maze);
 		status.setHeroPos(1, 1);
 		status.setExitPos(5, 9);
