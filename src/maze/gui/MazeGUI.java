@@ -15,6 +15,8 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import maze.cli.*;
+import maze.logic.*;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -29,7 +31,9 @@ import javax.swing.JButton;
 public class MazeGUI extends JPanel implements MouseListener, MouseMotionListener, KeyListener {
 
 	private JFrame frame;
+	Status s;
 	int x1 = 0, y1 = 0, x2 = 0, y2 = 0;
+	BufferedImage floor;
 
 	/**
 	 * Launch the application.
@@ -39,6 +43,14 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 		this.addMouseListener(this);
 		this.addMouseMotionListener(this);
 		this.addKeyListener(this);
+		s = new Status();
+		MazeInterface.randomMaze(s, 13);
+		try {
+			floor = ImageIO.read(new File("floor.jpg"));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		// initialize();
 	}
 
@@ -70,9 +82,23 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g); // limpa fundo ...
 		g.setColor(Color.BLUE);
-
 		g.drawString("Teste", 450, 450);
-		g.fillOval(x1, y1, x2 - x1 + 1, y2 - y1 + 1);
+		// g.fillOval(x1, y1, x2 - x1 + 1, y2 - y1 + 1);
+		paintMaze(g);
+	}
+
+	public void paintMaze(Graphics g) {
+		// super.paintComponent(g); // limpa fundo ...
+		g.setColor(Color.BLUE);
+		int x1 = 0;
+		int size = getWidth() / s.getMaze().getMaze().length;
+		for (int j = 0; j < s.getMaze().getMaze().length; j++) {
+			for (int i = 0; i < s.getMaze().getMaze().length; i++)
+				if (s.getMaze().getMaze()[j][i] == 'X')
+					g.drawImage(floor, x1, x1 + floor.getWidth() * (i + 1), x1 + getWidth(), (x1 + getWidth()) + floor.getWidth() * (i + 1), 0, 0, floor.getWidth(), floor.getHeight(), null);
+			x1 += size;
+		}
+		x1 = 0;
 	}
 
 	/**
@@ -163,13 +189,13 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 	@Override
 	public void keyReleased(KeyEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
 	public void keyTyped(KeyEvent arg0) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 }
