@@ -140,6 +140,7 @@ public class MazeInterface {
 				{ 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' }, { 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' }, { 'X', ' ', 'X', 'X', ' ', ' ', ' ', ' ', ' ', 'X' },
 				{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
 		status.setMazeChoice(1);
+		status.setDragonChoice(1);
 		status.getMaze().setMaze(maze);
 		status.setHeroPos(1, 1);
 		status.setExitPos(5, 9);
