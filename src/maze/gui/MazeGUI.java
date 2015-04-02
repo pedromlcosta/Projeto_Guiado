@@ -8,6 +8,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+
 import java.awt.Dimension;
 import java.awt.EventQueue;
 import java.awt.event.KeyEvent;
@@ -15,16 +16,21 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+
 import maze.cli.*;
 import maze.logic.*;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTabbedPane;
+
 import java.awt.BorderLayout;
+
 import javax.swing.JToolBar;
+
 import java.awt.Font;
 import java.awt.Color;
+
 import javax.swing.JButton;
 
 @SuppressWarnings("serial")
@@ -34,6 +40,8 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 	Status s;
 	int x1 = 0, y1 = 0, x2 = 0, y2 = 0;
 	BufferedImage floor;
+	BufferedImage empty;
+	BufferedImage dragon;
 
 	/**
 	 * Launch the application.
@@ -44,12 +52,16 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 		this.addMouseMotionListener(this);
 		this.addKeyListener(this);
 		s = new Status();
-		MazeInterface.randomMaze(s, 13);
+		s.setDragonChoice(1);
+		MazeInterface.randomMaze(s, 25);
 		try {
-			floor = ImageIO.read(new File("floor.jpg"));
+			floor = ImageIO.read(new File("images\\wall.png"));
+			empty = ImageIO.read(new File("images\\empty.png"));
+			dragon = ImageIO.read(new File("images\\dragon.png"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			System.out.println("Erro");
+			// e.printStackTrace();
 		}
 		// initialize();
 	}
@@ -70,7 +82,7 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 	public static void main(String[] args) {
 		JFrame f = new JFrame("Maze ");
 		f.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		f.setPreferredSize(new Dimension(500, 500));
+		f.setPreferredSize(new Dimension(400, 400));
 		JPanel panel = new MazeGUI();
 		f.getContentPane().add(panel);
 		f.pack();
@@ -82,31 +94,39 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g); // limpa fundo ...
 		g.setColor(Color.BLUE);
-		g.drawString("Teste", 450, 450);
-		// g.fillOval(x1, y1, x2 - x1 + 1, y2 - y1 + 1);
 		paintMaze(g);
 	}
 
 	public void paintMaze(Graphics g) {
-		// super.paintComponent(g); // limpa fundo ...
-		g.setColor(Color.BLUE);
+
+		int sizeX = getWidth() / ((s.getMaze().getMaze().length));
+		int sizeY = getHeight() / ((s.getMaze().getMaze().length));
 		int x1 = 0;
-		int size = getWidth() / s.getMaze().getMaze().length;
+		int y1 = sizeY;
 		for (int j = 0; j < s.getMaze().getMaze().length; j++) {
-			for (int i = 0; i < s.getMaze().getMaze().length; i++)
-				if (s.getMaze().getMaze()[j][i] == 'X')
-					g.drawImage(floor, x1, x1 + floor.getWidth() * (i + 1), x1 + getWidth(), (x1 + getWidth()) + floor.getWidth() * (i + 1), 0, 0, floor.getWidth(), floor.getHeight(), null);
-			x1 += size;
+			for (int i = 0; i < s.getMaze().getMaze().length; i++) {
+				if (s.getMaze().getMaze()[j][i] == 'X') {
+					g.drawImage(floor, x1, y1, sizeX, sizeY, null);
+				} else if (s.getMaze().getMaze()[j][i] == ' ') {
+					g.drawImage(empty, x1, y1, sizeX, sizeY, null);
+				} else {
+					g.drawImage(dragon, x1, y1, sizeX, sizeY, null);
+				}
+				x1 += sizeX;
+			}
+			y1 += sizeY;
+
+			x1 = 0;
 		}
-		x1 = 0;
 	}
 
 	/**
 	 * Initialize the contents of the frame.
 	 */
+	@SuppressWarnings("unused")
 	private void initialize() {
 		frame = new JFrame("Maze");
-		frame.setBounds(100, 100, 450, 300);
+		frame.setBounds(100, 100, 400, 400);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.setPreferredSize(new Dimension(500, 500));
 		// JPanel panel = null;
