@@ -546,14 +546,12 @@ public class Status {
 
 					if (!dragons[i].isAsleep()) {
 						if (distance(hero.getX(), hero.getY(), dragons[i].getX(), dragons[i].getY(),dragonRange)) {
-							System.out.println("distancia menor q 3");
 							if (!obstacles(hero.getX(), hero.getY(), dragons[i].getX(), dragons[i].getY())) {
-								System.out.println("nao tem obstaculos");
+	
 								hero.setHeroAlive(false);
 								maze.getMaze()[hero.getX()][hero.getY()] = ' ';
 							}
 							else{
-								System.out.println("tem obstaculos");
 							}
 						}
 					}
