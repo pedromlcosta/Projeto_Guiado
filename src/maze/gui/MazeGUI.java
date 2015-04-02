@@ -170,7 +170,7 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 			g.drawImage(hero, x1, y1, sizeX, sizeY, null);
 			break;
 		case 'D':
-			changeBufferedImage("hero", "images\\dragon.png");
+			changeBufferedImage("dragon", "images\\dragon.png");
 			g.drawImage(dragon, x1, y1, sizeX, sizeY, null);
 			break;
 		case 'S':
