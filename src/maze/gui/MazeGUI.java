@@ -46,6 +46,8 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 	JButton NewGameButton;
 	JButton ExitButton;
 	JLabel exitText;
+	int sizeX = 1;
+	int sizeY = 1;
 
 	/**
 	 * Launch the application.
@@ -86,7 +88,6 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 
 		frame.getContentPane().add(panel, BorderLayout.NORTH);
 		frame.getContentPane().add(jMaze, BorderLayout.CENTER);
-
 		exitText.setVisible(false);
 		jMaze.setRequestFocusEnabled(true);
 		jMaze.grabFocus(); // para receber eventos do teclado
@@ -130,7 +131,10 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 	}
 
 	public void mouseMoved(MouseEvent arg0) {
-		// TODO Auto-generated method stub
+		// System.out.print(arg0.getX());
+		// System.out.print(" ");
+		// System.out.println(arg0.getY());
+		jMaze.mouseMoved(arg0);
 	}
 
 	public void mouseClicked(MouseEvent arg0) {
@@ -146,21 +150,43 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 	}
 
 	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
+		jMaze.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+		// if (jMaze.s.getHero().getnDarts() > 0) {
+		for (int i = 0; i < jMaze.s.getDragons().length; i++) {
+			if (jMaze.s.getDragons()[i].isDragonAlive()) {
+				System.out.println("Dragon alive");
+				// if (Math.abs(jMaze.x1 - jMaze.s.getDragons()[i].getX() *
+				// sizeX) <= sizeX)
+				// if (Math.abs(jMaze.y1 - jMaze.s.getDragons()[i].getY() *
+				// sizeY) <= sizeY) {
+				// System.out.println(jMaze.s.getMaze().getMaze()[jMaze.s.getDragons()[i].getX()][jMaze.s.getDragons()[i].getY()]);
+				// jMaze.s.getMaze().getMaze()[jMaze.s.getDragons()[i].getX()][jMaze.s.getDragons()[i].getY()]
+				// = ' ';
+				// jMaze.s.getDragons()[i].setDragonAlive(false);
+				// jMaze.s.getHero().decDarts();
+				// repaint();
+				// }
+			}
+		}
+		// }
+
 	}
 
-	// Mais eventos do teclado, que neste caso não interessam
 	public void mousePressed(MouseEvent e) {
+
+		jMaze.setCursor(jMaze.customCursor);
 	}
 
 	public void mouseDragged(MouseEvent e) {
+
+		jMaze.mouseDragged(e);
+
 	}
 
 	public void keyReleased(KeyEvent e) {
 	}
 
 	public void keyTyped(KeyEvent e) {
-
 	}
 
 	public void keyPressed(KeyEvent e) {
@@ -170,23 +196,33 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 
 	class JMaze extends JPanel {
 		Status s;
-		int x1 = 0, y1 = 0, x2 = 0, y2 = 0;
+		int x1 = 0, y1 = 0;
 		BufferedImage floor;
 		BufferedImage empty;
 		BufferedImage dragon;
+		BufferedImage dragonSleep;
+		BufferedImage dragonSword;
 		BufferedImage hero;
+		BufferedImage heroShield;
+		BufferedImage heroSword;
+		BufferedImage heroSwordShield;
 		BufferedImage sword;
 		BufferedImage darts;
 		BufferedImage shield;
 		BufferedImage exit;
+		BufferedImage aim;
+		Toolkit kit;
+		Cursor customCursor;
 
 		public JMaze() {
 
 			s = new Status();
 			s.setDragonChoice(3);
-			MazeInterface.randomMaze(s, 25);
+			s.setMazeChoice(2);
+			MazeInterface.randomMaze(s, 13);
 
 			try {
+				kit = Toolkit.getDefaultToolkit();
 				floor = ImageIO.read(new File("images\\wall.png"));
 				empty = ImageIO.read(new File("images\\empty.png"));
 				dragon = ImageIO.read(new File("images\\dragon.png"));
@@ -195,7 +231,18 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 				darts = ImageIO.read(new File("images\\dart.png"));
 				shield = ImageIO.read(new File("images\\shield.png"));
 				exit = ImageIO.read(new File("images\\exit_closed.png"));
-
+				dragonSleep = ImageIO.read(new File("images\\dragonSleeping.png"));
+				dragonSword = ImageIO.read(new File("images\\swordDragon.png"));
+				heroShield = ImageIO.read(new File("images\\heroShield.png"));
+				heroSword = ImageIO.read(new File("images\\heroArmed.png"));
+				heroSwordShield = ImageIO.read(new File("images\\heroArmedShield.png"));
+				aim = ImageIO.read(new File("images\\aim.png"));
+				customCursor = kit.createCustomCursor(aim, new Point(16, 16), "myCursor");
+				// this.setCursor(customCursor);
+				// Cursor cursor =
+				// Toolkit.getDefaultToolkit().createCustomCursor(aim, new
+				// Point(16, 16), "blank cursor");
+				// this.setCursor(cursor);
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -204,18 +251,26 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 		public void NewGame() {
 			s = new Status();
 			s.setDragonChoice(3);
-			MazeInterface.randomMaze(s, 25);
+			s.setMazeChoice(2);
+			MazeInterface.randomMaze(s, 13);
 			jMaze.grabFocus();
 			repaint();
 
 		}
 
+		public void mouseMoved(MouseEvent e) {
+			y1 = e.getX();
+			x1 = e.getY();
+			repaint();
+
+		}
+
+		public void mouseDragged(MouseEvent e) {
+		}
+
 		public void paintComponent(Graphics g) {
 			if (s.isGameOver()) {
-
-				// frame.setVisible(false);
 				System.exit(0);
-
 			}// erro de o dragão poder estar em cima da espada
 			super.paintComponent(g); // limpa fundo ...
 			g.setColor(Color.BLUE);
@@ -228,9 +283,8 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 		}
 
 		public void paintMaze(Graphics g) throws IOException {
-
-			int sizeX = getWidth() / ((s.getMaze().getMaze().length));
-			int sizeY = getHeight() / ((s.getMaze().getMaze().length));
+			sizeX = getWidth() / ((s.getMaze().getMaze().length));
+			sizeY = getHeight() / ((s.getMaze().getMaze().length));
 			int x1 = 0;
 			int y1 = sizeY;
 			int desvioX = 10;
@@ -243,6 +297,7 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 					} else if (s.getMaze().getMaze()[j][i] == ' ') {
 						g.drawImage(empty, x1, y1 + desvioY, sizeX, sizeY, null);
 					} else {
+
 						printCharacter(s.getMaze().getMaze()[j][i], x1, y1 + desvioY, sizeX, sizeY, g);
 					}
 					x1 += sizeX;
@@ -253,45 +308,22 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 			}
 		}
 
-		public void changeBufferedImage(String buff, String newImage) {
-
-			try {
-				switch (buff) {
-
-				case "hero":
-					hero = ImageIO.read(new File(newImage));
-					break;
-				case "dragon":
-					dragon = ImageIO.read(new File(newImage));
-					break;
-				}
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-
-		}
-
 		public void printCharacter(char character, int x1, int y1, int sizeX, int sizeY, Graphics g) throws IOException {
 
 			switch (character) {
 			case 'H':
-				changeBufferedImage("hero", "images\\hero.png");
 				g.drawImage(hero, x1, y1, sizeX, sizeY, null);
 				break;
 			case 'p':
-				changeBufferedImage("hero", "images\\heroShield.png");
-				g.drawImage(hero, x1, y1, sizeX, sizeY, null);
+				g.drawImage(heroShield, x1, y1, sizeX, sizeY, null);
 				break;
 			case 'A':
-				changeBufferedImage("hero", "images\\heroArmed.png");
-				g.drawImage(hero, x1, y1, sizeX, sizeY, null);
+				g.drawImage(heroSword, x1, y1, sizeX, sizeY, null);
 				break;
 			case 'K':
-				changeBufferedImage("hero", "images\\heroArmedShield.png");
-				g.drawImage(hero, x1, y1, sizeX, sizeY, null);
+				g.drawImage(heroSwordShield, x1, y1, sizeX, sizeY, null);
 				break;
 			case 'D':
-				changeBufferedImage("dragon", "images\\dragon.png");
 				g.drawImage(dragon, x1, y1, sizeX, sizeY, null);
 				break;
 			case 'S':
@@ -301,12 +333,10 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 				g.drawImage(sword, x1, y1, sizeX, sizeY, null);
 				break;
 			case 'F':
-				changeBufferedImage("dragon", "images\\swordDragon.png");
-				g.drawImage(dragon, x1, y1, sizeX, sizeY, null);
+				g.drawImage(dragonSword, x1, y1, sizeX, sizeY, null);
 				break;
 			case 'Z':
-				changeBufferedImage("dragon", "images\\dragonSleeping.png");
-				g.drawImage(dragon, x1, y1, sizeX, sizeY, null);
+				g.drawImage(dragonSleep, x1, y1, sizeX, sizeY, null);
 				break;
 			case 'P':
 				g.drawImage(shield, x1, y1, sizeX, sizeY, null);

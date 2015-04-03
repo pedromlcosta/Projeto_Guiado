@@ -40,7 +40,6 @@ public class Hero extends Element {
 	}
 
 	public int getnDarts() {
-		System.out.println(nDarts);
 		return nDarts;
 	}
 
@@ -49,6 +48,8 @@ public class Hero extends Element {
 	}
 
 	public void decDarts() {
+		if (nDarts == 0)
+			return;
 		nDarts--;
 	}
 
