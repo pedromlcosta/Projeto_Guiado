@@ -4,8 +4,6 @@ import maze.logic.Status;
 
 import java.util.Scanner;
 
-import sun.print.resources.serviceui;
-
 public class MazeInterface {
 	private static final int DEFAULT_MAZE = 1;
 	private static final int RANDOM_MAZE = 2;
