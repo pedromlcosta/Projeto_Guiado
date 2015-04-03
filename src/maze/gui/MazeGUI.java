@@ -113,8 +113,13 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 
 		NewGameButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg) {
-				jMaze.setVisible(true);
-				jMaze.NewGame();
+
+				int i;
+				i = JOptionPane.showConfirmDialog(panel, "You will loose your current progress. Are you sure?", "New game", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+				if (i == JOptionPane.YES_OPTION) {
+					jMaze.setVisible(true);
+					jMaze.NewGame();
+				}
 			}
 		});
 
@@ -146,7 +151,6 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 
 	// Mais eventos do teclado, que neste caso não interessam
 	public void mousePressed(MouseEvent e) {
-		System.out.println("Pressed");
 	}
 
 	public void mouseDragged(MouseEvent e) {
