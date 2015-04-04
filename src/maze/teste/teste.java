@@ -13,7 +13,7 @@ public class teste {
 		MazeInterface.defaultMaze(s);
 		// MazeInterface.print_maze(s.getMaze().getMaze());
 		s.updateBoard('d');
-		assertEquals(2, s.getHero().getY());
+		assertEquals(2, s.getHero().getX());
 		s.updateBoard('d');
 		s.updateBoard('d');
 		s.updateBoard('a');
@@ -29,6 +29,7 @@ public class teste {
 		s.updateBoard('a');
 		s.updateBoard('w');
 		assertEquals(1, s.getHero().getY());
+		assertEquals(1, s.getHero().getX());
 
 	}
 
@@ -36,7 +37,7 @@ public class teste {
 	public void swordTest() {
 		Status s = new Status();
 		MazeInterface.defaultMaze(s);
-		s.move_hero(3, 4);
+		s.move_hero(4, 3);
 		s.updateBoard('s');
 		assertEquals(true, s.getHero().isArmed());
 		// MazeInterface.print_maze(s.getMaze().getMaze());
@@ -56,7 +57,7 @@ public class teste {
 	public void killDragon() {
 		Status s = new Status();
 		MazeInterface.defaultMaze(s);
-		s.move_hero(3, 4);
+		s.move_hero(4, 3);
 		s.updateBoard('s');
 		assertEquals(true, s.getHero().isArmed());
 		s.move_hero(1, 1);
@@ -80,15 +81,13 @@ public class teste {
 	public void victory() {
 		Status s = new Status();
 		MazeInterface.defaultMaze(s);
-		s.move_hero(3, 4);
+		s.move_hero(4, 3);
 		s.updateBoard('s');
 		assertEquals(true, s.getHero().isArmed());
 		s.move_hero(1, 1);
 		s.updateBoard('s');
 		assertEquals(false, s.dragonsAlive());
-		s.move_hero(5, 8);
-		// MazeInterface.print_maze(s.getMaze().getMaze());
-
+		s.move_hero(8, 5);
 		s.updateBoard('d');
 		assertEquals(true, s.isGameOver());
 
@@ -100,7 +99,7 @@ public class teste {
 		// TRIES TO LEAVE WITHOUT(!1) SWORD && DRAGON(S) ALIVE(!2)
 		Status s = new Status();
 		MazeInterface.defaultMaze(s);
-		s.move_hero(5, 8);
+		s.move_hero(8, 5);
 		s.updateBoard('d');
 		assertEquals(false, s.isGameOver());
 
@@ -110,13 +109,13 @@ public class teste {
 		assertEquals(false, s.isGameOver());
 		
 		// GETS SWORD
-		s.move_hero(3, 4);
+		s.move_hero(4, 3);
 		s.updateBoard('s');
 		assertEquals(true, s.getHero().isArmed());
 
 		// TRIES TO LEAVE WITH SWORD(1) && DRAGON(S) ALIVE(!2)
 		s.getDragons()[0].setDragonAlive(true); // HE RESSURRECTED, OMG!!!!
-		s.move_hero(5, 8);
+		s.move_hero(8, 5);
 		s.updateBoard('d');
 		assertEquals(false, s.isGameOver());
 
