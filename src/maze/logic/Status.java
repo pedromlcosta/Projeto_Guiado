@@ -59,7 +59,7 @@ public class Status {
 
 	// TODO: mudar para "i"
 	public void Init_Numbers() {
-		dragons = new Dragon[Main.random(maze.getMaze().length / 2)];
+		dragons = new Dragon[1];
 		darts = new Darts[Main.random(maze.getMaze().length / 2)];
 	}
 
@@ -127,7 +127,7 @@ public class Status {
 		// maze.getMaze()[this.hero.getX()][this.hero.getX()] = ' ';
 		this.hero.setX(x);
 		this.hero.setY(y); // TODO: Change to "set and get"
-		maze.getMaze()[this.hero.getX()][this.hero.getX()] = 'H';
+		maze.getMaze()[this.hero.getY()][this.hero.getX()] = 'H';
 
 	}
 
@@ -137,7 +137,7 @@ public class Status {
 		// maze.getMaze()[this.sword.getX()][this.sword.getX()] = ' ';
 		this.sword.setX(x);
 		this.sword.setY(y);
-		maze.getMaze()[this.sword.getX()][this.sword.getX()] = 'E';
+		maze.getMaze()[this.sword.getY()][this.sword.getX()] = 'E';
 
 	}
 
@@ -146,7 +146,7 @@ public class Status {
 		// maze.getMaze()[this.exit.getX()][this.exit.getX()] = ' ';
 		this.exit.setX(x);
 		this.exit.setY(y);
-		maze.getMaze()[this.exit.getX()][this.exit.getY()] = 'S';
+		maze.getMaze()[this.exit.getY()][this.exit.getX()] = 'S';
 
 	}
 
@@ -156,7 +156,7 @@ public class Status {
 		// maze.getMaze()[this.shield.getX()][this.shield.getX()] = ' ';
 		this.shield.setX(x);
 		this.shield.setY(y);
-		maze.getMaze()[this.shield.getX()][this.shield.getX()] = 'P';
+		maze.getMaze()[this.shield.getY()][this.shield.getX()] = 'P';
 	}
 
 	// Só usar quando só houver UM dragão
@@ -166,8 +166,7 @@ public class Status {
 		// maze.getMaze()[dragons[0].getX()][dragons[0].getY()] = ' ';
 		dragons[0].setX(x);
 		dragons[0].setY(y);
-		maze.getMaze()[dragons[0].getX()][dragons[0].getY()] = dragons[0]
-				.getFigure();
+		maze.getMaze()[dragons[0].getY()][dragons[0].getX()] = dragons[0].getFigure();
 	}
 
 	public void initDragon(char figure) {
@@ -190,8 +189,7 @@ public class Status {
 
 		for (int i = 0; i < darts.length; i++) {
 			if (!darts[i].isPickedUp()) {
-				if (darts[i].getX() == hero.getX()
-						&& darts[i].getY() == hero.getY()) {
+				if (darts[i].getX() == hero.getX() && darts[i].getY() == hero.getY()) {
 
 					darts[i].setPickedUp(true);
 					hero.incDarts();
@@ -213,12 +211,10 @@ public class Status {
 		case 'w':
 		case 'W':
 			for (int i = 0; i < dragons.length; i++) {
-				if (hero.getY() == dragons[i].getY()
-						&& hero.getX() > dragons[i].getX()) {
-					if (!obstacles(hero.getX(), hero.getY(), dragons[i].getX(),
-							dragons[i].getY())) {
+				if (hero.getX() == dragons[i].getX() && hero.getY() > dragons[i].getY()) {
+					if (!obstacles(hero.getX(), hero.getY(), dragons[i].getX(), dragons[i].getY())) {
 						dragons[i].setDragonAlive(false);
-						maze.getMaze()[dragons[i].getX()][dragons[i].getY()] = ' ';
+						maze.getMaze()[dragons[i].getY()][dragons[i].getX()] = ' ';
 					}
 					break;
 				}
@@ -228,12 +224,10 @@ public class Status {
 		case 'a':
 		case 'A':
 			for (int i = 0; i < dragons.length; i++) {
-				if (hero.getX() == dragons[i].getX()
-						&& hero.getY() > dragons[i].getY()) {
-					if (!obstacles(hero.getX(), hero.getY(), dragons[i].getX(),
-							dragons[i].getY())) {
+				if (hero.getY() == dragons[i].getY() && hero.getX() > dragons[i].getX()) {
+					if (!obstacles(hero.getX(), hero.getY(), dragons[i].getX(), dragons[i].getY())) {
 						dragons[i].setDragonAlive(false);
-						maze.getMaze()[dragons[i].getX()][dragons[i].getY()] = ' ';
+						maze.getMaze()[dragons[i].getY()][dragons[i].getX()] = ' ';
 					}
 					break;
 				}
@@ -242,12 +236,10 @@ public class Status {
 		case 's':
 		case 'S':
 			for (int i = 0; i < dragons.length; i++) {
-				if (hero.getY() == dragons[i].getY()
-						&& hero.getX() < dragons[i].getX()) {
-					if (!obstacles(hero.getX(), hero.getY(), dragons[i].getX(),
-							dragons[i].getY())) {
+				if (hero.getX() == dragons[i].getX() && hero.getY() < dragons[i].getY()) {
+					if (!obstacles(hero.getX(), hero.getY(), dragons[i].getX(), dragons[i].getY())) {
 						dragons[i].setDragonAlive(false);
-						maze.getMaze()[dragons[i].getX()][dragons[i].getY()] = ' ';
+						maze.getMaze()[dragons[i].getY()][dragons[i].getX()] = ' ';
 					}
 					break;
 				}
@@ -256,12 +248,10 @@ public class Status {
 		case 'd':
 		case 'D':
 			for (int i = 0; i < dragons.length; i++) {
-				if (hero.getX() == dragons[i].getX()
-						&& hero.getY() < dragons[i].getY()) {
-					if (!obstacles(hero.getX(), hero.getY(), dragons[i].getX(),
-							dragons[i].getY())) {
+				if (hero.getY() == dragons[i].getY() && hero.getX() < dragons[i].getX()) {
+					if (!obstacles(hero.getX(), hero.getY(), dragons[i].getX(), dragons[i].getY())) {
 						dragons[i].setDragonAlive(false);
-						maze.getMaze()[dragons[i].getX()][dragons[i].getY()] = ' ';
+						maze.getMaze()[dragons[i].getY()][dragons[i].getX()] = ' ';
 					}
 					break;
 				}
@@ -272,11 +262,10 @@ public class Status {
 	}
 
 	public boolean insideRange(int x, int y, int x1, int y1, int dist) {
-		return ((x == x1 && Math.abs(y1 - y) <= dist) || (y1 == y && Math
-				.abs(x1 - x) <= dist));
+		return ((x == x1 && Math.abs(y1 - y) <= dist) || (y1 == y && Math.abs(x1 - x) <= dist));
 	}
 
-	public boolean obstacles(int x, int y, int x1, int y1) {
+	public boolean obstacles(int x, int y, int x1, int y1) {//
 
 		int dist;
 		if (x == x1) {
@@ -284,7 +273,7 @@ public class Status {
 			if (y < y1) {
 
 				for (int i = 0; i < dist; i++) {
-					if (maze.getMaze()[x][y + i] == 'X') {
+					if (maze.getMaze()[y + i][x] == 'X') {
 						// System.out.println(true);
 						return true;
 					}
@@ -294,7 +283,7 @@ public class Status {
 			} else {
 
 				for (int i = 0; i < dist; i++) {
-					if (maze.getMaze()[x][y - i] == 'X') {
+					if (maze.getMaze()[y - i][x] == 'X') {
 						// System.out.println(true);
 						return true;
 					}
@@ -307,7 +296,7 @@ public class Status {
 			dist = Math.abs(x1 - x);
 			if (x < x1) {
 				for (int i = 0; i < dist; i++) {
-					if (maze.getMaze()[x + i][y] == 'X') {
+					if (maze.getMaze()[y][x - i] == 'X') {
 						// System.out.println(true);
 						return true;
 					}
@@ -316,7 +305,7 @@ public class Status {
 
 			} else {
 				for (int i = 0; i < dist; i++) {
-					if (maze.getMaze()[x - i][y] == 'X') {
+					if (maze.getMaze()[y][x - i] == 'X') {
 						return true;
 					}
 				}
@@ -331,8 +320,7 @@ public class Status {
 
 	public void generate() {
 		Main.fillMaze(maze.getMaze(), 'X');
-		maze.generateMaze(Main.randomOddNumber(maze.getMaze().length),
-				Main.randomOddNumber(maze.getMaze().length));
+		maze.generateMaze(Main.randomOddNumber(maze.getMaze().length), Main.randomOddNumber(maze.getMaze().length));
 		maze.generateExit(this);
 		maze.generateCharacter(hero);
 		maze.generateCharacter(sword);
@@ -353,70 +341,72 @@ public class Status {
 	public void updateBoard(char inputChar) {
 
 		boolean heroPlayed = false;
-		
+
 		switch (inputChar) {
 		case 'A':
 		case 'a':
-			heroPlayed = move_hero(hero.getX(), hero.getY() - 1);
+			heroPlayed = move_hero(hero.getX() - 1, hero.getY());
 			break;
 
 		case 'W':
 		case 'w':
-			heroPlayed = move_hero(hero.getX() - 1, hero.getY());
+			heroPlayed = move_hero(hero.getX(), hero.getY() - 1);
 			break;
 
 		case 'D':
 		case 'd':
-			heroPlayed = move_hero(hero.getX(), hero.getY() + 1);
+			heroPlayed = move_hero(hero.getX() + 1, hero.getY());
 			break;
 
 		case 'S':
 		case 's':
-			heroPlayed = move_hero(hero.getX() + 1, hero.getY());
+			heroPlayed = move_hero(hero.getX(), hero.getY() + 1);
 			break;
-			
+
 		case 'E':
 		case 'e':
-			heroPlayed = true; //Hero played, but decided to stay on the same place
+			heroPlayed = true; // Hero played, but decided to stay on the same
+								// place
 			break;
 		}
-		if(heroPlayed){  
-		// DRAGON MOVEMENT STUB - dragon only moves if the player played
-		for (int i = 0; i < dragons.length; i++)
-			if (getDragonChoice() == 1) {
-				// OPTION 1 -> STATIC DRAGON
-			} else if (getDragonChoice() == 2) {
-				// OPTION 2 -> DRAGON WITH RANDOM MOVEMENT
-				move_dragon(dragons[i]);
-			} else {
+		if (heroPlayed) {
+			// DRAGON MOVEMENT STUB - dragon only moves if the player played
+			for (int i = 0; i < dragons.length; i++)
+				if (getDragonChoice() == 1) {
+					// OPTION 1 -> STATIC DRAGON
+				} else if (getDragonChoice() == 2) {
+					// OPTION 2 -> DRAGON WITH RANDOM MOVEMENT
+					move_dragon(dragons[i]);
+				} else {
 
-				// OPTION 3 -> DRAGON WITH RANDOM MOVEMENT AND SLEEP
-				int number = Main.random(10);
-				if (dragons[i].isDragonAlive()) {
-					if (dragons[i].isAsleep()) { // IF ALREADY ASLEEP,
-													// HAS
-													// 20% CHANCE TO WAKE UP
-													// AND
-													// MOVE
-						if (number == 0 || number == 1) {
-							dragons[i].setAsleep(false);
-							dragons[i].setFigure('D');
-							maze.getMaze()[dragons[i].getX()][dragons[i].getY()] = 'D';
-							move_dragon(dragons[i]);
+					// OPTION 3 -> DRAGON WITH RANDOM MOVEMENT AND SLEEP
+					int number = Main.random(10);
+					if (dragons[i].isDragonAlive()) {
+						if (dragons[i].isAsleep()) { // IF ALREADY ASLEEP,
+														// HAS
+														// 20% CHANCE TO WAKE UP
+														// AND
+														// MOVE
+							if (number == 0 || number == 1) {
+								dragons[i].setAsleep(false);
+								dragons[i].setFigure('D');
+								maze.getMaze()[dragons[i].getY()][dragons[i].getX()] = 'D';
+								move_dragon(dragons[i]);
+							}
+						} else { // IF NOT ASLEEP, HAS 10% CHANCE TO GO ASLEEP
+									// AND
+									// 90%
+									// CHANCE TO MOVE
+							if (number == 0) {
+								dragons[i].setAsleep(true);
+								dragons[i].setFigure('Z');
+								maze.getMaze()[dragons[i].getY()][dragons[i].getX()] = 'Z';
+							} else
+								move_dragon(dragons[i]);
 						}
-					} else { // IF NOT ASLEEP, HAS 10% CHANCE TO GO ASLEEP AND
-								// 90%
-								// CHANCE TO MOVE
-						if (number == 0) {
-							dragons[i].setAsleep(true);
-							dragons[i].setFigure('Z');
-							maze.getMaze()[dragons[i].getX()][dragons[i].getY()] = 'Z';
-						} else
-							move_dragon(dragons[i]);
-					}
 
+					}
 				}
-			}
 		}
 		update_status();
 
@@ -430,63 +420,61 @@ public class Status {
 
 		// INVALID MOVEMENTS - parede, dragao adormecido ou ir para a saida
 		// quando nao pode
-		if (maze.getMaze()[newX][newY] == 'X'
-				|| maze.getMaze()[newX][newY] == 'Z') {// ver
+		if (maze.getMaze()[newY][newX] == 'X' || maze.getMaze()[newY][newX] == 'Z') {// ver
 			return false;
 		}
 
-		else if (maze.getMaze()[newX][newY] == 'S'
-				&& !(hero.isArmed() && !dragonsAlive())) {
+		else if (maze.getMaze()[newY][newX] == 'S' && !(hero.isArmed() && !dragonsAlive())) {
 			return false;
 		}
 
 		// VALID MOVEMENTS - espada, escudo, espaco vazio, dardo e saida
 		else {
 
-			if (maze.getMaze()[newX][newY] == 'E') {
+			if (maze.getMaze()[newY][newX] == 'E') {
 				// Encontrou espada
 				hero.setArmed(true);
 
 				if (hero.isHasShield()) {
 					hero.setFigure('K');
-					maze.getMaze()[newX][newY] = 'K';
+					maze.getMaze()[newY][newX] = 'K';
 				} else {
 					hero.setFigure('A');
-					maze.getMaze()[newX][newY] = 'A';
+					maze.getMaze()[newY][newX] = 'A';
 				}
 			}
 
-			if (maze.getMaze()[newX][newY] == 'P') {
+			if (maze.getMaze()[newY][newX] == 'P') {
 				// Encontrou escudo
 				hero.setHasShield(true);
 
 				if (hero.isArmed()) {
 					hero.setFigure('K');
-					maze.getMaze()[newX][newY] = 'K';
+					maze.getMaze()[newY][newX] = 'K';
 				} else {
 					hero.setFigure('p');
-					maze.getMaze()[newX][newY] = 'p';
+					maze.getMaze()[newY][newX] = 'p';
 
 				}
 			}
 
 			if (hero.isArmed() && hero.isHasShield()) {
-				maze.getMaze()[newX][newY] = 'K';
+				maze.getMaze()[newY][newX] = 'K';
 			} else if (hero.isHasShield() && (!hero.isArmed())) {
-				if (maze.getMaze()[newX][newY] == 'D') // if he has the shield,
+				if (maze.getMaze()[newY][newX] == 'D') // if he has the shield,
 														// he can move next to
 														// the dragon, we need
 														// to limit the movment
 					return false;
-				maze.getMaze()[newX][newY] = 'p';
+				maze.getMaze()[newY][newX] = 'p';
 			} else if (hero.isArmed() && (!hero.isHasShield())) {
-				maze.getMaze()[newX][newY] = 'A';
+				maze.getMaze()[newY][newX] = 'A';
 			} else if (!hero.isArmed() && !hero.isHasShield()) {
-				maze.getMaze()[newX][newY] = 'H';
+				maze.getMaze()[newY][newX] = 'H';
 			}
 
 			// //-----UPDATES POSITION-----////
-			maze.getMaze()[hero.getX()][hero.getY()] = ' '; // Place where he
+			maze.getMaze()[hero.getY()][hero.getX()] = ' '; // Place where he
 															// was becomes empty
 			hero.setX(newX);
 			hero.setY(newY);
@@ -534,21 +522,20 @@ public class Status {
 			default:
 				break;
 			}
-		} while (maze.getMaze()[new_x][new_y] != ' '
-				&& (maze.getMaze()[new_x][new_y] != 'E'));
-		if (maze.getMaze()[new_x][new_y] == 'E') { // Dragon landed on the sword
-			maze.getMaze()[new_x][new_y] = 'F';
+		} while (maze.getMaze()[new_y][new_x] != ' ' && (maze.getMaze()[new_y][new_x] != 'E'));
+		if (maze.getMaze()[new_y][new_x] == 'E') { // Dragon landed on the sword
+			maze.getMaze()[new_y][new_x] = 'F';
 			maze.getMaze()[dragon.getX()][dragon.getY()] = ' ';
 			dragon.setSwordDragon(true);
 		} else { // -> If the dragon doesn't land on the sword
 			dragon.setFigure('D');
-			maze.getMaze()[new_x][new_y] = 'D';// check
+			maze.getMaze()[new_y][new_x] = 'D';// check
 			if (dragon.isSwordDragon()) { // -> Was on the sword's place and
 											// left it
 				dragon.setFigure('E');
-				maze.getMaze()[dragon.getX()][dragon.getY()] = 'E';
+				maze.getMaze()[dragon.getY()][dragon.getX()] = 'E';
 			} else {
-				maze.getMaze()[dragon.getX()][dragon.getY()] = ' ';
+				maze.getMaze()[dragon.getY()][dragon.getX()] = ' ';
 			}
 			dragon.setSwordDragon(false);
 		}
@@ -576,20 +563,16 @@ public class Status {
 
 			if (dragons[i].isDragonAlive()) {
 
-				if (insideRange(hero.getX(), hero.getY(), dragons[i].getX(),
-						dragons[i].getY(), 1) && hero.isArmed()) {
+				if (insideRange(hero.getX(), hero.getY(), dragons[i].getX(), dragons[i].getY(), 1) && hero.isArmed()) {
 
-					maze.getMaze()[dragons[i].getX()][dragons[i].getY()] = ' ';
+					maze.getMaze()[dragons[i].getY()][dragons[i].getX()] = ' ';
 					dragons[i].setFigure(' ');
 					dragons[i].setDragonAlive(false);
 
-				} else if (insideRange(hero.getX(), hero.getY(),
-						dragons[i].getX(), dragons[i].getY(), dragonRange)
-						&& !dragons[i].isAsleep) {
-					if (!obstacles(hero.getX(), hero.getY(), dragons[i].getX(),
-							dragons[i].getY())) {
+				} else if (insideRange(hero.getX(), hero.getY(), dragons[i].getX(), dragons[i].getY(), dragonRange) && !dragons[i].isAsleep) {
+					if (!obstacles(hero.getX(), hero.getY(), dragons[i].getX(), dragons[i].getY())) {
 						System.out.println("Morto");
-						maze.getMaze()[hero.getX()][hero.getY()] = ' ';
+						maze.getMaze()[hero.getY()][hero.getX()] = ' ';
 						hero.setFigure(' ');
 						hero.setHeroAlive(false);
 					}

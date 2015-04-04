@@ -152,23 +152,33 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 	public void mouseReleased(MouseEvent arg0) {
 		jMaze.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 		// if (jMaze.s.getHero().getnDarts() > 0) {
+		System.out.println(jMaze.x1 + " " + jMaze.y1);
+		System.out.println(sizeX + " " + sizeY);
 		for (int i = 0; i < jMaze.s.getDragons().length; i++) {
+			// System.out.println("X: " + Math.abs(jMaze.x1 -
+			// jMaze.s.getDragons()[i].getX() * sizeX) + " " + sizeX);
+			// System.out.println("Y: " + Math.abs(jMaze.y1 -
+			// jMaze.s.getDragons()[i].getY() * sizeY) + " " + sizeY + "\n");
 			if (jMaze.s.getDragons()[i].isDragonAlive()) {
-				System.out.println("Dragon alive");
-				// if (Math.abs(jMaze.x1 - jMaze.s.getDragons()[i].getX() *
-				// sizeX) <= sizeX)
-				// if (Math.abs(jMaze.y1 - jMaze.s.getDragons()[i].getY() *
-				// sizeY) <= sizeY) {
-				// System.out.println(jMaze.s.getMaze().getMaze()[jMaze.s.getDragons()[i].getX()][jMaze.s.getDragons()[i].getY()]);
-				// jMaze.s.getMaze().getMaze()[jMaze.s.getDragons()[i].getX()][jMaze.s.getDragons()[i].getY()]
-				// = ' ';
-				// jMaze.s.getDragons()[i].setDragonAlive(false);
-				// jMaze.s.getHero().decDarts();
-				// repaint();
+				int drx = jMaze.s.getDragons()[i].getX();
+				int dry = jMaze.s.getDragons()[i].getY();
+
+				System.out.println("dr: " + drx * sizeX + " " + dry * sizeY);
+
+				if (Math.abs(jMaze.x1 - drx * sizeX) <= sizeX)
+					if (Math.abs(jMaze.y1 - dry * sizeY) <= sizeY) {
+						// if (!jMaze.s.obstacles(jMaze.s.getHero().getX(),
+						// jMaze.s.getHero().getY(), drx, dry)) {
+						System.out.println("Dead");
+						jMaze.s.getMaze().getMaze()[drx][dry] = ' ';
+						jMaze.s.getDragons()[i].setDragonAlive(false);
+						jMaze.s.getHero().decDarts();
+						repaint();
+					}
+				// }
 				// }
 			}
 		}
-		// }
 
 	}
 
@@ -219,7 +229,8 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 			s = new Status();
 			s.setDragonChoice(3);
 			s.setMazeChoice(2);
-			MazeInterface.randomMaze(s, 13);
+			MazeInterface.defaultMaze(s);
+			// MazeInterface.randomMaze(s, 21);
 
 			try {
 				kit = Toolkit.getDefaultToolkit();
@@ -250,17 +261,21 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 
 		public void NewGame() {
 			s = new Status();
-			s.setDragonChoice(3);
+			s.setDragonChoice(1);
 			s.setMazeChoice(2);
-			MazeInterface.randomMaze(s, 13);
+			MazeInterface.randomMaze(s, 21);
+			s.getMaze().getMaze()[s.getDragons()[0].getY()][s.getDragons()[0].getX()] = ' ';
+			s.getDragons()[0].setX(1);
+			s.getDragons()[0].setY(1);
+			s.getMaze().getMaze()[1][1] = 'D';
 			jMaze.grabFocus();
 			repaint();
 
 		}
 
 		public void mouseMoved(MouseEvent e) {
-			y1 = e.getX();
-			x1 = e.getY();
+			x1 = e.getX();
+			y1 = e.getY();
 			repaint();
 
 		}

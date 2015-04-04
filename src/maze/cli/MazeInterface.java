@@ -47,11 +47,10 @@ public class MazeInterface {
 
 			// ///------PRINTS CURRENT MAZE------/////
 			print_maze(s.getMaze().getMaze());
-			
-			if(!s.getHero().isHeroAlive()){
+
+			if (!s.getHero().isHeroAlive()) {
 				System.out.println("Morreu.");
-			}
-			else{
+			} else {
 				System.out.println("Esta vivo");
 			}
 
@@ -127,14 +126,14 @@ public class MazeInterface {
 			}
 			System.out.println("");
 		}
-		
+
 		System.out.println("");
 	}
 
 	public static void defaultMaze(Status status) {
 
 		char maze[][] = { { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' }, { 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' }, { 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' },
-				{ 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' }, { 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' }, { 'X', ' ', ' ', ' ', ' ', ' ', ' ', 'X', ' ', 'S' },
+				{ 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' }, { 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' }, { 'X', ' ', ' ', ' ', ' ', ' ', ' ', 'X', ' ', 'X' },
 				{ 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' }, { 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' }, { 'X', ' ', 'X', 'X', ' ', ' ', ' ', ' ', ' ', 'X' },
 				{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
 		status.setMazeChoice(1);
@@ -142,9 +141,9 @@ public class MazeInterface {
 		status.getMaze().setMaze(maze);
 		status.setHeroPos(1, 1);
 		status.setExitPos(5, 9);
-		status.setSwordPos(4, 1);
+		status.setSwordPos(4, 4);
 		status.initDragon('D');
-		status.setDragonPos(3, 1);
+		status.setDragonPos(1, 3);
 	}
 
 	public static void randomMaze(Status status, int size) {

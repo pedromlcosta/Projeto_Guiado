@@ -85,7 +85,7 @@ public class Maze {
 		if (pos1 >= maze.length - 1 || pos1 <= 0 || pos2 >= maze.length - 1 || pos2 <= 0 || maze[pos1][pos2] != ' ') {
 			return false;
 		} else {
-			maze[pos1][pos2] = ele.getFigure();
+			maze[pos2][pos1] = ele.getFigure();
 			ele.setX(pos1);
 			ele.setY(pos2);
 			return true;
@@ -102,7 +102,7 @@ public class Maze {
 			if ((pos1 == 0 && (pos2 == 0 || pos2 == s.getMaze().getMaze().length - 1)) || pos2 == 0 && (pos1 == 0 || pos1 == s.getMaze().getMaze().length - 1) || pos1 == pos2)
 				continue;
 			else if (pos1 == 0 || pos1 == s.getMaze().getMaze().length - 1 || pos2 == 0 || pos2 == s.getMaze().getMaze().length - 1) {
-				s.getMaze().getMaze()[pos1][pos2] = s.getExit().getFigure();
+				s.getMaze().getMaze()[pos2][pos1] = s.getExit().getFigure();
 				s.getExit().setX(pos1);
 				s.getExit().setY(pos2);
 				return true;
