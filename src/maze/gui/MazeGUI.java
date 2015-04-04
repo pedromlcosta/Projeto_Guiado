@@ -150,7 +150,6 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 	public void mouseExited(MouseEvent arg0) {
 		// TODO Auto-generated method stub
 	}
-
 	public void mouseReleased(MouseEvent arg0) {
 		jMaze.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 		if (jMaze.s.getHero().getnDarts() > 0) {
