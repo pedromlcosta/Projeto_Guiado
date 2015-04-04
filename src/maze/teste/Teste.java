@@ -251,10 +251,15 @@ public class Teste {
 	// marks a cell as visited
 	// (V) and proceeds recursively to its neighbors
 	private void visit(char[][] m, int i, int j) {
-		if (i < 0 || i >= m.length || j < 0 || j >= m.length)
+		System.out.println("entrou");
+		if (i < 0 || i >= m.length || j < 0 || j >= m.length){
+			System.out.println("saiu?");
 			return;
-		if (m[i][j] == 'X' || m[i][j] == 'V')
+		}
+		if (m[i][j] == 'X' || m[i][j] == 'V'){
+			System.out.println("saiu?2");
 			return;
+		}
 		m[i][j] = 'V';
 		visit(m, i - 1, j);
 		visit(m, i + 1, j);
@@ -266,7 +271,7 @@ public class Teste {
 	private boolean checkExitReachable(Status s, Maze maze) {
 
 		char[][] m = deepClone(maze.getMaze());
-		visit(m, s.getExit().getX(), s.getExit().getY());
+		visit(m, s.getExit().getY(), s.getExit().getX());
 		
 		System.out.println("FECK");
 		MazeInterface.print_maze(m);
