@@ -12,8 +12,8 @@ public class Maze {
 	public Maze(char[][] maze) {
 		this.maze = maze;
 	}
-	
-	public int getSize(){
+
+	public int getSize() {
 		return maze.length;
 	}
 
@@ -86,7 +86,7 @@ public class Maze {
 	}
 
 	public boolean addElement(int pos1, int pos2, Element ele) {
-		if (pos1 >= maze.length - 1 || pos1 <= 0 || pos2 >= maze.length - 1 || pos2 <= 0 || maze[pos1][pos2] != ' ') {
+		if (pos1 >= maze.length - 1 || pos1 <= 0 || pos2 >= maze.length - 1 || pos2 <= 0 || maze[pos2][pos1] != ' ') {
 			return false;
 		} else {
 			maze[pos2][pos1] = ele.getFigure();
@@ -100,30 +100,27 @@ public class Maze {
 	public boolean generateExit(Status s) {
 		int pos1, pos2;
 		boolean created = false;
-		
+
 		while (!created) {
-			
+
 			pos1 = Main.random(s.getMaze().getMaze().length);
 			pos2 = Main.random(s.getMaze().getMaze().length);
 
-			//se for nos cantos, gera de novo
-			if ((pos1 == 0 && (pos2 == 0 || pos2 == s.getMaze().getMaze().length - 1)) || pos2 == 0 && (pos1 == 0 || pos1 == s.getMaze().getMaze().length - 1) || pos1 == pos2){
+			// se for nos cantos, gera de novo
+			if ((pos1 == 0 && (pos2 == 0 || pos2 == s.getMaze().getMaze().length - 1)) || pos2 == 0 && (pos1 == 0 || pos1 == s.getMaze().getMaze().length - 1) || pos1 == pos2) {
 				created = false;
 			}
-			//se tiver uma parede a bloquear, gera de novo
-			else if(pos1 == 0 && s.getMaze().getMaze()[pos2][pos1+1] == 'X'){
+			// se tiver uma parede a bloquear, gera de novo
+			else if (pos1 == 0 && s.getMaze().getMaze()[pos2][pos1 + 1] == 'X') {
+				created = false;
+			} else if (pos1 == s.getMaze().getMaze().length - 1 && s.getMaze().getMaze()[pos2][pos1 - 1] == 'X') {
+				created = false;
+			} else if (pos2 == 0 && s.getMaze().getMaze()[pos2 + 1][pos1] == 'X') {
+				created = false;
+			} else if (pos2 == s.getMaze().getMaze().length - 1 && s.getMaze().getMaze()[pos2 - 1][pos1] == 'X') {
 				created = false;
 			}
-			else if(pos1 == s.getMaze().getMaze().length - 1 && s.getMaze().getMaze()[pos2][pos1-1] == 'X'){
-				created = false;
-			}
-			else if(pos2 == 0 && s.getMaze().getMaze()[pos2+1][pos1] == 'X'){
-				created = false;
-			}
-			else if(pos2 == s.getMaze().getMaze().length - 1 && s.getMaze().getMaze()[pos2-1][pos1] == 'X' ){
-				created = false;
-			}
-			//de resto, cria a saida
+			// de resto, cria a saida
 			else if (pos1 == 0 || pos1 == s.getMaze().getMaze().length - 1 || pos2 == 0 || pos2 == s.getMaze().getMaze().length - 1) {
 				s.getMaze().getMaze()[pos2][pos1] = s.getExit().getFigure();
 				s.getExit().setX(pos1);
@@ -151,7 +148,7 @@ public class Maze {
 	public String toString() {
 		String resp = "";
 		for (int i = 0; i < maze.length; i++) {
-			for (int j = 0; j < maze[0].length; j++) {//constante
+			for (int j = 0; j < maze[0].length; j++) {// constante
 
 				resp += maze[i][j];
 
