@@ -11,7 +11,7 @@ public class Element {
 		Y = y;
 		Figure = figure;
 	}
- 
+
 	public int getX() {
 		return X;
 	}
@@ -35,4 +35,11 @@ public class Element {
 	public void setFigure(char figure) {
 		Figure = figure;
 	}
+
+	public boolean equals(Object o1) {
+		return o1 != null && o1 instanceof Element
+				&& this.X==((Element) o1).X
+				&& this.Y == ((Element) o1).Y;
+	}
+
 }
