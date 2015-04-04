@@ -71,11 +71,12 @@ public class MazeInterface {
 	private static void readInitialInput(Status s) {
 		char answer;
 		int size;
+		Scanner read = new Scanner(System.in);
 		do {
 			System.out.println("What would you like to do? ");
 			System.out.println("1 - Default Maze");
 			System.out.println("2 - Random Generated Maze");
-			Scanner read = new Scanner(System.in);
+			read.reset();
 			answer = read.next().charAt(0);
 
 			if (answer == '1') {
@@ -111,9 +112,9 @@ public class MazeInterface {
 
 			}
 
-			if (answer == '1' || answer == '2')
+			if (answer == '1' || answer == '2'){
 				break;
-
+			}
 		} while (answer != '1' && answer != '2');
 	}
 
