@@ -238,18 +238,13 @@ public class Teste {
 		return false;
 	}
 
-	// c) there must exist a path between any blank cell and the maze exit
-	private boolean checkExitReachable(Status s, Maze maze) {
-
-		char[][] m = deepClone(maze.getMaze());
-		visit(m, s.getExit().getX(), s.getExit().getY());
-
+	// Auxiliary method used by checkExitReachable.
+	// Gets a deep clone of a char matrix.
+	private char[][] deepClone(char[][] m) {
+		char[][] c = m.clone();
 		for (int i = 0; i < m.length; i++)
-			for (int j = 0; j < m.length; j++)
-				if (m[i][j] != 'X' && m[i][j] != 'V')
-					return false;
-
-		return true;
+			c[i] = m[i].clone();
+		return c;
 	}
 
 	// auxiliary method used by checkExitReachable
@@ -267,13 +262,22 @@ public class Teste {
 		visit(m, i, j + 1);
 	}
 
-	// Auxiliary method used by checkExitReachable.
-	// Gets a deep clone of a char matrix.
-	private char[][] deepClone(char[][] m) {
-		char[][] c = m.clone();
+	// c) there must exist a path between any blank cell and the maze exit
+	private boolean checkExitReachable(Status s, Maze maze) {
+
+		char[][] m = deepClone(maze.getMaze());
+		visit(m, s.getExit().getX(), s.getExit().getY());
+		
+		System.out.println("FECK");
+		MazeInterface.print_maze(m);
+		System.out.println("FECK2");
+
 		for (int i = 0; i < m.length; i++)
-			c[i] = m[i].clone();
-		return c;
+			for (int j = 0; j < m.length; j++)
+				if (m[i][j] != 'X' && m[i][j] != 'V')
+					return false;
+
+		return true;
 	}
 
 	// Checks if all the arguments (in the variable arguments list) are not
@@ -309,7 +313,7 @@ public class Teste {
 			s.setMazeChoice(2);
 			MazeInterface.randomMaze(s, size);
 			Maze m = s.getMaze();
-			
+
 			MazeInterface.print_maze(m.getMaze());
 
 			assertTrue("Invalid maze boundaries in maze:\n" + m,
@@ -324,8 +328,10 @@ public class Teste {
 					!hasSquare(m, badDiag1));
 			assertNotNull("Invalid diagonals in maze:\n" + m,
 					!hasSquare(m, badDiag2));
-			 assertTrue("Missing or overlapping objects in maze:\n" + m, 
-					 notNullAndDistinct(s.getExit(), s.getHero(),s.getDragons()[0], s.getSword()));
+			assertTrue(
+					"Missing or overlapping objects in maze:\n" + m,
+					notNullAndDistinct(s.getExit(), s.getHero(),
+							s.getDragons()[0], s.getSword()));
 		}
 	}
 }
