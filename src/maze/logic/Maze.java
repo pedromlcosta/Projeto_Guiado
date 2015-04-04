@@ -95,19 +95,38 @@ public class Maze {
 	// Adaptada a classes
 	public boolean generateExit(Status s) {
 		int pos1, pos2;
-
-		while (true) {
+		boolean created = false;
+		
+		while (!created) {
 			pos1 = Main.random(s.getMaze().getMaze().length);
 			pos2 = Main.random(s.getMaze().getMaze().length);
-			if ((pos1 == 0 && (pos2 == 0 || pos2 == s.getMaze().getMaze().length - 1)) || pos2 == 0 && (pos1 == 0 || pos1 == s.getMaze().getMaze().length - 1) || pos1 == pos2)
-				continue;
+
+			//se for nos cantos, gera de novo
+			if ((pos1 == 0 && (pos2 == 0 || pos2 == s.getMaze().getMaze().length - 1)) || pos2 == 0 && (pos1 == 0 || pos1 == s.getMaze().getMaze().length - 1) || pos1 == pos2){
+				created = false;
+			}
+			//se tiver uma parede a bloquear, gera de novo
+			else if(pos1 == 0 && s.getMaze().getMaze()[pos2][pos1+1] == 'X'){
+				created = false;
+			}
+			else if(pos1 == s.getMaze().getMaze().length - 1 && s.getMaze().getMaze()[pos2][pos1-1] == 'X'){
+				created = false;
+			}
+			else if(pos2 == 0 && s.getMaze().getMaze()[pos2+1][pos1] == 'X'){
+				created = false;
+			}
+			else if(pos2 == s.getMaze().getMaze().length - 1 && s.getMaze().getMaze()[pos2-1][pos1] == 'X' ){
+				created = false;
+			}
+			//de resto, cria a saida
 			else if (pos1 == 0 || pos1 == s.getMaze().getMaze().length - 1 || pos2 == 0 || pos2 == s.getMaze().getMaze().length - 1) {
 				s.getMaze().getMaze()[pos2][pos1] = s.getExit().getFigure();
 				s.getExit().setX(pos1);
 				s.getExit().setY(pos2);
-				return true;
+				created = true;
 			}
 		}
+		return true;
 
 	}
 
