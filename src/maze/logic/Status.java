@@ -59,7 +59,7 @@ public class Status {
 
 	// TODO: mudar para "i"
 	public void Init_Numbers() {
-		dragons = new Dragon[1];
+		dragons = new Dragon[1];//TODO: change back
 		darts = new Darts[Main.random(maze.getMaze().length / 2)];
 	}
 

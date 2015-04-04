@@ -46,8 +46,10 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 	JButton NewGameButton;
 	JButton ExitButton;
 	JLabel exitText;
-	int sizeX = 1;
-	int sizeY = 1;
+	// int sizeX = 1;
+	// int sizeY = 1;
+	int size = 1;
+	int offset = 0;
 
 	/**
 	 * Launch the application.
@@ -151,32 +153,27 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 
 	public void mouseReleased(MouseEvent arg0) {
 		jMaze.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-		// if (jMaze.s.getHero().getnDarts() > 0) {
-		System.out.println(jMaze.x1 + " " + jMaze.y1);
-		System.out.println(sizeX + " " + sizeY);
-		for (int i = 0; i < jMaze.s.getDragons().length; i++) {
-			// System.out.println("X: " + Math.abs(jMaze.x1 -
-			// jMaze.s.getDragons()[i].getX() * sizeX) + " " + sizeX);
-			// System.out.println("Y: " + Math.abs(jMaze.y1 -
-			// jMaze.s.getDragons()[i].getY() * sizeY) + " " + sizeY + "\n");
-			if (jMaze.s.getDragons()[i].isDragonAlive()) {
-				int drx = jMaze.s.getDragons()[i].getX();
-				int dry = jMaze.s.getDragons()[i].getY();
+		if (jMaze.s.getHero().getnDarts() > 0) {
+			System.out.println("x: " + jMaze.cursorX + " y:" + jMaze.cursorY);
+			for (int i = 0; i < jMaze.s.getDragons().length; i++) {
+				if (jMaze.s.getDragons()[i].isDragonAlive()) {
+					int drx = jMaze.s.getDragons()[i].getX();
+					int dry = jMaze.s.getDragons()[i].getY();
+					int hx = jMaze.s.getHero().getX();
+					int hy = jMaze.s.getHero().getY();
+					System.out.println("dr: " + drx * size + " " + dry * size);
 
-				System.out.println("dr: " + drx * sizeX + " " + dry * sizeY);
+					if (Math.abs(jMaze.cursorX - offset - drx * size) <= size)
+						if (Math.abs(jMaze.cursorY - size + offset - dry * size) <= size)
+							if (!jMaze.s.obstacles(hx, hy, drx, dry)) {
+								System.out.println("Dead");
+								jMaze.s.getMaze().getMaze()[dry][drx] = ' ';
+								jMaze.s.getDragons()[i].setDragonAlive(false);
+								jMaze.s.getHero().decDarts();
+								jMaze.repaint();
+							}
 
-				if (Math.abs(jMaze.x1 - drx * sizeX) <= sizeX)
-					if (Math.abs(jMaze.y1 - dry * sizeY) <= sizeY) {
-						// if (!jMaze.s.obstacles(jMaze.s.getHero().getX(),
-						// jMaze.s.getHero().getY(), drx, dry)) {
-						System.out.println("Dead");
-						jMaze.s.getMaze().getMaze()[drx][dry] = ' ';
-						jMaze.s.getDragons()[i].setDragonAlive(false);
-						jMaze.s.getHero().decDarts();
-						repaint();
-					}
-				// }
-				// }
+				}
 			}
 		}
 
@@ -206,7 +203,7 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 
 	class JMaze extends JPanel {
 		Status s;
-		int x1 = 0, y1 = 0;
+		int cursorX = 0, cursorY = 0;
 		BufferedImage floor;
 		BufferedImage empty;
 		BufferedImage dragon;
@@ -227,7 +224,7 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 		public JMaze() {
 
 			s = new Status();
-			s.setDragonChoice(3);
+			s.setDragonChoice(1);
 			s.setMazeChoice(2);
 			MazeInterface.defaultMaze(s);
 			// MazeInterface.randomMaze(s, 21);
@@ -264,18 +261,19 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 			s.setDragonChoice(1);
 			s.setMazeChoice(2);
 			MazeInterface.randomMaze(s, 21);
-			s.getMaze().getMaze()[s.getDragons()[0].getY()][s.getDragons()[0].getX()] = ' ';
-			s.getDragons()[0].setX(1);
-			s.getDragons()[0].setY(1);
-			s.getMaze().getMaze()[1][1] = 'D';
+			// s.getMaze().getMaze()[s.getDragons()[0].getY()][s.getDragons()[0].getX()]
+			// = ' ';
+			// s.getDragons()[0].setX(1);
+			// s.getDragons()[0].setY(1);
+			// s.getMaze().getMaze()[1][1] = 'D';
 			jMaze.grabFocus();
 			repaint();
 
 		}
 
 		public void mouseMoved(MouseEvent e) {
-			x1 = e.getX();
-			y1 = e.getY();
+			cursorX = e.getX();
+			cursorY = e.getY();
 			repaint();
 
 		}
@@ -298,28 +296,32 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 		}
 
 		public void paintMaze(Graphics g) throws IOException {
-			sizeX = getWidth() / ((s.getMaze().getMaze().length));
-			sizeY = getHeight() / ((s.getMaze().getMaze().length));
-			int x1 = 0;
-			int y1 = sizeY;
-			int desvioX = 10;
-			int desvioY = -12;
+			// sizeX = getWidth() / ((s.getMaze().getMaze().length));
+			// sizeY = getHeight() / ((s.getMaze().getMaze().length));
 
+			if (getWidth() > getHeight()) {
+				size = getHeight() / ((s.getMaze().getMaze().length));
+			} else {
+				size = getWidth() / ((s.getMaze().getMaze().length));
+			}
+			offset = size;
+
+			int x1 = 0 + offset;
+			int y1 = size - offset;
 			for (int j = 0; j < s.getMaze().getMaze().length; j++) {
 				for (int i = 0; i < s.getMaze().getMaze().length; i++) {
 					if (s.getMaze().getMaze()[j][i] == 'X') {
-						g.drawImage(floor, x1, y1 + desvioY, sizeX, sizeY, null);
+						g.drawImage(floor, x1, y1, size, size, null);
 					} else if (s.getMaze().getMaze()[j][i] == ' ') {
-						g.drawImage(empty, x1, y1 + desvioY, sizeX, sizeY, null);
+						g.drawImage(empty, x1, y1, size, size, null);
 					} else {
-
-						printCharacter(s.getMaze().getMaze()[j][i], x1, y1 + desvioY, sizeX, sizeY, g);
+						printCharacter(s.getMaze().getMaze()[j][i], x1, y1, size, size, g);
 					}
-					x1 += sizeX;
+					x1 += size;
 				}
-				y1 += sizeY;
+				y1 += size;
 
-				x1 = 0;
+				x1 = 0 + offset;
 			}
 		}
 
