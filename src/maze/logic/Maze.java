@@ -98,6 +98,7 @@ public class Maze {
 		boolean created = false;
 		
 		while (!created) {
+			
 			pos1 = Main.random(s.getMaze().getMaze().length);
 			pos2 = Main.random(s.getMaze().getMaze().length);
 
