@@ -18,7 +18,6 @@ public class MazeInterface {
 	public static void game() {
 		Status s = new Status();
 		char answer;
-		int size;
 
 		readInitialInput(s);
 
@@ -116,6 +115,7 @@ public class MazeInterface {
 				break;
 
 		} while (answer != '1' && answer != '2');
+		read.close();
 	}
 
 	public static void print_maze(char[][] maze) {

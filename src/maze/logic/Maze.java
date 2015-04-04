@@ -12,6 +12,10 @@ public class Maze {
 	public Maze(char[][] maze) {
 		this.maze = maze;
 	}
+	
+	public int getSize(){
+		return maze.length;
+	}
 
 	public void mazePrint() {
 		for (int i = 0; i < maze.length; i++) {
