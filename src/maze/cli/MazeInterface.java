@@ -115,7 +115,6 @@ public class MazeInterface {
 				break;
 
 		} while (answer != '1' && answer != '2');
-		read.close();
 	}
 
 	public static void print_maze(char[][] maze) {
@@ -147,7 +146,6 @@ public class MazeInterface {
 	}
 
 	public static void randomMaze(Status status, int size) {
-		status.setMazeChoice(2);
 		status.getMaze().setMaze(new char[size][size]);
 		status.generate();
 	}
