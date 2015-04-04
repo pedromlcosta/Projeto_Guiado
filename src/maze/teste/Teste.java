@@ -5,7 +5,7 @@ import maze.logic.*;
 import static org.junit.Assert.*;
 import org.junit.Test;
 
-public class teste {
+public class Teste {
 
 	@Test
 	public void moveTest() {
