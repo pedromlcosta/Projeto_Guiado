@@ -140,7 +140,7 @@ public class MazeInterface {
 		status.setDragonChoice(1);
 		status.getMaze().setMaze(maze);
 		status.setHeroPos(1, 1);
-		status.setExitPos(5, 9);
+		status.setExitPos(9,5);
 		status.setSwordPos(4, 4);
 		status.initDragon('D');
 		status.setDragonPos(1, 3);
