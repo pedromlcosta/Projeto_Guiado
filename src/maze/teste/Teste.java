@@ -14,14 +14,22 @@ public class Teste {
 	public void moveTest() {
 		Status s = new Status();
 		MazeInterface.defaultMaze(s);
-		MazeInterface.print_maze(s.getMaze().getMaze());
 		s.updateBoard('d');
 		assertEquals(2, s.getHero().getX());
+		assertEquals(1, s.getHero().getY());
 		s.updateBoard('a');
+		assertEquals(1, s.getHero().getX());
+		assertEquals(1, s.getHero().getY());
+		s.move_hero(s.getSword().getX(), 1);
 		s.updateBoard('s');
+		assertEquals(s.getSword().getX(), s.getHero().getX());
+		assertEquals(2, s.getHero().getY());
 		s.updateBoard('w');
-		// assertEquals(2, s.getHero().getX());
+		assertEquals(s.getSword().getX(), s.getHero().getX());
+		assertEquals(1, s.getHero().getY());
 		s.updateBoard('e');
+		assertEquals(s.getSword().getX(), s.getHero().getX());
+		assertEquals(1, s.getHero().getY());
 
 	}
 
@@ -43,7 +51,24 @@ public class Teste {
 		s.move_hero(4, 3);
 		s.updateBoard('s');
 		assertEquals(true, s.getHero().isArmed());
-		// MazeInterface.print_maze(s.getMaze().getMaze());
+		assertEquals('A', s.getHero().getFigure());
+		//
+
+	}
+
+	@Test
+	public void shieldTest() {
+		Status s = new Status();
+		MazeInterface.defaultMaze(s);
+		s.setShieldPos(4, 1);
+		s.move_hero(3, 1);
+		s.updateBoard('d');
+		assertEquals(true, s.getHero().isHasShield());
+		assertEquals('p', s.getHero().getFigure());
+		s.move_hero(4, 3);
+		s.updateBoard('s');
+		assertEquals(true, s.getHero().isArmed());
+		assertEquals('K', s.getHero().getFigure());
 
 	}
 
@@ -68,17 +93,17 @@ public class Teste {
 		assertEquals(false, s.dragonsAlive());
 	}
 
-	@Test
-	public void randomTest() {
-		Status s = new Status();
-		MazeInterface.randomMaze(s, 13);
-		s.updateBoard('d');
-		s.updateBoard('d');
-		s.updateBoard('a');
-		s.updateBoard('s');
-		s.updateBoard('w');
-
-	}
+	// @Test
+	// public void randomTest() {
+	// Status s = new Status();
+	// MazeInterface.randomMaze(s, 13);
+	// s.updateBoard('d');
+	// s.updateBoard('d');
+	// s.updateBoard('a');
+	// s.updateBoard('s');
+	// s.updateBoard('w');
+	//
+	// }
 
 	@Test
 	public void victory() {
@@ -126,29 +151,22 @@ public class Teste {
 
 	}
 
-	@Test
+	// @Test
 	public void darts() {
 		Status status = new Status();
-		char maze[][] = { { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' },
-				{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' },
-				{ 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' },
-				{ 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' },
-				{ 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' },
-				{ 'X', ' ', ' ', ' ', ' ', ' ', ' ', 'X', ' ', 'X' },
-				{ 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' },
-				{ 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' },
-				{ 'X', ' ', 'X', 'X', ' ', ' ', ' ', ' ', ' ', 'X' },
+		char maze[][] = { { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' }, { 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' }, { 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' },
+				{ 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' }, { 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' }, { 'X', ' ', ' ', ' ', ' ', ' ', ' ', 'X', ' ', 'X' },
+				{ 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' }, { 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' }, { 'X', ' ', 'X', 'X', ' ', ' ', ' ', ' ', ' ', 'X' },
 				{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
 		status.setMazeChoice(2);
 		status.setDragonChoice(1);
 		status.getMaze().setMaze(maze);
 		status.setHeroPos(1, 1);
 		status.setExitPos(9, 5);
-		status.setSwordPos(4, 4);
+		// status.setSwordPos(4, 4);
 		status.initDragon('D');
 		status.setDragonPos(8, 8);
 		int nDarts = 0;
-		boolean error = false;
 
 		while (nDarts == 0)
 			nDarts = Main.random(maze.length / 2);
@@ -156,42 +174,65 @@ public class Teste {
 		Darts[] darts = new Darts[nDarts];
 		status.setDarts(darts);
 		status.initDarts('-');
-		for (int i = 0; i < darts.length; i++)
-			status.getMaze().generateCharacter(darts[i]);
 
 		assertEquals(nDarts, status.getDarts().length);
 		assertEquals('-', status.getDarts()[0].getFigure());
-		for (int i = 0; i < darts.length;) {
-			if (status.move_hero(status.getDarts()[i].getX(),
-					status.getDarts()[i].getY() - 1)) {
-				// MazeInterface.print_maze(status.getMaze().getMaze());
+		nDarts = 0;
+		// Test randomness of Darts and catching all darts
+		catchDarts(status, maze, nDarts, darts);
+		// Test killing dragons in all 4 directions
+		nDarts = 5;
+		darts = new Darts[nDarts];
+		status.setDarts(darts);
+		status.initDarts('-');
+		catchDarts(status, maze, nDarts, darts);
+
+		status.move_hero(8, 5);
+		status.throwDart('s');
+		assertEquals(status.dragonsAlive(), false);
+
+		status.getDragons()[0].setDragonAlive(true);
+		status.setDragonPos(8, 3);
+		MazeInterface.print_maze(maze);
+		status.throwDart('w');
+		assertEquals(status.dragonsAlive(), false);
+
+		// // 1º falha pois tem 1 obstáculo (parede)
+		// status.getDragons()[0].setDragonAlive(true);
+		// status.setDragonPos(6, 5);
+		// status.throwDart('a');
+		// assertEquals(status.dragonsAlive(), true);
+		// status.setDragonPos(4, 5);
+		// status.move_hero(6, 5);
+		// status.throwDart('a');
+		// assertEquals(status.dragonsAlive(), false);
+		//
+		// status.getDragons()[0].setDragonAlive(true);
+		// status.setDragonPos(6, 5);
+		// status.move_hero(4, 5);
+		// status.throwDart('d');
+		// assertEquals(status.dragonsAlive(), false);
+		//
+		// assertEquals(0, status.getHero().getnDarts());
+
+		MazeInterface.print_maze(maze);
+	}
+
+	public void catchDarts(Status status, char[][] maze, int nDarts, Darts[] darts) {
+		for (int i = 0; i < darts.length; i++) {
+			if (status.move_hero(status.getDarts()[i].getX(), status.getDarts()[i].getY() - 1)) {
+				MazeInterface.print_maze(maze);
 				status.updateBoard('s');
-				// MazeInterface.print_maze(status.getMaze().getMaze());
-				assertEquals(1, status.getHero().getnDarts());
+				nDarts++;
+				assertEquals(nDarts, status.getHero().getnDarts());
+
 				if (!status.getHero().isHeroAlive())
 					status.getHero().setHeroAlive(true); // just in case
 				status.move_hero(1, 1);
-				error = false;
-				break;
 			} else {
 				// Movimento não válido
-				i++;
-				error = true;
-				assertEquals(0, status.getHero().getnDarts());
+				assertEquals(nDarts, status.getHero().getnDarts());
 			}
-		}
-		if (!error) {
-			status.move_hero(8, 5);
-			status.throwDart('a');
-			assertEquals(status.dragonsAlive(), true);
-			status.throwDart('d');
-			assertEquals(status.dragonsAlive(), true);
-			status.throwDart('w');
-			assertEquals(status.dragonsAlive(), true);
-			status.getHero().incDarts();
-			status.throwDart('s');
-			assertEquals(status.dragonsAlive(), false);
-			assertEquals(0, status.getHero().getnDarts());
 		}
 	}
 
@@ -252,12 +293,12 @@ public class Teste {
 	// (V) and proceeds recursively to its neighbors
 	private void visit(char[][] m, int i, int j) {
 		System.out.println("entrou");
-		if (i < 0 || i >= m.length || j < 0 || j >= m.length){
-			System.out.println("saiu?");
+		if (i < 0 || i >= m.length || j < 0 || j >= m.length) {
+			// System.out.println("saiu?");
 			return;
 		}
-		if (m[i][j] == 'X' || m[i][j] == 'V'){
-			System.out.println("saiu?2");
+		if (m[i][j] == 'X' || m[i][j] == 'V') {
+			// System.out.println("saiu?2");
 			return;
 		}
 		m[i][j] = 'V';
@@ -272,10 +313,10 @@ public class Teste {
 
 		char[][] m = deepClone(maze.getMaze());
 		visit(m, s.getExit().getY(), s.getExit().getX());
-		
-		System.out.println("FECK");
+
+		// System.out.println("FECK");
 		MazeInterface.print_maze(m);
-		System.out.println("FECK2");
+		// System.out.println("FECK2");
 
 		for (int i = 0; i < m.length; i++)
 			for (int j = 0; j < m.length; j++)
@@ -290,27 +331,24 @@ public class Teste {
 	private <T> boolean notNullAndDistinct(T... args) {
 		for (int i = 0; i < args.length - 1; i++)
 			for (int j = i + 1; j < args.length; j++)
-				if (args[i] == null || args[j] == null
-						|| args[i].equals(args[j]))
+				if (args[i] == null || args[j] == null || args[i].equals(args[j]))
 					return false;
 		return true;
 	}
 
 	@Test
 	public void testRandomMazeGenerator() throws Exception {
-		int numMazes = 1;
+		int numMazes = 1000;
 		int maxSize = 101; // can change to any odd number >= 5
 
-		char[][] badWalls = { { 'X', 'X', 'X' }, { 'X', 'X', 'X' },
-				{ 'X', 'X', 'X' } };
+		char[][] badWalls = { { 'X', 'X', 'X' }, { 'X', 'X', 'X' }, { 'X', 'X', 'X' } };
 		char[][] badSpaces = { { ' ', ' ' }, { ' ', ' ' } };
 		char[][] badDiag1 = { { 'X', ' ' }, { ' ', 'X' } };
 		char[][] badDiag2 = { { ' ', 'X' }, { 'X', ' ' } };
 
 		Random rand = new Random();
 		for (int i = 0; i < numMazes; i++) {
-			int size = maxSize == 5 ? 5 : 5 + 2 * rand
-					.nextInt((maxSize - 5) / 2);
+			int size = maxSize == 5 ? 5 : 5 + 2 * rand.nextInt((maxSize - 5) / 2);
 
 			size = 13;
 			Status s = new Status();
@@ -321,22 +359,13 @@ public class Teste {
 
 			MazeInterface.print_maze(m.getMaze());
 
-			assertTrue("Invalid maze boundaries in maze:\n" + m,
-					checkBoundaries(m));
-			assertTrue("Maze exit not reachable in maze:\n" + m,
-					checkExitReachable(s, m));
-			assertNotNull("Invalid walls in maze:\n" + m,
-					!hasSquare(m, badWalls));
-			assertNotNull("Invalid spaces in maze:\n" + m,
-					!hasSquare(m, badSpaces));
-			assertNotNull("Invalid diagonals in maze:\n" + m,
-					!hasSquare(m, badDiag1));
-			assertNotNull("Invalid diagonals in maze:\n" + m,
-					!hasSquare(m, badDiag2));
-			assertTrue(
-					"Missing or overlapping objects in maze:\n" + m,
-					notNullAndDistinct(s.getExit(), s.getHero(),
-							s.getDragons()[0], s.getSword()));
+			assertTrue("Invalid maze boundaries in maze:\n" + m, checkBoundaries(m));
+			assertTrue("Maze exit not reachable in maze:\n" + m, checkExitReachable(s, m));
+			assertNotNull("Invalid walls in maze:\n" + m, !hasSquare(m, badWalls));
+			assertNotNull("Invalid spaces in maze:\n" + m, !hasSquare(m, badSpaces));
+			assertNotNull("Invalid diagonals in maze:\n" + m, !hasSquare(m, badDiag1));
+			assertNotNull("Invalid diagonals in maze:\n" + m, !hasSquare(m, badDiag2));
+			assertTrue("Missing or overlapping objects in maze:\n" + m, notNullAndDistinct(s.getExit(), s.getHero(), s.getDragons()[0], s.getSword()));
 		}
 	}
 }

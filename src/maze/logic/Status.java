@@ -59,7 +59,7 @@ public class Status {
 
 	// TODO: mudar para "i"
 	public void Init_Numbers() {
-		dragons = new Dragon[1];//TODO: change back
+		dragons = new Dragon[1];// TODO: change back
 		darts = new Darts[Main.random(maze.getMaze().length / 2)];
 	}
 
@@ -201,6 +201,7 @@ public class Status {
 	public void initDarts(char figure) {
 		for (int i = 0; i < darts.length; i++) {
 			darts[i] = new Darts(0, 0, figure);
+			maze.generateCharacter(darts[i]);
 		}
 
 	}
@@ -259,7 +260,7 @@ public class Status {
 			break;
 		}
 
-	}   
+	}
 
 	public boolean insideRange(int x, int y, int x1, int y1, int dist) {
 		return ((x == x1 && Math.abs(y1 - y) <= dist) || (y1 == y && Math.abs(x1 - x) <= dist));
