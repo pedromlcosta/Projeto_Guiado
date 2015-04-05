@@ -166,7 +166,7 @@ public class Status {
 		// maze.getMaze()[dragons[0].getX()][dragons[0].getY()] = ' ';
 		dragons[0].setX(x);
 		dragons[0].setY(y);
-		maze.getMaze()[dragons[0].getY()][dragons[0].getX()] = dragons[0].getFigure();
+		maze.getMaze()[dragons[0].getY()][dragons[0].getX()] = 'D';
 	}
 
 	public void initDragon(char figure) {
@@ -297,8 +297,8 @@ public class Status {
 			dist = Math.abs(x1 - x);
 			if (x < x1) {
 				for (int i = 0; i < dist; i++) {
-					if (maze.getMaze()[y][x - i] == 'X') {
-						// System.out.println(true);
+					if (maze.getMaze()[y][x + i] == 'X') {
+						System.out.println(true);
 						return true;
 					}
 				}
