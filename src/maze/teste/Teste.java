@@ -298,15 +298,13 @@ public class Teste {
 	// marks a cell as visited
 	// (V) and proceeds recursively to its neighbors
 	private void visit(char[][] m, int i, int j) {
-		System.out.println("entrou");
 		if (i < 0 || i >= m.length || j < 0 || j >= m.length) {
-			// System.out.println("saiu?");
 			return;
 		}
 		if (m[i][j] == 'X' || m[i][j] == 'V') {
-			// System.out.println("saiu?2");
 			return;
 		}
+
 		m[i][j] = 'V';
 		visit(m, i - 1, j);
 		visit(m, i + 1, j);
@@ -344,7 +342,7 @@ public class Teste {
 
 	@Test
 	public void testRandomMazeGenerator() throws Exception {
-		int numMazes = 1000;
+		int numMazes = 1;
 		int maxSize = 101; // can change to any odd number >= 5
 
 		char[][] badWalls = { { 'X', 'X', 'X' }, { 'X', 'X', 'X' }, { 'X', 'X', 'X' } };
@@ -371,6 +369,7 @@ public class Teste {
 			assertNotNull("Invalid spaces in maze:\n" + m, !hasSquare(m, badSpaces));
 			assertNotNull("Invalid diagonals in maze:\n" + m, !hasSquare(m, badDiag1));
 			assertNotNull("Invalid diagonals in maze:\n" + m, !hasSquare(m, badDiag2));
+			//MazeInterface.print_maze(m.getMaze());	
 			assertTrue("Missing or overlapping objects in maze:\n" + m, notNullAndDistinct(s.getExit(), s.getHero(), s.getDragons()[0], s.getSword()));
 		}
 	}
