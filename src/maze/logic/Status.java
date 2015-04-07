@@ -53,13 +53,39 @@ public class Status {
 
 	}
 
+	public int getHeroX() {
+		return hero.getX();
+	}
+
+	public int getHeroY() {
+		return hero.getY();
+	}
+
+	public int getSwordX() {
+		return sword.getX();
+	}
+
+	public int getSwordY() {
+		return sword.getY();
+	}
+
+	public int getDragonX(int i) {
+		return dragons[i].getX();
+	}
+
+	public int getDragonY(int i) {
+		return dragons[i].getY();
+	}
+
 	public Dragon[] getDragons() {
 		return dragons;
 	}
 
 	// TODO: mudar para "i"
 	public void Init_Numbers() {
-		dragons = new Dragon[Main.random(maze.getMaze().length / 2)];// TODO: change back
+		dragons = new Dragon[Main.random(maze.getMaze().length / 2)];// TODO:
+																		// change
+																		// back
 		darts = new Darts[Main.random(maze.getMaze().length / 2)];
 	}
 
@@ -264,6 +290,10 @@ public class Status {
 
 	public boolean insideRange(int x, int y, int x1, int y1, int dist) {
 		return ((x == x1 && Math.abs(y1 - y) <= dist) || (y1 == y && Math.abs(x1 - x) <= dist));
+	}
+
+	public boolean insideRange(int x, int y, int x1, int y1) {
+		return x == x1 || y1 == y;
 	}
 
 	public boolean obstacles(int x, int y, int x1, int y1) {//

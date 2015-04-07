@@ -154,6 +154,7 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 	public void mouseReleased(MouseEvent arg0) {
 		jMaze.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 		if (jMaze.s.getHero().getnDarts() > 0) {
+			jMaze.s.getHero().decDarts();
 			System.out.println("x: " + jMaze.cursorX + " y:" + jMaze.cursorY);
 			for (int i = 0; i < jMaze.s.getDragons().length; i++) {
 				if (jMaze.s.getDragons()[i].isDragonAlive()) {
@@ -161,11 +162,13 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 					int dry = jMaze.s.getDragons()[i].getY();
 					int hx = jMaze.s.getHero().getX();
 					int hy = jMaze.s.getHero().getY();
-					System.out.println("dr: " + drx * size + " " + dry * size);
+					// System.out.println("dr: " + drx * size + " " + dry *
+					// size);
 
 					if (Math.abs(jMaze.cursorX - offset - drx * size) <= size)
 						if (Math.abs(jMaze.cursorY - size + offset - dry * size) <= size)
-							if (!jMaze.s.obstacles(hx, hy, drx, dry)) {
+							
+							if (!jMaze.s.obstacles(hx, hy, drx, dry)&& jMaze.s.insideRange(hx,hx,drx,dry)) {
 								System.out.println("Dead");
 								jMaze.s.getMaze().getMaze()[dry][drx] = ' ';
 								jMaze.s.getDragons()[i].setDragonAlive(false);
