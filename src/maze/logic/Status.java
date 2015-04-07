@@ -592,4 +592,25 @@ public class Status {
 			}
 		}
 	}
+
+	public void defaultMaze() {
+
+		char maze[][] = { { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' }, { 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' }, { 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' },
+				{ 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' }, { 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' }, { 'X', ' ', ' ', ' ', ' ', ' ', ' ', 'X', ' ', 'X' },
+				{ 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' }, { 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' }, { 'X', ' ', 'X', 'X', ' ', ' ', ' ', ' ', ' ', 'X' },
+				{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
+		setMazeChoice(1);
+		setDragonChoice(1);
+		getMaze().setMaze(maze);
+		setHeroPos(1, 1);
+		setExitPos(9, 5);
+		setSwordPos(4, 4);
+		initDragon('D');
+		setDragonPos(1, 3);
+	}
+
+	public void randomMaze(int size) {
+		maze.setMaze(new char[size][size]);
+		generate();
+	}
 }

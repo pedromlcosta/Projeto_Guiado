@@ -13,7 +13,7 @@ public class Teste {
 	@Test
 	public void moveTest() {
 		Status s = new Status();
-		MazeInterface.defaultMaze(s);
+		s.defaultMaze();
 		s.updateBoard('d');
 		assertEquals(2, s.getHero().getX());
 		assertEquals(1, s.getHero().getY());
@@ -36,7 +36,7 @@ public class Teste {
 	@Test
 	public void standStillTest() {
 		Status s = new Status();
-		MazeInterface.defaultMaze(s);
+		s.defaultMaze();
 		s.updateBoard('a');
 		s.updateBoard('w');
 		assertEquals(1, s.getHero().getY());
@@ -47,7 +47,7 @@ public class Teste {
 	@Test
 	public void swordTest() {
 		Status s = new Status();
-		MazeInterface.defaultMaze(s);
+		s.defaultMaze();
 		s.move_hero(4, 3);
 		s.updateBoard('s');
 		assertEquals(true, s.getHero().isArmed());
@@ -59,7 +59,7 @@ public class Teste {
 	@Test
 	public void shieldTest() {
 		Status s = new Status();
-		MazeInterface.defaultMaze(s);
+		s.defaultMaze();
 		s.setShieldPos(4, 1);
 		s.move_hero(3, 1);
 		s.updateBoard('d');
@@ -75,7 +75,7 @@ public class Teste {
 	@Test
 	public void death() {
 		Status s = new Status();
-		MazeInterface.defaultMaze(s);
+		s.defaultMaze();
 		s.updateBoard('s');
 		assertEquals(false, s.getHero().isHeroAlive());
 
@@ -84,7 +84,7 @@ public class Teste {
 	@Test
 	public void killDragon() {
 		Status s = new Status();
-		MazeInterface.defaultMaze(s);
+		s.defaultMaze();
 		s.move_hero(4, 3);
 		s.updateBoard('s');
 		assertEquals(true, s.getHero().isArmed());
@@ -96,7 +96,7 @@ public class Teste {
 	@Test
 	public void randomTest() {
 		Status s = new Status();
-		MazeInterface.randomMaze(s, 13);
+		s.randomMaze(13);
 		s.updateBoard('d');
 		s.updateBoard('d');
 		s.updateBoard('a');
@@ -108,7 +108,7 @@ public class Teste {
 	@Test
 	public void victory() {
 		Status s = new Status();
-		MazeInterface.defaultMaze(s);
+		s.defaultMaze();
 		s.move_hero(4, 3);
 		s.updateBoard('s');
 		assertEquals(true, s.getHero().isArmed());
@@ -127,7 +127,7 @@ public class Teste {
 
 		// TRIES TO LEAVE WITHOUT(!1) SWORD && DRAGON(S) ALIVE(!2)
 		Status s = new Status();
-		MazeInterface.defaultMaze(s);
+		s.defaultMaze();
 		s.move_hero(8, 5);
 		s.updateBoard('d');
 		assertEquals(false, s.isGameOver());
@@ -187,7 +187,8 @@ public class Teste {
 		status.setDarts(darts);
 		status.initDarts('-');
 		catchDarts(status, maze, nDarts, darts);
-		// assertEquals(5, status.getHero().getnDarts()); ver porque é que está a apanhar mais do que deve
+		// assertEquals(5, status.getHero().getnDarts()); ver porque é que está
+		// a apanhar mais do que deve
 		status.move_hero(8, 5);
 		status.throwDart('s');
 		assertEquals(status.dragonsAlive(), false);
@@ -200,9 +201,9 @@ public class Teste {
 		// 1º falha pois tem 1 obstáculo (parede)
 		status.getDragons()[0].setDragonAlive(true);
 		status.setDragonPos(1, 5);// ver porque é que com 4 mata
-		MazeInterface.print_maze(maze);
+		// MazeInterface.print_maze(maze);
 		status.throwDart('a');
-		MazeInterface.print_maze(maze);
+		// MazeInterface.print_maze(maze);
 		assertEquals(status.dragonsAlive(), true);
 		status.setDragonPos(1, 5);
 		status.move_hero(6, 5);
@@ -218,7 +219,7 @@ public class Teste {
 
 		// assertEquals(0, status.getHero().getnDarts());
 
-		MazeInterface.print_maze(maze);
+		// MazeInterface.print_maze(maze);
 	}
 
 	public void catchDarts(Status status, char[][] maze, int nDarts, Darts[] darts) {
@@ -320,7 +321,7 @@ public class Teste {
 		visit(m, s.getExit().getY(), s.getExit().getX());
 
 		// System.out.println("FECK");
-		MazeInterface.print_maze(m);
+		// MazeInterface.print_maze(m);
 		// System.out.println("FECK2");
 
 		for (int i = 0; i < m.length; i++)
@@ -359,10 +360,10 @@ public class Teste {
 			Status s = new Status();
 			s.setDragonChoice(1);
 			s.setMazeChoice(2);
-			MazeInterface.randomMaze(s, size);
+			s.randomMaze(size);
 			Maze m = s.getMaze();
 
-			MazeInterface.print_maze(m.getMaze());
+			// MazeInterface.print_maze(m.getMaze());
 
 			assertTrue("Invalid maze boundaries in maze:\n" + m, checkBoundaries(m));
 			assertTrue("Maze exit not reachable in maze:\n" + m, checkExitReachable(s, m));

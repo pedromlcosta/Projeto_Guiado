@@ -82,7 +82,7 @@ public class MazeInterface {
 			if (answer == '1') {
 				s.setDragonChoice(1);
 				s.setMazeChoice(DEFAULT_MAZE);
-				defaultMaze(s);
+				s.defaultMaze();
 				// geras as coisas
 			}
 			if (answer == '2') {
@@ -108,7 +108,7 @@ public class MazeInterface {
 
 				s.setDragonChoice(dragonChoice);
 				s.setMazeChoice(RANDOM_MAZE);
-				randomMaze(s, size);
+				s.randomMaze( size);
 
 			}
 
@@ -130,24 +130,5 @@ public class MazeInterface {
 		System.out.println("");
 	}
 
-	public static void defaultMaze(Status status) {
 
-		char maze[][] = { { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' }, { 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' }, { 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' },
-				{ 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' }, { 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' }, { 'X', ' ', ' ', ' ', ' ', ' ', ' ', 'X', ' ', 'X' },
-				{ 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' }, { 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' }, { 'X', ' ', 'X', 'X', ' ', ' ', ' ', ' ', ' ', 'X' },
-				{ 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' } };
-		status.setMazeChoice(1);
-		status.setDragonChoice(1);
-		status.getMaze().setMaze(maze);
-		status.setHeroPos(1, 1);
-		status.setExitPos(9,5);
-		status.setSwordPos(4, 4);
-		status.initDragon('D');
-		status.setDragonPos(1, 3);
-	}
-
-	public static void randomMaze(Status status, int size) {
-		status.getMaze().setMaze(new char[size][size]);
-		status.generate();
-	}
 }
