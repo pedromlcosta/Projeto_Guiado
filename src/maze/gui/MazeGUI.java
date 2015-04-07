@@ -45,7 +45,6 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 	JMaze jMaze;
 	JButton NewGameButton;
 	JButton ExitButton;
-	JLabel exitText;
 	// int sizeX = 1;
 	// int sizeY = 1;
 	int size = 1;
@@ -80,7 +79,6 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 		frame = new JFrame();
 		panel = new JPanel();
 		jMaze = new JMaze();
-		exitText = new JLabel();
 
 		NewGameButton = new JButton("New Game");
 		ExitButton = new JButton("Exit");
@@ -91,7 +89,6 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 
 		frame.getContentPane().add(panel, BorderLayout.NORTH);
 		frame.getContentPane().add(jMaze, BorderLayout.CENTER);
-		exitText.setVisible(false);
 		jMaze.setRequestFocusEnabled(true);
 		jMaze.grabFocus(); // para receber eventos do teclado
 		// this.requestFocus();
@@ -100,9 +97,6 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 		ExitButton = new JButton("Exit");
 		panel.add(NewGameButton);
 		panel.add(ExitButton);
-
-		exitText.setText("Are you sure you want to leave?");
-		panel.add(exitText);
 
 		ExitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -231,7 +225,7 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 		public JMaze() {
 
 			s = new Status();
-			s.setDragonChoice(1);
+			s.setDragonChoice(3);
 			s.setMazeChoice(2);
 			s.randomMaze(21);
 
@@ -270,7 +264,7 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 
 		public void NewGame() {
 			s = new Status();
-			s.setDragonChoice(1);
+			s.setDragonChoice(3);
 			s.setMazeChoice(2);
 			s.randomMaze(21);
 			// s.getMaze().getMaze()[s.getDragons()[0].getY()][s.getDragons()[0].getX()]
@@ -317,6 +311,7 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 				size = getWidth() / ((s.getMaze().getMaze().length));
 			}
 			offsetY = size;
+			offsetX = (getWidth() - size * s.getMaze().getMaze().length) / 2;
 
 			int x1 = 0 + offsetX;
 			int y1 = size - offsetY;
