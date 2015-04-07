@@ -40,6 +40,7 @@ public class Hero extends Element {
 	}
 
 	public int getnDarts() {
+
 		return nDarts;
 	}
 

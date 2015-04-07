@@ -85,7 +85,7 @@ public class Status {
 	public void Init_Numbers() {
 		dragons = new Dragon[Main.random(maze.getMaze().length / 2) + 1];
 
-		darts = new Darts[Main.random(maze.getMaze().length / 2)];
+		darts = new Darts[Main.random(maze.getMaze().length / 2) + 1];
 	}
 
 	public void initDragons() {
@@ -211,11 +211,9 @@ public class Status {
 	public void heroDarts() {
 		if (mazeChoice == 1)
 			return;
-
 		for (int i = 0; i < darts.length; i++) {
 			if (!darts[i].isPickedUp()) {
 				if (darts[i].getX() == hero.getX() && darts[i].getY() == hero.getY()) {
-
 					darts[i].setPickedUp(true);
 					hero.incDarts();
 				}
@@ -226,6 +224,7 @@ public class Status {
 	public void initDarts(char figure) {
 		for (int i = 0; i < darts.length; i++) {
 			darts[i] = new Darts(0, 0, figure);
+			darts[i].setPickedUp(false);
 			maze.generateCharacter(darts[i]);
 		}
 
@@ -364,8 +363,6 @@ public class Status {
 		for (int i = 0; i < dragons.length; i++)
 			maze.generateCharacter(dragons[i]);
 		initDarts('-');
-		for (int i = 0; i < darts.length; i++)
-			maze.generateCharacter(darts[i]);
 
 	}
 
@@ -595,7 +592,7 @@ public class Status {
 			if (dragons[i].isDragonAlive()) {
 
 				if (insideRange(hero.getX(), hero.getY(), dragons[i].getX(), dragons[i].getY(), 1) && hero.isArmed()) {
-               
+
 					maze.getMaze()[dragons[i].getY()][dragons[i].getX()] = ' ';
 					dragons[i].setFigure(' ');
 					dragons[i].setDragonAlive(false);

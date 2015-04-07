@@ -93,7 +93,7 @@ public class Maze {
 			ele.setX(pos1);
 			ele.setY(pos2);
 			return true;
-		}
+		} 
 	}
 
 	// Adaptada a classes

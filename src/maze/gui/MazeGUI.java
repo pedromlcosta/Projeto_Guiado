@@ -149,7 +149,7 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 	public void mouseReleased(MouseEvent arg0) {
 		jMaze.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 		if (jMaze.s.getHero().getnDarts() > 0) {
-			jMaze.s.getHero().decDarts();
+			// jMaze.s.getHero().decDarts();
 			// System.out.println("Cursorx: " + jMaze.cursorX + " Cursory:" +
 			// jMaze.cursorY);
 			for (int i = 0; i < jMaze.s.getDragons().length; i++) {
@@ -304,7 +304,6 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 		public void paintMaze(Graphics g) throws IOException {
 			// sizeX = getWidth() / ((s.getMaze().getMaze().length));
 			// sizeY = getHeight() / ((s.getMaze().getMaze().length));
-
 			if (getWidth() > getHeight()) {
 				size = getHeight() / ((s.getMaze().getMaze().length));
 			} else {
@@ -313,6 +312,7 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 			offsetY = size;
 			offsetX = (getWidth() - size * s.getMaze().getMaze().length) / 2;
 
+			g.drawString("Darts: " + s.getHero().getnDarts(), 20, 20);
 			int x1 = 0 + offsetX;
 			int y1 = size - offsetY;
 			for (int j = 0; j < s.getMaze().getMaze().length; j++) {
