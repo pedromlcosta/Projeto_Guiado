@@ -83,9 +83,8 @@ public class Status {
 
 	// TODO: mudar para "i"
 	public void Init_Numbers() {
-		dragons = new Dragon[1];// TODO:
-								// change
-								// back
+		dragons = new Dragon[Main.random(maze.getMaze().length / 2) + 1];
+
 		darts = new Darts[Main.random(maze.getMaze().length / 2)];
 	}
 
@@ -603,7 +602,7 @@ public class Status {
 
 				} else if (insideRange(hero.getX(), hero.getY(), dragons[i].getX(), dragons[i].getY(), dragonRange) && !dragons[i].isAsleep) {
 					if (!obstacles(hero.getX(), hero.getY(), dragons[i].getX(), dragons[i].getY())) {
-						System.out.println("Morto");
+						// System.out.println("Morto");
 						maze.getMaze()[hero.getY()][hero.getX()] = ' ';
 						hero.setFigure(' ');
 						hero.setHeroAlive(false);
