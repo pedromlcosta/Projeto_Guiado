@@ -83,9 +83,9 @@ public class Status {
 
 	// TODO: mudar para "i"
 	public void Init_Numbers() {
-		dragons = new Dragon[Main.random(maze.getMaze().length / 2)];// TODO:
-																		// change
-																		// back
+		dragons = new Dragon[Main.random(maze.getMaze().length / 2) + 1];// TODO:
+																			// change
+																			// back
 		darts = new Darts[Main.random(maze.getMaze().length / 2)];
 	}
 
@@ -328,7 +328,7 @@ public class Status {
 			if (x < x1) {
 				for (int i = 0; i < dist; i++) {
 					if (maze.getMaze()[y][x + i] == 'X') {
-						System.out.println(true);
+						//System.out.println(true);
 						return true;
 					}
 				}
