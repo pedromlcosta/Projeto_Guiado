@@ -171,7 +171,7 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 						if (Math.abs(jMaze.cursorY - size + offsetY - dry * size) <= size) {
 							if (jMaze.s.insideRange(hx, hy, drx, dry)) {
 								if (!jMaze.s.obstacles(hx, hy, drx, dry)) {
-									System.out.println("Dead");
+									// System.out.println("Dead");
 									jMaze.s.getMaze().getMaze()[dry][drx] = ' ';
 									jMaze.s.getDragons()[i].setDragonAlive(false);
 									jMaze.s.getHero().decDarts();

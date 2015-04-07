@@ -595,7 +595,7 @@ public class Status {
 			if (dragons[i].isDragonAlive()) {
 
 				if (insideRange(hero.getX(), hero.getY(), dragons[i].getX(), dragons[i].getY(), 1) && hero.isArmed()) {
-
+               
 					maze.getMaze()[dragons[i].getY()][dragons[i].getX()] = ' ';
 					dragons[i].setFigure(' ');
 					dragons[i].setDragonAlive(false);
