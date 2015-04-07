@@ -224,7 +224,7 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 		public JMaze() {
 
 			s = new Status();
-			s.setDragonChoice(1);
+			s.setDragonChoice(3);
 			s.setMazeChoice(2);
 			s.randomMaze(21);
 
@@ -263,7 +263,7 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 
 		public void NewGame() {
 			s = new Status();
-			s.setDragonChoice(1);
+			s.setDragonChoice(3);
 			s.setMazeChoice(2);
 			s.randomMaze(21);
 			// s.getMaze().getMaze()[s.getDragons()[0].getY()][s.getDragons()[0].getX()]
