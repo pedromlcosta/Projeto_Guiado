@@ -594,14 +594,12 @@ public class Status {
 				if (insideRange(hero.getX(), hero.getY(), dragons[i].getX(), dragons[i].getY(), 1) && hero.isArmed()) {
 
 					maze.getMaze()[dragons[i].getY()][dragons[i].getX()] = ' ';
-					dragons[i].setFigure(' ');
 					dragons[i].setDragonAlive(false);
 
 				} else if (insideRange(hero.getX(), hero.getY(), dragons[i].getX(), dragons[i].getY(), dragonRange) && !dragons[i].isAsleep) {
 					if (!obstacles(hero.getX(), hero.getY(), dragons[i].getX(), dragons[i].getY())) {
 						// System.out.println("Morto");
 						maze.getMaze()[hero.getY()][hero.getX()] = ' ';
-						hero.setFigure(' ');
 						hero.setHeroAlive(false);
 					}
 				}
