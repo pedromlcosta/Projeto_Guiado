@@ -33,6 +33,8 @@ class JMaze extends JPanel {
 	BufferedImage shield;
 	BufferedImage exit;
 	BufferedImage aim;
+	BufferedImage dragonSwordSleep;
+
 	Toolkit kit;
 	Cursor customCursor;
 	int size = 1;
@@ -73,6 +75,7 @@ class JMaze extends JPanel {
 			dragonSword = ImageIO.read(new File("images\\swordDragon.png"));
 			heroShield = ImageIO.read(new File("images\\heroShield.png"));
 			heroSword = ImageIO.read(new File("images\\heroArmed.png"));
+			dragonSwordSleep = ImageIO.read(new File("images\\swordDragonSleeping.png"));
 			heroSwordShield = ImageIO.read(new File("images\\heroArmedShield.png"));
 			aim = ImageIO.read(new File("images\\aim.png"));
 			customCursor = kit.createCustomCursor(aim, new Point(16, 16), "myCursor");
@@ -191,6 +194,9 @@ class JMaze extends JPanel {
 			break;
 		case '-':
 			g.drawImage(darts, x1, y1, sizeX, sizeY, null);
+			break;
+		case 'f':
+			g.drawImage(dragonSwordSleep, x1, y1, sizeX, sizeY, null);
 			break;
 		default:
 			g.drawImage(empty, x1, y1, sizeX, sizeY, null);
