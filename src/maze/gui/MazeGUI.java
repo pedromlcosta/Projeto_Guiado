@@ -1,41 +1,21 @@
 package maze.gui;
 
-import java.awt.*;
-import java.awt.event.*;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-
-import javax.imageio.ImageIO;
-import javax.swing.*;
-
+import java.awt.BorderLayout;
+import java.awt.Cursor;
 import java.awt.Dimension;
-import java.awt.EventQueue;
-import java.awt.Window;
+import java.awt.Graphics;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
-import maze.cli.*;
-import maze.logic.*;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.JTabbedPane;
-
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JToolBar;
-
-import java.awt.Font;
-import java.awt.Color;
-
 import javax.swing.JButton;
-import javax.swing.GroupLayout.Alignment;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 
 @SuppressWarnings({ "serial", "unused" })
 public class MazeGUI extends JPanel implements MouseListener, MouseMotionListener, KeyListener {
