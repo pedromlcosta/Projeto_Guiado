@@ -53,11 +53,11 @@ class JMaze extends JPanel {
 		s.setMazeChoice(2);
 		s.randomMaze(21, 1);
 
-		KEY_RIGHT = KeyEvent.VK_RIGHT;
-		KEY_UP = KeyEvent.VK_UP;
-		KEY_LEFT = KeyEvent.VK_LEFT;
-		KEY_DOWN = KeyEvent.VK_DOWN;
-		// s = new Status();
+		// KEY_RIGHT = KeyEvent.VK_RIGHT;
+		// KEY_UP = KeyEvent.VK_UP;
+		// KEY_LEFT = KeyEvent.VK_LEFT;
+		// KEY_DOWN = KeyEvent.VK_DOWN;
+		// // s = new Status();
 		// s.setDragonChoice(1);
 		// s.setMazeChoice(2);
 		// MazeInterface.defaultMaze(s);
@@ -130,7 +130,7 @@ class JMaze extends JPanel {
 		}// TODO: erro de o dragão poder estar em cima da espada
 		super.paintComponent(g); // limpa fundo ...
 		g.setColor(Color.BLUE);
-
+		grabFocus();
 		try {
 			paintMaze(g);
 		} catch (IOException e) {
@@ -142,8 +142,6 @@ class JMaze extends JPanel {
 		// sizeX = getWidth() / ((s.getMaze().getMaze().length));
 		// sizeY = getHeight() / ((s.getMaze().getMaze().length));
 		if (getWidth() > getHeight()) {
-			System.out.println((s.getMaze().getMaze().length));
-			System.out.println(getHeight());
 			size = getHeight() / ((s.getMaze().getMaze().length));
 		} else {
 			size = getWidth() / ((s.getMaze().getMaze().length));

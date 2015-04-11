@@ -128,7 +128,7 @@ public class JMazeOptions extends JDialog {
 			buttonPane.setLayout(null);
 			{
 				doneButton = new JButton("Done");
-				doneButton.setBounds(131, 5, 57, 23);
+				doneButton.setBounds(109, 5, 57, 23);
 				buttonPane.add(doneButton);
 			}
 			
@@ -148,7 +148,7 @@ public class JMazeOptions extends JDialog {
 					});
 			{
 				cancelButton = new JButton("Cancel");
-				cancelButton.setBounds(232, 5, 65, 23);
+				cancelButton.setBounds(245, 5, 65, 23);
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}

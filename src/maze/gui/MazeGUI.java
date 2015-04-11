@@ -83,6 +83,12 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 
 		// ADDING THE BUTTONS TO THE PANNEL
 		buttonPanel.add(newGameButton);
+		jMaze.setRequestFocusEnabled(true);
+		jMazeOptions.setVisible(false);
+		jMazeOptions.setAutoRequestFocus(false);
+		jMaze.setVisible(true);
+		jMaze.grabFocus(); // para receber eventos do teclado
+		// this.requestFocus();
 
 		newGameButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg) {
@@ -117,6 +123,7 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 			public void actionPerformed(ActionEvent arg) {
 				jMazeOptions.setVisible(true);
 				jMazeOptions.buttonPane.setVisible(true);
+				jMazeOptions.setAutoRequestFocus(true);
 				jMazeOptions.contentPanel.setVisible(true);
 				// jMazeOptions.paint(jMazeOptions.getGraphics());
 
@@ -137,12 +144,6 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 
 			}
 		});
-		jMaze = new JMaze();
-		mainFrame.getContentPane().add(jMaze, BorderLayout.SOUTH);
-		jMaze.setRequestFocusEnabled(true);
-		jMaze.setVisible(true);
-		jMaze.grabFocus(); // para receber eventos do teclado
-		// this.requestFocus();
 
 		// CREATING A IO OBJECT FOR LOADS/SAVES
 		gameInputOutput = new GameIO(jMaze.s);
@@ -164,7 +165,7 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 				}
 			}
 		});
-
+		jMaze.grabFocus();
 	}
 
 	public void paintComponent(Graphics g) {
