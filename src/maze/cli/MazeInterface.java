@@ -108,7 +108,7 @@ public class MazeInterface {
 
 				s.setDragonChoice(dragonChoice);
 				s.setMazeChoice(RANDOM_MAZE);
-				s.randomMaze( size);
+				s.randomMaze(size,0);
 
 			}
 

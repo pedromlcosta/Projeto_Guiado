@@ -96,7 +96,7 @@ public class Teste {
 	@Test
 	public void randomTest() {
 		Status s = new Status();
-		s.randomMaze(13);
+		s.randomMaze(13, 0);
 		s.updateBoard('d');
 		s.updateBoard('d');
 		s.updateBoard('a');
@@ -164,7 +164,8 @@ public class Teste {
 		status.setHeroPos(1, 1);
 		status.setExitPos(9, 5);
 		// status.setSwordPos(4, 4);
-		status.initDragon('D');
+		status.setDragons(new Dragon[1]);
+		status.getDragons()[0] = new Dragon(0, 0, 'D');
 		status.setDragonPos(8, 8);
 		int nDarts = 0;
 
@@ -358,7 +359,7 @@ public class Teste {
 			Status s = new Status();
 			s.setDragonChoice(1);
 			s.setMazeChoice(2);
-			s.randomMaze(size);
+			s.randomMaze(size, 0);
 			Maze m = s.getMaze();
 
 			// MazeInterface.print_maze(m.getMaze());
@@ -369,7 +370,7 @@ public class Teste {
 			assertNotNull("Invalid spaces in maze:\n" + m, !hasSquare(m, badSpaces));
 			assertNotNull("Invalid diagonals in maze:\n" + m, !hasSquare(m, badDiag1));
 			assertNotNull("Invalid diagonals in maze:\n" + m, !hasSquare(m, badDiag2));
-			//MazeInterface.print_maze(m.getMaze());	
+			// MazeInterface.print_maze(m.getMaze());
 			assertTrue("Missing or overlapping objects in maze:\n" + m, notNullAndDistinct(s.getExit(), s.getHero(), s.getDragons()[0], s.getSword()));
 		}
 	}

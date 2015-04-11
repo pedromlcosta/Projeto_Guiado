@@ -14,8 +14,9 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
-import maze.logic.Status;
+import maze.logic.*;
 
+@SuppressWarnings("serial")
 class JMaze extends JPanel {
 	Status s;
 	int cursorX = 0, cursorY = 0;
@@ -50,7 +51,8 @@ class JMaze extends JPanel {
 		s = new Status();
 		s.setDragonChoice(3);
 		s.setMazeChoice(2);
-		s.randomMaze(21);
+		s.randomMaze(21, 1);
+
 		KEY_RIGHT = KeyEvent.VK_RIGHT;
 		KEY_UP = KeyEvent.VK_UP;
 		KEY_LEFT = KeyEvent.VK_LEFT;
@@ -91,14 +93,22 @@ class JMaze extends JPanel {
 
 	public void NewGame() {
 		s = new Status();
-		s.setDragonChoice(3);
-		s.setMazeChoice(2);
-		s.randomMaze(21);
+
+		// if (mazeChoice == 1) {
+		// s.defaultMaze();
+		// s.setMazeChoice(1);
+		// } else if (mazeChoice == 2) {
+		// s.setDragonChoice(dragonChoice);
+		// s.setMazeChoice(2);
+		// s.setDarts(new Darts[dartsSize]);
+		// s.setDragons(new Dragon[dragonsSize]);
+		// s.randomMaze(size);
 		// s.getMaze().getMaze()[s.getDragons()[0].getY()][s.getDragons()[0].getX()]
 		// = ' ';
 		// s.getDragons()[0].setX(1);
 		// s.getDragons()[0].setY(1);
 		// s.getMaze().getMaze()[1][1] = 'D';
+		// }
 		grabFocus();
 		repaint();
 
@@ -132,6 +142,8 @@ class JMaze extends JPanel {
 		// sizeX = getWidth() / ((s.getMaze().getMaze().length));
 		// sizeY = getHeight() / ((s.getMaze().getMaze().length));
 		if (getWidth() > getHeight()) {
+			System.out.println((s.getMaze().getMaze().length));
+			System.out.println(getHeight());
 			size = getHeight() / ((s.getMaze().getMaze().length));
 		} else {
 			size = getWidth() / ((s.getMaze().getMaze().length));

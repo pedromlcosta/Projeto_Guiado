@@ -88,10 +88,11 @@ public class Status {
 		darts = new Darts[Main.random(maze.getMaze().length / 2) + 1];
 	}
 
-	public void initDragons() {
-		for (int i = 0; i < dragons.length; i++)
+	public void initDragons(char figure) {
+		for (int i = 0; i < dragons.length; i++) {
+			dragons[i] = new Dragon(0, 0, figure);
 			maze.generateCharacter(dragons[i]);
-
+		}
 	}
 
 	public void setDragons(Dragon[] dragons) {
@@ -192,12 +193,6 @@ public class Status {
 		dragons[0].setX(x);
 		dragons[0].setY(y);
 		maze.getMaze()[dragons[0].getY()][dragons[0].getX()] = 'D';
-	}
-
-	public void initDragon(char figure) {
-		for (int i = 0; i < dragons.length; i++) {
-			dragons[i] = new Dragon(0, 0, figure);
-		}
 	}
 
 	public boolean dragonsAlive() {
@@ -348,20 +343,21 @@ public class Status {
 		return false;
 	}
 
-	public void generate() {
+	public void generate(int choice) {
 		Main.fillMaze(maze.getMaze(), 'X');
 		maze.generateMaze(Main.randomOddNumber(maze.getMaze().length), Main.randomOddNumber(maze.getMaze().length));
 		maze.generateExit(this);
 		maze.generateCharacter(hero);
 		maze.generateCharacter(sword);
 		maze.generateCharacter(shield);
-		Init_Numbers();
+		if (choice == 0)
+			Init_Numbers();
+
 		// call a function which depending on the size of the board will "count"
 		// the number of dragons
-		initDragon('D');
+		initDragons('D');
 		// TODO: substituir por funcao?
-		for (int i = 0; i < dragons.length; i++)
-			maze.generateCharacter(dragons[i]);
+
 		initDarts('-');
 
 	}
@@ -630,12 +626,13 @@ public class Status {
 		setHeroPos(1, 1);
 		setExitPos(9, 5);
 		setSwordPos(4, 4);
-		initDragon('D');
+		setDragons(new Dragon[1]);
+		dragons[0] = new Dragon(0, 0, 'D');
 		setDragonPos(1, 3);
 	}
 
-	public void randomMaze(int size) {
+	public void randomMaze(int size,int choice) {
 		maze.setMaze(new char[size][size]);
-		generate();
+		generate(0);
 	}
 }

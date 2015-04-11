@@ -12,19 +12,29 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
+import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
+import maze.logic.Status;
+import javax.swing.SwingConstants;
+
 @SuppressWarnings({ "serial", "unused" })
 public class MazeGUI extends JPanel implements MouseListener, MouseMotionListener, KeyListener {
 
-	JFrame frame;
-	JPanel panel;
+	JFrame mainFrame;
+	JPanel buttonPanel;
 	JMaze jMaze;
-	JButton NewGameButton;
-	JButton ExitButton;
+	JButton newGameButton;
+	JButton exitButton;
+	JButton loadButton;
+	JButton saveButton;
+
+	GameIO gameInputOutput;
+	JButton optionsButton;
+	JMazeOptions jMazeOptions;
 
 	// int sizeX = 1;
 	// int sizeY = 1;
@@ -45,8 +55,8 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				MazeGUI gui = new MazeGUI();
-				gui.frame.setVisible(true);
-				gui.panel.setVisible(true);
+				gui.mainFrame.setVisible(true);
+				gui.buttonPanel.setVisible(true);
 				gui.jMaze.setVisible(true);
 			}
 		});
@@ -54,47 +64,103 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 
 	public void init() {
 
-		frame = new JFrame();
-		panel = new JPanel();
+		// CREATING MAIN FRAME AND ITS 2 PANELS
+		mainFrame = new JFrame("Ultra Cool Maze Game With Dragons!");
+		buttonPanel = new JPanel();
 		jMaze = new JMaze();
+		jMazeOptions = new JMazeOptions();
+		// mainFrame.setTitle("Ultra Cool Maze Game With Dragons!");
+		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		mainFrame.setPreferredSize(new Dimension(500, 500));
+		mainFrame.pack();
 
-		NewGameButton = new JButton("New Game");
-		ExitButton = new JButton("Exit");
-		frame.setTitle("Maze");
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.setPreferredSize(new Dimension(400, 400));
-		frame.pack();
+		mainFrame.getContentPane().add(buttonPanel, BorderLayout.NORTH);
+		mainFrame.getContentPane().add(jMaze, BorderLayout.CENTER);
+		loadButton = new JButton("Load Game");
 
-		frame.getContentPane().add(panel, BorderLayout.NORTH);
-		frame.getContentPane().add(jMaze, BorderLayout.CENTER);
-		jMaze.setRequestFocusEnabled(true);
-		jMaze.grabFocus(); // para receber eventos do teclado
-		// this.requestFocus();
+		// CREATING THE BUTTONS FOR THE BUTTON PANEL
+		newGameButton = new JButton("New Game");
 
-		NewGameButton = new JButton("New Game");
-		ExitButton = new JButton("Exit");
-		panel.add(NewGameButton);
-		panel.add(ExitButton);
+		// ADDING THE BUTTONS TO THE PANNEL
+		buttonPanel.add(newGameButton);
 
-		ExitButton.addActionListener(new ActionListener() {
+		newGameButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg) {
+
+				int i;
+				i = JOptionPane.showConfirmDialog(buttonPanel, "You will loose your current progress. Are you sure?", "New game", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+				if (i == JOptionPane.YES_OPTION) {
+					jMaze.setVisible(true);
+					jMaze.NewGame();
+				}
+			}
+		});
+		saveButton = new JButton("Save Game");
+		saveButton.setVerticalAlignment(SwingConstants.TOP);
+		buttonPanel.add(saveButton);
+
+		saveButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg) {
+
+				int i;
+				i = JOptionPane.showConfirmDialog(buttonPanel, "This action will replace your current save. Are you sure?", "New game", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+				if (i == JOptionPane.YES_OPTION) {
+					gameInputOutput.saveGame(jMaze.s);
+				}
+			}
+		});
+		buttonPanel.add(loadButton);
+
+		optionsButton = new JButton("Options");
+		buttonPanel.add(optionsButton);
+		optionsButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg) {
+				jMazeOptions.setVisible(true);
+				jMazeOptions.buttonPane.setVisible(true);
+				jMazeOptions.contentPanel.setVisible(true);
+				// jMazeOptions.paint(jMazeOptions.getGraphics());
+
+			}
+		});
+		exitButton = new JButton("Exit");
+		exitButton.setVerticalAlignment(SwingConstants.BOTTOM);
+		buttonPanel.add(exitButton);
+
+		// SETTING ACTIONS FOR EACH BUTTON
+		exitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
 				int i;
-				i = JOptionPane.showConfirmDialog(panel, "You will loose your current progress. Are you sure?", "New game", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+				i = JOptionPane.showConfirmDialog(buttonPanel, "You will loose your current progress. Are you sure?", "Exit game", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 				if (i == JOptionPane.YES_OPTION)
 					System.exit(0);
 
 			}
 		});
+		jMaze = new JMaze();
+		mainFrame.getContentPane().add(jMaze, BorderLayout.SOUTH);
+		jMaze.setRequestFocusEnabled(true);
+		jMaze.setVisible(true);
+		jMaze.grabFocus(); // para receber eventos do teclado
+		// this.requestFocus();
 
-		NewGameButton.addActionListener(new ActionListener() {
+		// CREATING A IO OBJECT FOR LOADS/SAVES
+		gameInputOutput = new GameIO(jMaze.s);
+
+		loadButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg) {
 
 				int i;
-				i = JOptionPane.showConfirmDialog(panel, "You will loose your current progress. Are you sure?", "New game", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+				Status temp;
+
+				i = JOptionPane.showConfirmDialog(buttonPanel, "You will loose your current progress. Are you sure?", "Load game", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 				if (i == JOptionPane.YES_OPTION) {
-					jMaze.setVisible(true);
-					jMaze.NewGame();
+
+					if ((temp = gameInputOutput.loadGame()) == null) {
+						JOptionPane.showMessageDialog(mainFrame, "No save file was found. Load unsuccessful.", "Error Loading", JOptionPane.ERROR_MESSAGE);
+					} else {
+						jMaze.s = temp;
+					}
 				}
 			}
 		});

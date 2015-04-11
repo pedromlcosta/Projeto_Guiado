@@ -1,6 +1,6 @@
 package maze.gui;
 
-import java.io.ByteArrayOutputStream;
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -19,30 +19,49 @@ public class GameIO {
 		in = null;
 		status = s;
 	}
-
-	public void saveGame() {
-		
-		try {
-			// Serialize data object to a file
-			out = new ObjectOutputStream(new FileOutputStream("MyObject.ser"));
-			out.writeObject(status);
-			out.close();
-
-		} catch (IOException e) {
-		}
+	
+	public Status getStatus() {
+		return status;
 	}
 
-	public void loadGame() {
+	public void setStatus(Status status) {
+		this.status = status;
+	}
+
+	public void saveGame(Status s) {
 		
 		try {
-			FileInputStream stuff = new FileInputStream("name_of_file.sav");
+			// Serializing data object to a file
+			out = new ObjectOutputStream(new FileOutputStream("Maze.sav"));
+			out.writeObject(s);
+			out.close();
+			
+			// Updating gameIO status
+			this.status = s;
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+	}
+                        
+	public Status loadGame() {
+		
+		try {
+			File test = new File("Maze.sav");
+			if(!test.exists()){
+				System.out.println("lelelel derped");
+				return null;
+			}
+			FileInputStream stuff = new FileInputStream("Maze.sav");
 			in = new ObjectInputStream(stuff);
-			Status s = new Status();
-			s = (Status) in.readObject();
+			this.status = (Status) in.readObject();
+			return status;
 		} catch (IOException e) {
 			e.printStackTrace();
 		} catch (ClassNotFoundException e) {
 			e.printStackTrace();
 		}
+		return status;
+		
 	}
 }
