@@ -62,9 +62,10 @@ public class JMazeOptions extends JDialog {
 		setVisible(false);
 
 		setBounds(100, 100, 450, 300);
-		getContentPane().setLayout(new BorderLayout());
+		getContentPane().setLayout(null);
+		contentPanel.setBounds(0, 33, 434, 228);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
-		getContentPane().add(contentPanel, BorderLayout.CENTER);
+		getContentPane().add(contentPanel);
 		{
 			label_1 = new Label("Maze choice");
 			label_1.setBounds(10, 9, 75, 22);
@@ -103,7 +104,7 @@ public class JMazeOptions extends JDialog {
 		}
 		{
 			label = new Label("Dragons number");
-			label.setBounds(10, 76, 94, 22);
+			label.setBounds(12, 76, 94, 22);
 		}
 		{
 			dragonsNumber = new JTextField();
@@ -122,44 +123,46 @@ public class JMazeOptions extends JDialog {
 		contentPanel.add(label);
 		contentPanel.add(dragonsNumber);
 		{
-
-			buttonPane.setLayout(new FlowLayout(FlowLayout.RIGHT));
-			getContentPane().add(buttonPane, BorderLayout.NORTH);
+			buttonPane.setBounds(0, 0, 434, 33);
+			getContentPane().add(buttonPane);
+			buttonPane.setLayout(null);
 			{
 				doneButton = new JButton("Done");
+				doneButton.setBounds(131, 5, 57, 23);
 				buttonPane.add(doneButton);
 			}
+			
+					doneButton.addActionListener(new ActionListener() {
+						public void actionPerformed(ActionEvent arg0) {
+							try {
+			
+								mazeChoice = Integer.parseInt(mazeChoiceField.getText());
+								mazeSize = Integer.parseInt(sizeField.getText());
+								dragonChoice = Integer.parseInt(dragonChoiceField.getText());
+								dartsSize = Integer.parseInt(dartsNumber.getText());
+								dragonsSize = Integer.parseInt(dragonsNumber.getText());
+								System.out.println("OK");
+							} catch (Exception e) {
+							}
+						}
+					});
 			{
 				cancelButton = new JButton("Cancel");
+				cancelButton.setBounds(232, 5, 65, 23);
 				cancelButton.setActionCommand("Cancel");
 				buttonPane.add(cancelButton);
 			}
+			cancelButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					try {
+						contentPanel.setVisible(false);
+						contentPanel.setVisible(false);
+
+					} catch (Exception e) {
+					}
+				}
+			});
 		}
-
-		doneButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				try {
-
-					mazeChoice = Integer.parseInt(mazeChoiceField.getText());
-					mazeSize = Integer.parseInt(sizeField.getText());
-					dragonChoice = Integer.parseInt(dragonChoiceField.getText());
-					dartsSize = Integer.parseInt(dartsNumber.getText());
-					dragonsSize = Integer.parseInt(dragonsNumber.getText());
-					System.out.println("OK");
-				} catch (Exception e) {
-				}
-			}
-		});
-		cancelButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				try {
-					contentPanel.setVisible(false);
-					contentPanel.setVisible(false);
-
-				} catch (Exception e) {
-				}
-			}
-		});
 	}
 
 	public void generateMaze(Status status) {
