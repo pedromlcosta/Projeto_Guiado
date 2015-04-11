@@ -1,6 +1,8 @@
 package maze.logic;
 
-public class Darts extends Element {
+import java.io.Serializable;
+
+public class Darts extends Element implements Serializable{
 	boolean pickedUp;
 
 	public boolean isPickedUp() {

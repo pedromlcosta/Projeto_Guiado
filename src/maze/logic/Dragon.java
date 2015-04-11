@@ -1,6 +1,8 @@
 package maze.logic;
 
-public class Dragon extends Element {
+import java.io.Serializable;
+
+public class Dragon extends Element implements Serializable{
 	boolean dragonAlive;
 	boolean swordDragon;
 	boolean isAsleep;

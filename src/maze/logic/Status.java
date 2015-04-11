@@ -1,9 +1,11 @@
 package maze.logic;
 
+import java.io.Serializable;
+
 import maze.logic.Main;
 import maze.logic.Hero;
 
-public class Status {
+public class Status implements Serializable {
 	static int m = 0;
 	static int n = 0;
 	Dragon dragons[];

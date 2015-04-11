@@ -1,8 +1,9 @@
 package maze.logic;
 
+import java.io.Serializable;
 import java.util.Arrays;
 
-public class Maze {
+public class Maze implements Serializable {
 	char maze[][];
 
 	public Maze(int Size) {
