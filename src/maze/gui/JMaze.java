@@ -6,7 +6,10 @@ import java.awt.Graphics;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -17,7 +20,7 @@ import javax.swing.JPanel;
 import maze.logic.*;
 
 @SuppressWarnings("serial")
-class JMaze extends JPanel {
+class JMaze extends JPanel implements MouseListener, MouseMotionListener, KeyListener {
 	Status s;
 	int cursorX = 0, cursorY = 0;
 	BufferedImage floor;
@@ -51,7 +54,7 @@ class JMaze extends JPanel {
 		s = new Status();
 		s.setDragonChoice(3);
 		s.setMazeChoice(2);
-		s.randomMaze(21, 1);
+		s.randomMaze(21, 0);
 
 		// KEY_RIGHT = KeyEvent.VK_RIGHT;
 		// KEY_UP = KeyEvent.VK_UP;
@@ -253,5 +256,47 @@ class JMaze extends JPanel {
 			repaint();
 		}
 		}
+	}
+
+	@Override
+	public void keyReleased(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void keyTyped(KeyEvent arg0) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
+		// TODO Auto-generated method stub
+
 	}
 }

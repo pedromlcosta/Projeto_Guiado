@@ -125,6 +125,9 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 				jMazeOptions.buttonPane.setVisible(true);
 				jMazeOptions.setAutoRequestFocus(true);
 				jMazeOptions.contentPanel.setVisible(true);
+				jMazeOptions.requestFocusInWindow();
+//				jMaze.wa
+//				jMaze.setFocusable(false);
 				// jMazeOptions.paint(jMazeOptions.getGraphics());
 
 			}

@@ -73,7 +73,7 @@ public class JMazeOptions extends JDialog implements MouseMotionListener {
 		mazeChoice = 1;
 		dartsSize = 0;
 		dragonsSize = 1;
-		mazeSize = 10;
+		mazeSize = 11;
 		//
 
 		setBounds(100, 100, 450, 300);
@@ -138,8 +138,8 @@ public class JMazeOptions extends JDialog implements MouseMotionListener {
 		contentPanel.add(label);
 		contentPanel.add(dragonsNumber);
 
-		detailsLabel = new JLabel(" ");
-		detailsLabel.setBounds(10, 136, 121, 45);
+		detailsLabel = new JLabel("Details");
+		detailsLabel.setBounds(10, 136, 289, 81);
 		contentPanel.add(detailsLabel);
 		{
 			buttonPane.setBounds(0, 0, 434, 33);
@@ -176,6 +176,7 @@ public class JMazeOptions extends JDialog implements MouseMotionListener {
 
 					}
 					setVisible(false);
+
 				}
 			});
 			{
@@ -195,40 +196,39 @@ public class JMazeOptions extends JDialog implements MouseMotionListener {
 						mazeChoice = 1;
 						dartsSize = 0;
 						dragonsSize = 1;
-						mazeSize = 10;
+						mazeSize = 11;
 
 					}
 				}
 			});
 		}
+		addMouseMotionListener(this);
 	}
 
-	@Override
 	public void mouseDragged(MouseEvent arg0) {
 
 	}
 
 	public void Details() {
 
-		label_3 = new Label("Darts number");
-
-		if (label.getX() == mouseX && mouseY == label.getY())
-			detailsLabel.setText("Details:\n Pick the number of dragons \n(It must be smaller than 75% of the Maze Size)");
-		else if (label_1.getX() == mouseX && mouseY == label_1.getY())
-			detailsLabel.setText("Deatails:\n1 - Default Maze\n" + "2 - Random Generated Maze");
-		else if (label_2.getX() == mouseX && mouseY == label_2.getY())
-			detailsLabel.setText("Details:\n" + "1 - Static Dragon\n" + "2 - Random Moving Dragon\n" + "3 - Random Moving Dragon w/ sleep time\n");
-		else if (label_3.getX() == mouseX && mouseY == label_3.getY())
-			detailsLabel.setText("");
-		else if (label_4.getX() == mouseX && mouseY == label_4.getY())
-			detailsLabel.setText("Details:\n Pick the number of darts \n(It must be smaller than 75% of the Maze Size)");
-
+		if (Math.abs(label.getX() - mouseX) < label.getWidth() && Math.abs(mouseY - label.getY()) < label.getHeight())
+			detailsLabel.setText("<html>Details:<br>" + "Pick the number of dragons <br>" + "(It must be smaller than 75% of the Maze Size)</html>");
+		else if (Math.abs(label_1.getX() - mouseX) < label_1.getWidth() && Math.abs(mouseY - label_1.getY()) < label_1.getHeight())
+			detailsLabel.setText("<html>Deatails:<br>" + "1 - Default Maze<br>" + "2 - Random Generated Maze");
+		else if (Math.abs(label_2.getX() - mouseX) < label_2.getWidth() && Math.abs(mouseY - label_2.getY()) < label_2.getHeight())
+			detailsLabel.setText("<html>Details:<br>" + "1 - Static Dragon\n" + "2 - Random Moving Dragon\n" + "3 - Random Moving Dragon w/ sleep time\n</html>");
+		else if (Math.abs(label_3.getX() - mouseX) < label_3.getWidth() && Math.abs(mouseY - label_3.getY()) < label_3.getHeight())
+			detailsLabel.setText("<html>Details:<br>" + " Pick the number of darts \n(It must be smaller than 75% of the Maze Size)</html>");
+		else if (Math.abs(label_4.getX() - mouseX) < label_4.getWidth() && Math.abs(mouseY - label_4.getY()) < label_4.getHeight())
+			detailsLabel.setText("<html>Details:\n Pick the size of the Maze (the size must be an odd number)</html>");
+		repaint();
 	}
 
-	@Override
 	public void mouseMoved(MouseEvent arg0) {
+		System.out.println(arg0.getX() + "  " + arg0.getY());
 		mouseX = arg0.getX();
 		mouseY = arg0.getY();
+		Details();
 
 	}
 }
