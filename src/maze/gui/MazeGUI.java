@@ -97,7 +97,7 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 				i = JOptionPane.showConfirmDialog(buttonPanel, "You will loose your current progress. Are you sure?", "New game", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 				if (i == JOptionPane.YES_OPTION) {
 					jMaze.setVisible(true);
-					jMaze.NewGame();
+					jMaze.NewGame(jMazeOptions);
 				}
 			}
 		});

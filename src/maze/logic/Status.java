@@ -633,8 +633,8 @@ public class Status implements Serializable {
 		setDragonPos(1, 3);
 	}
 
-	public void randomMaze(int size,int choice) {
+	public void randomMaze(int size, int choice) {
 		maze.setMaze(new char[size][size]);
-		generate(0);
+		generate(choice);
 	}
 }

@@ -5,6 +5,8 @@ import java.awt.FlowLayout;
 import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseMotionListener;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -16,8 +18,10 @@ import maze.logic.Darts;
 import maze.logic.Dragon;
 import maze.logic.Status;
 
+import javax.swing.JLabel;
+
 @SuppressWarnings("serial")
-public class JMazeOptions extends JDialog {
+public class JMazeOptions extends JDialog implements MouseMotionListener {
 	final int defaultRandomSize = 13;
 	int dragonsSize;
 	int dartsSize;
@@ -39,6 +43,9 @@ public class JMazeOptions extends JDialog {
 	Label label_3;
 	Label label_4;
 	Label label;
+	JLabel detailsLabel;
+	int mouseX = 1;
+	int mouseY = 1;
 
 	/**
 	 * Launch the application.
@@ -60,6 +67,14 @@ public class JMazeOptions extends JDialog {
 		// JMazeOptions dialog = new JMazeOptions();
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setVisible(false);
+
+		// Default Values
+		dragonChoice = 1;
+		mazeChoice = 1;
+		dartsSize = 0;
+		dragonsSize = 1;
+		mazeSize = 10;
+		//
 
 		setBounds(100, 100, 450, 300);
 		getContentPane().setLayout(null);
@@ -99,12 +114,12 @@ public class JMazeOptions extends JDialog {
 		}
 		{
 			sizeField = new JTextField();
-			sizeField.setBounds(312, 42, 86, 20);
+			sizeField.setBounds(312, 38, 86, 20);
 			sizeField.setColumns(10);
 		}
 		{
 			label = new Label("Dragons number");
-			label.setBounds(12, 76, 94, 22);
+			label.setBounds(10, 76, 94, 22);
 		}
 		{
 			dragonsNumber = new JTextField();
@@ -122,6 +137,10 @@ public class JMazeOptions extends JDialog {
 		contentPanel.add(sizeField);
 		contentPanel.add(label);
 		contentPanel.add(dragonsNumber);
+
+		detailsLabel = new JLabel(" ");
+		detailsLabel.setBounds(10, 136, 121, 45);
+		contentPanel.add(detailsLabel);
 		{
 			buttonPane.setBounds(0, 0, 434, 33);
 			getContentPane().add(buttonPane);
@@ -131,21 +150,34 @@ public class JMazeOptions extends JDialog {
 				doneButton.setBounds(109, 5, 57, 23);
 				buttonPane.add(doneButton);
 			}
-			
-					doneButton.addActionListener(new ActionListener() {
-						public void actionPerformed(ActionEvent arg0) {
-							try {
-			
-								mazeChoice = Integer.parseInt(mazeChoiceField.getText());
-								mazeSize = Integer.parseInt(sizeField.getText());
-								dragonChoice = Integer.parseInt(dragonChoiceField.getText());
-								dartsSize = Integer.parseInt(dartsNumber.getText());
-								dragonsSize = Integer.parseInt(dragonsNumber.getText());
-								System.out.println("OK");
-							} catch (Exception e) {
-							}
-						}
-					});
+
+			doneButton.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+					try {
+
+						mazeChoice = Integer.parseInt(mazeChoiceField.getText());
+						if (mazeChoice != 1 && mazeChoice != 2)
+							mazeChoice = 1;
+						mazeSize = Integer.parseInt(sizeField.getText());
+						if (mazeSize % 2 == 0)
+							mazeSize++;
+						dragonChoice = Integer.parseInt(dragonChoiceField.getText());
+						if (dragonChoice != 1 && dragonChoice != 2 && dragonChoice != 3)
+							dragonChoice = 1;
+
+						dartsSize = Integer.parseInt(dartsNumber.getText());
+						if (dartsSize >= mazeSize * 0.75)
+							dartsSize = mazeSize / 4;
+						dragonsSize = Integer.parseInt(dragonsNumber.getText());
+
+						if (dragonsSize >= mazeSize * 0.75)
+							dragonsSize = mazeSize / 4;
+					} catch (Exception e) {
+
+					}
+					setVisible(false);
+				}
+			});
 			{
 				cancelButton = new JButton("Cancel");
 				cancelButton.setBounds(245, 5, 65, 23);
@@ -159,26 +191,44 @@ public class JMazeOptions extends JDialog {
 						contentPanel.setVisible(false);
 
 					} catch (Exception e) {
+						dragonChoice = 1;
+						mazeChoice = 1;
+						dartsSize = 0;
+						dragonsSize = 1;
+						mazeSize = 10;
+
 					}
 				}
 			});
 		}
 	}
 
-	public void generateMaze(Status status) {
-		if (mazeChoice == 1) {
-			dragonChoice = 1;
-			mazeChoice = 1;
-			dartsSize = 0;
-			dragonsSize = 1;
-			mazeSize = 10;
-			status.defaultMaze();
-		} else if (mazeChoice == 2) {
-			status.setDragonChoice(dragonChoice);
-			status.setDarts(new Darts[dartsSize]);
-			status.setDragons(new Dragon[dragonsSize]);
-			status.randomMaze(defaultRandomSize, 1);
-		}
+	@Override
+	public void mouseDragged(MouseEvent arg0) {
+
 	}
 
+	public void Details() {
+
+		label_3 = new Label("Darts number");
+
+		if (label.getX() == mouseX && mouseY == label.getY())
+			detailsLabel.setText("Details:\n Pick the number of dragons \n(It must be smaller than 75% of the Maze Size)");
+		else if (label_1.getX() == mouseX && mouseY == label_1.getY())
+			detailsLabel.setText("Deatails:\n1 - Default Maze\n" + "2 - Random Generated Maze");
+		else if (label_2.getX() == mouseX && mouseY == label_2.getY())
+			detailsLabel.setText("Details:\n" + "1 - Static Dragon\n" + "2 - Random Moving Dragon\n" + "3 - Random Moving Dragon w/ sleep time\n");
+		else if (label_3.getX() == mouseX && mouseY == label_3.getY())
+			detailsLabel.setText("");
+		else if (label_4.getX() == mouseX && mouseY == label_4.getY())
+			detailsLabel.setText("Details:\n Pick the number of darts \n(It must be smaller than 75% of the Maze Size)");
+
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent arg0) {
+		mouseX = arg0.getX();
+		mouseY = arg0.getY();
+
+	}
 }

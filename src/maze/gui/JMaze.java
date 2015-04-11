@@ -91,9 +91,17 @@ class JMaze extends JPanel {
 		}
 	}
 
-	public void NewGame() {
+	public void NewGame(JMazeOptions options) {
 		s = new Status();
 
+		s.setDragonChoice(options.dragonChoice);
+		s.setMazeChoice(options.mazeChoice);
+		s.setDarts(new Darts[options.dartsSize]);
+		s.setDragons(new Dragon[options.dragonsSize]);
+		if (s.getMazeChoice() == 2)
+			s.randomMaze(options.mazeSize, 1);
+		else
+			s.defaultMaze();
 		// if (mazeChoice == 1) {
 		// s.defaultMaze();
 		// s.setMazeChoice(1);
@@ -102,7 +110,7 @@ class JMaze extends JPanel {
 		// s.setMazeChoice(2);
 		// s.setDarts(new Darts[dartsSize]);
 		// s.setDragons(new Dragon[dragonsSize]);
-		// s.randomMaze(size);
+		//
 		// s.getMaze().getMaze()[s.getDragons()[0].getY()][s.getDragons()[0].getX()]
 		// = ' ';
 		// s.getDragons()[0].setX(1);
