@@ -9,10 +9,8 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
-import javax.swing.KeyStroke;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EmptyBorder;
-import javax.swing.JTextArea;
 
 @SuppressWarnings("serial")
 public class JMazeOptions extends JDialog {
@@ -40,7 +38,11 @@ public class JMazeOptions extends JDialog {
 	JButton buttomKeyRight;
 	JButton buttomKeyLeft;
 	JButton buttomKeyDown;
-	
+	int KEY_UP;
+	int KEY_DOWN;
+	int KEY_LEFT;
+	int KEY_RIGHT;
+	KeyBinding key;
 
 	/**
 	 * Launch the application.
@@ -69,6 +71,11 @@ public class JMazeOptions extends JDialog {
 		dartsSize = 0;
 		dragonsSize = 1;
 		mazeSize = 11;
+		KEY_UP = 0;
+		KEY_DOWN = 1;
+		KEY_LEFT = 2;
+		KEY_RIGHT = 3;
+
 		//
 
 		getContentPane().setLayout(null);
@@ -155,7 +162,7 @@ public class JMazeOptions extends JDialog {
 			buttomKeyDown.setBounds(84, 218, 119, 23);
 			contentPanel.add(buttomKeyDown);
 		}
-	 
+
 		{
 			buttonPane.setBounds(0, 0, 434, 33);
 			getContentPane().add(buttonPane);
@@ -236,19 +243,30 @@ public class JMazeOptions extends JDialog {
 			});
 			buttomKeyUp.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
-
+					key = new KeyBinding(KEY_UP);
+					KEY_UP = key.keyToBeRead;
+					buttomKeyUp.setText(buttomKeyUp.getText() + " " + key.getName());
 				}
 			});
 			buttomKeyRight.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
+					key = new KeyBinding(KEY_RIGHT);
+					KEY_RIGHT = key.keyToBeRead;
+					buttomKeyRight.setText(buttomKeyRight.getText() + " " + key.getName());
 				}
 			});
 			buttomKeyLeft.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
+					key = new KeyBinding(KEY_LEFT);
+					KEY_LEFT = key.keyToBeRead;
+					buttomKeyLeft.setText(buttomKeyLeft.getText() + " " + key.getName());
 				}
 			});
 			buttomKeyDown.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
+					key = new KeyBinding(KEY_DOWN);
+					KEY_DOWN = key.keyToBeRead;
+					buttomKeyDown.setText(buttomKeyDown.getText() + " " + key.getName());
 				}
 			});
 		}
