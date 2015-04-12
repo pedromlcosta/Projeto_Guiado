@@ -6,6 +6,10 @@ import maze.logic.Main;
 import maze.logic.Hero;
 
 public class Status implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	static int m = 0;
 	static int n = 0;
 	Dragon dragons[];

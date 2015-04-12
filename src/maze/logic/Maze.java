@@ -4,6 +4,10 @@ import java.io.Serializable;
 import java.util.Arrays;
 
 public class Maze implements Serializable {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	char maze[][];
 
 	public Maze(int Size) {

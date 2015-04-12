@@ -33,43 +33,41 @@ package maze.gui;
 //	}
 //
 //}
+import java.awt.BorderLayout;
+import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Toolkit;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.awt.event.MouseMotionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.DefaultComboBoxModel;
+import javax.swing.JComboBox;
 import javax.swing.JDialog;
-import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import maze.logic.Status;
 
-import java.awt.BorderLayout;
-import javax.swing.JList;
-import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import maze.gui.MazeEditor.Elements;
-import java.awt.Window.Type;
 import org.eclipse.wb.swing.FocusTraversalOnArray;
-import java.awt.Component;
 
-public class MazeEditor extends JDialog implements MouseListener, MouseMotionListener, KeyListener{
+public class MazeEditor extends JDialog{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public enum Elements {
 	    Hero, Dragon, Sword, Shield, Darts, Walls, Exit 
 	}
 	
-	JPanel editorPanel;
+	JMaze gamePanel;        //Panel where to introduce the new maze after it is finished
 	JPanel buttonPanel;
+	JPanel editorPanel;
+	JComboBox comboBox;
 	
 	boolean swordSet = false; // Has put a sword yet
 	boolean shieldSet = false; // Has put a shield yet
@@ -93,28 +91,30 @@ public class MazeEditor extends JDialog implements MouseListener, MouseMotionLis
 	BufferedImage exit;
 	BufferedImage aim;
 
-	public MazeEditor(JMazeOptions options) {
+	 public MazeEditor(JMazeOptions options, JMaze game) {
+		 //Panel and other design stuff
 		setTitle("Maze Editor");
 		setModal(true);
-		
-		JPanel panel = new JPanel();
-		getContentPane().add(panel, BorderLayout.NORTH);
-		
-		JComboBox comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(Elements.values()));
-		panel.add(comboBox);
-		
 		this.setMinimumSize(new Dimension(100,100));
 	    this.setSize(new Dimension(500,500));
-
 		
-		JPanel panel2 = new JPanel();
-		getContentPane().add(panel2, BorderLayout.CENTER);
-		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{getContentPane(), panel, comboBox, panel2}));
-	
+		buttonPanel = new JPanel();
+		editorPanel = new JPanel();
+		
+		getContentPane().add(buttonPanel, BorderLayout.NORTH);
+		getContentPane().add(editorPanel, BorderLayout.CENTER);
+		
+		comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(Elements.values()));
+		buttonPanel.add(comboBox);
+		
+		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{getContentPane(), buttonPanel, comboBox, editorPanel}));
+
+		//Game Editor initialization
+		gamePanel = game;    //gamePanel
 		initMaze(options);
 		loadImages();
-		//this is only done once, on the constructor and nowhere else
+		
 
 	}
 	
@@ -149,64 +149,7 @@ public class MazeEditor extends JDialog implements MouseListener, MouseMotionLis
 		}
 	}
 	
-	@Override
-	public void keyPressed(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void keyTyped(KeyEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseDragged(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseMoved(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseClicked(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	//ACTION LISTENERS 
+	
 
 }

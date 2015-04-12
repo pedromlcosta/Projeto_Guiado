@@ -73,7 +73,6 @@ public class MazeGUI implements MouseListener, MouseMotionListener, KeyListener 
 		gamePanel = new JMaze();
 		gameOptions = new JMazeOptions();
 		gameInputOutput = new GameIO(gamePanel.s);
-		mazeEditorPanel = new MazeEditor(gameOptions);
 
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setPreferredSize(new Dimension(700, 500));
@@ -180,7 +179,7 @@ public class MazeGUI implements MouseListener, MouseMotionListener, KeyListener 
 				int i;
 				i = JOptionPane.showConfirmDialog(buttonPanel, "You will loose your current progress. Are you sure?", "Create a Maze", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 				if (i == JOptionPane.YES_OPTION) {
-					MazeEditor editor = new MazeEditor(gameOptions);
+					MazeEditor editor = new MazeEditor(gameOptions, gamePanel);
 					editor.setModal(true);
 					editor.setVisible(true);
 				}

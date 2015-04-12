@@ -12,7 +12,7 @@ public class MazeInterface {
 	public static void main(String args[]) {
 
 		game();
-
+		read.close();
 	}
 
 	public static void game() {
@@ -71,7 +71,7 @@ public class MazeInterface {
 	private static void readInitialInput(Status s) {
 		char answer;
 		int size;
-		Scanner read = new Scanner(System.in);
+
 		do {
 			System.out.println("What would you like to do? ");
 			System.out.println("1 - Default Maze");

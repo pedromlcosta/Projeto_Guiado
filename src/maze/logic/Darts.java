@@ -3,6 +3,10 @@ package maze.logic;
 import java.io.Serializable;
 
 public class Darts extends Element implements Serializable{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	boolean pickedUp;
 
 	public boolean isPickedUp() {
