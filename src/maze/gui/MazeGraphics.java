@@ -50,7 +50,7 @@ public class MazeGraphics {
 		g.drawString("Darts: " + s.getHero().getnDarts(), 20, 20);
 		
 		int x1 = 0 + offsetX;
-		int y1 = size - offsetY;
+		int y1 = offsetY;
 		for (int j = 0; j < s.getMaze().getMaze().length; j++) {
 			for (int i = 0; i < s.getMaze().getMaze().length; i++) {
 				if (s.getMaze().getMaze()[j][i] == 'X') {

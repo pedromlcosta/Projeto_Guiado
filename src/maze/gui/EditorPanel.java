@@ -76,10 +76,12 @@ class EditorPanel extends JPanel implements MouseListener, MouseMotionListener,
 		try {
 			if (getWidth() > getHeight()) {
 				size = getHeight() / ((s.getMaze().getMaze().length));
+				offsetY = 0;
 			} else {
 				size = getWidth() / ((s.getMaze().getMaze().length));
+				offsetY = (getHeight() - (s.getMaze().getMaze().length * size)) / 2;
 			}
-			offsetY = size;
+			
 			offsetX = (getWidth() - size * s.getMaze().getMaze().length) / 2;
 
 			MazeGraphics.paintMaze(g,offsetX,offsetY,size,s);
@@ -148,7 +150,7 @@ class EditorPanel extends JPanel implements MouseListener, MouseMotionListener,
 		
 		
 		selectedMazeX = (arg0.getX() - offsetX) / size;
-		selectedMazeY = (arg0.getY() - 0) / size;
+		selectedMazeY = (arg0.getY() - offsetY) / size;
 		
 		
 		//JOptionPane.showConfirmDialog(getParent(), selectedMazeX + " " + selectedMazeY, "", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);

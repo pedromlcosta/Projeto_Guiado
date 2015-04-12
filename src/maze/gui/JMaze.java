@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import maze.logic.*;
@@ -86,10 +87,12 @@ class JMaze extends JPanel implements MouseListener, MouseMotionListener,
 		try {
 			if (getWidth() > getHeight()) {
 				size = getHeight() / ((s.getMaze().getMaze().length));
+				offsetY = 0;
 			} else {
 				size = getWidth() / ((s.getMaze().getMaze().length));
+				offsetY = (getHeight() - (s.getMaze().getMaze().length * size)) / 2;
 			}
-			offsetY = size;
+			
 			offsetX = (getWidth() - size * s.getMaze().getMaze().length) / 2;
 
 			MazeGraphics.paintMaze(g,offsetX,offsetY,size,s);

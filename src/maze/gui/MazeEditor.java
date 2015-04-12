@@ -69,7 +69,7 @@ public class MazeEditor extends JDialog {
 		buttonPanel = new JPanel();
 		editor = new EditorPanel(options);
 
-		getContentPane().add(buttonPanel, BorderLayout.SOUTH);
+		getContentPane().add(buttonPanel, BorderLayout.NORTH);
 		getContentPane().add(editor, BorderLayout.CENTER);
 
 		elementBox = new JComboBox<EditorPanel.Element>();
