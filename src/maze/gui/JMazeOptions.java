@@ -49,8 +49,7 @@ public class JMazeOptions extends JDialog {
 	// dialog.setVisible(true);
 	// } catch (Exception e) {
 	// e.printStackTrace();
-	// }
-	// }
+	// }}
 
 	/**
 	 * Create the dialog.
