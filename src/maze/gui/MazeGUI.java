@@ -24,17 +24,20 @@ import javax.swing.SwingConstants;
 @SuppressWarnings({ "serial", "unused" })
 public class MazeGUI extends JPanel implements MouseListener, MouseMotionListener, KeyListener {
 
-	JFrame mainFrame;
-	JPanel buttonPanel;
-	JMaze jMaze;
+	JFrame mainFrame;        //Main frame where the game runs, with 2 panels
+	JPanel buttonPanel;      //Button panel
+	JMaze jMaze;             //Maze game panel
+	
 	JButton newGameButton;
 	JButton exitButton;
 	JButton loadButton;
 	JButton saveButton;
-
-	GameIO gameInputOutput;
 	JButton optionsButton;
-	JMazeOptions jMazeOptions;
+	JButton mazeEditorButton;
+	
+	GameIO gameInputOutput;    //Associated with the load and save buttons
+	JMazeOptions jMazeOptions; //Associated with the options button
+	CreateMaze mazeEditorPanel;//Associated with the maze editor button
 
 	// int sizeX = 1;
 	// int sizeY = 1;
@@ -69,27 +72,41 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 		buttonPanel = new JPanel();
 		jMaze = new JMaze();
 		jMazeOptions = new JMazeOptions();
-		// mainFrame.setTitle("Ultra Cool Maze Game With Dragons!");
+		gameInputOutput = new GameIO(jMaze.s);
+		
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setPreferredSize(new Dimension(500, 500));
 		mainFrame.pack();
 
 		mainFrame.getContentPane().add(buttonPanel, BorderLayout.NORTH);
 		mainFrame.getContentPane().add(jMaze, BorderLayout.CENTER);
-		loadButton = new JButton("Load Game");
-
-		// CREATING THE BUTTONS FOR THE BUTTON PANEL
-		newGameButton = new JButton("New Game");
-
-		// ADDING THE BUTTONS TO THE PANNEL
-		buttonPanel.add(newGameButton);
+		
 		jMaze.setRequestFocusEnabled(true);
 		jMazeOptions.setVisible(false);
 		jMazeOptions.setAutoRequestFocus(false);
 		jMaze.setVisible(true);
 		jMaze.grabFocus(); // para receber eventos do teclado
 		// this.requestFocus();
+		
+		//CREATING THE BUTTONS
+		newGameButton = new JButton("New Game");
+		exitButton = new JButton("Exit");
+		loadButton = new JButton("Load Game");
+		saveButton = new JButton("Save Game");
+		optionsButton = new JButton("Options");
+		//mazeEditorButton = new JButton ("Maze Editor");
 
+		//ADDING THE BUTTONS TO THE PANEL
+		saveButton.setVerticalAlignment(SwingConstants.TOP);
+		exitButton.setVerticalAlignment(SwingConstants.BOTTOM);
+		buttonPanel.add(newGameButton);
+		buttonPanel.add(exitButton);
+		buttonPanel.add(loadButton);
+		buttonPanel.add(saveButton);
+		buttonPanel.add(optionsButton);
+		
+		
+		//ADDING ACTION LISTENERS TO THE BUTTONS
 		newGameButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg) {
 
@@ -101,42 +118,7 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 				}
 			}
 		});
-		saveButton = new JButton("Save Game");
-		saveButton.setVerticalAlignment(SwingConstants.TOP);
-		buttonPanel.add(saveButton);
-
-		saveButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg) {
-
-				int i;
-				i = JOptionPane.showConfirmDialog(buttonPanel, "This action will replace your current save. Are you sure?", "New game", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-				if (i == JOptionPane.YES_OPTION) {
-					gameInputOutput.saveGame(jMaze.s);
-				}
-			}
-		});
-		buttonPanel.add(loadButton);
-
-		optionsButton = new JButton("Options");
-		buttonPanel.add(optionsButton);
-		optionsButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg) {
-				jMazeOptions.setVisible(true);
-				jMazeOptions.buttonPane.setVisible(true);
-				jMazeOptions.setAutoRequestFocus(true);
-				jMazeOptions.contentPanel.setVisible(true);
-				jMazeOptions.requestFocusInWindow();
-//				jMaze.wa
-//				jMaze.setFocusable(false);
-				// jMazeOptions.paint(jMazeOptions.getGraphics());
-
-			}
-		});
-		exitButton = new JButton("Exit");
-		exitButton.setVerticalAlignment(SwingConstants.BOTTOM);
-		buttonPanel.add(exitButton);
-
-		// SETTING ACTIONS FOR EACH BUTTON
+		
 		exitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -147,9 +129,6 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 
 			}
 		});
-
-		// CREATING A IO OBJECT FOR LOADS/SAVES
-		gameInputOutput = new GameIO(jMaze.s);
 
 		loadButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg) {
@@ -168,6 +147,32 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 				}
 			}
 		});
+		
+		saveButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg) {
+
+				int i;
+				i = JOptionPane.showConfirmDialog(buttonPanel, "This action will replace your current save. Are you sure?", "New game", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+				if (i == JOptionPane.YES_OPTION) {
+					gameInputOutput.saveGame(jMaze.s);
+				}
+			}
+		});
+		
+		optionsButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg) {
+				jMazeOptions.setVisible(true);
+				jMazeOptions.buttonPane.setVisible(true);
+				jMazeOptions.setAutoRequestFocus(true);
+				jMazeOptions.contentPanel.setVisible(true);
+				jMazeOptions.requestFocusInWindow();
+//				jMaze.wa
+//				jMaze.setFocusable(false);
+				// jMazeOptions.paint(jMazeOptions.getGraphics());
+
+			}
+		});
+		
 		jMaze.grabFocus();
 	}
 
