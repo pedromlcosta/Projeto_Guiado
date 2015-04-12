@@ -21,15 +21,15 @@ public class JMazeOptions extends JDialog {
 	int mazeChoice;
 	int dragonChoice;
 	JDialog window;
-	JPanel contentPanel = new JPanel();
-	JPanel buttonPane = new JPanel();
+	JPanel contentPanel;
+	JPanel buttonPane;
 	JButton cancelButton;
 	JButton doneButton;
-	Label label_1;
-	Label label_2;
-	Label label_3;
-	Label label_4;
-	Label label;
+	Label labelMazeChoice;
+	Label labelDragonChoice;
+	Label labelDartsNumber;
+	Label labelMazeSize;
+	Label labelDragonNumber;
 	JSpinner Darts;
 	JSpinner sizeSpinner;
 	JSpinner dragonNumber;
@@ -56,7 +56,8 @@ public class JMazeOptions extends JDialog {
 		// JMazeOptions dialog = new JMazeOptions();
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		setVisible(false);
-
+		contentPanel = new JPanel();
+		buttonPane = new JPanel();
 		// Default Values
 		dragonChoice = 1;
 		mazeChoice = 1;
@@ -65,38 +66,38 @@ public class JMazeOptions extends JDialog {
 		mazeSize = 11;
 		//
 
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 400);
 		getContentPane().setLayout(null);
-		contentPanel.setBounds(0, 31, 500, 250);
+		contentPanel.setBounds(0, 31, 500, 400);
 		this.setBounds(0, 0, 500, 250);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel);
 		{
-			label_1 = new Label("Maze choice");
-			label_1.setBounds(10, 9, 75, 22);
+			labelMazeChoice = new Label("Maze choice");
+			labelMazeChoice.setBounds(10, 9, 75, 22);
 		}
 		{
-			label_2 = new Label("Dragon choice");
-			label_2.setBounds(10, 81, 84, 22);
+			labelDragonChoice = new Label("Dragon choice");
+			labelDragonChoice.setBounds(10, 81, 84, 22);
 		}
 		{
-			label_3 = new Label("Darts number");
-			label_3.setBounds(238, 42, 79, 22);
+			labelDartsNumber = new Label("Darts number");
+			labelDartsNumber.setBounds(238, 42, 79, 22);
 		}
 		{
-			label_4 = new Label("Size");
-			label_4.setBounds(239, 9, 35, 22);
+			labelMazeSize = new Label("Size");
+			labelMazeSize.setBounds(239, 9, 35, 22);
 		}
 		{
-			label = new Label("Dragons number");
-			label.setBounds(10, 42, 94, 22);
+			labelDragonNumber = new Label("Dragons number");
+			labelDragonNumber.setBounds(10, 42, 94, 22);
 		}
 		contentPanel.setLayout(null);
-		contentPanel.add(label_1);
-		contentPanel.add(label_2);
-		contentPanel.add(label_3);
-		contentPanel.add(label_4);
-		contentPanel.add(label);
+		contentPanel.add(labelMazeChoice);
+		contentPanel.add(labelDragonChoice);
+		contentPanel.add(labelDartsNumber);
+		contentPanel.add(labelMazeSize);
+		contentPanel.add(labelDragonNumber);
 		{
 			Darts = new JSpinner();
 			Darts.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
