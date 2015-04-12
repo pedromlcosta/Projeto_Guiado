@@ -37,7 +37,7 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 	
 	GameIO gameInputOutput;    //Associated with the load and save buttons
 	JMazeOptions jMazeOptions; //Associated with the options button
-	CreateMaze mazeEditorPanel;//Associated with the maze editor button
+	MazeEditor mazeEditorPanel;//Associated with the maze editor button
 
 	// int sizeX = 1;
 	// int sizeY = 1;
@@ -73,7 +73,7 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 		jMaze = new JMaze();
 		jMazeOptions = new JMazeOptions();
 		gameInputOutput = new GameIO(jMaze.s);
-		mazeEditorPanel = new CreateMaze(jMazeOptions);
+		mazeEditorPanel = new MazeEditor(jMazeOptions);
 		
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setPreferredSize(new Dimension(500, 500));
@@ -115,7 +115,7 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 				i = JOptionPane.showConfirmDialog(buttonPanel, "You will loose your current progress. Are you sure?", "New game", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 				if (i == JOptionPane.YES_OPTION) {
 					jMaze.setVisible(true);
-					jMaze.NewGame(jMazeOptions);
+					jMaze.newGame(jMazeOptions);
 				}
 			}
 		});

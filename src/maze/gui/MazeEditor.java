@@ -34,6 +34,7 @@ package maze.gui;
 //
 //}
 import java.awt.Cursor;
+import java.awt.Dimension;
 import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
@@ -46,13 +47,14 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import maze.logic.Status;
 
-public class CreateMaze extends JPanel implements MouseListener, MouseMotionListener, KeyListener{
+public class MazeEditor extends JPanel implements MouseListener, MouseMotionListener, KeyListener{
 	
-	
+	JFrame mainFrame;
 	JPanel editorPanel;
 	JPanel buttonPanel;
 	
@@ -78,9 +80,13 @@ public class CreateMaze extends JPanel implements MouseListener, MouseMotionList
 	BufferedImage exit;
 	BufferedImage aim;
 
-	public CreateMaze(JMazeOptions options) {
+	public MazeEditor(JMazeOptions options) {
 		initMaze(options);
 		loadImages();
+		
+		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		mainFrame.setPreferredSize(new Dimension(500, 500));
+		mainFrame.pack();
 	}
 	
 	public void initMaze(JMazeOptions options){
