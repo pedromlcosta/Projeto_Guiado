@@ -73,6 +73,7 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 		jMaze = new JMaze();
 		jMazeOptions = new JMazeOptions();
 		gameInputOutput = new GameIO(jMaze.s);
+		mazeEditorPanel = new CreateMaze(jMazeOptions);
 		
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setPreferredSize(new Dimension(500, 500));
@@ -94,7 +95,7 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 		loadButton = new JButton("Load Game");
 		saveButton = new JButton("Save Game");
 		optionsButton = new JButton("Options");
-		//mazeEditorButton = new JButton ("Maze Editor");
+		mazeEditorButton = new JButton ("Maze Editor");
 
 		//ADDING THE BUTTONS TO THE PANEL
 		saveButton.setVerticalAlignment(SwingConstants.TOP);
@@ -104,7 +105,7 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 		buttonPanel.add(loadButton);
 		buttonPanel.add(saveButton);
 		buttonPanel.add(optionsButton);
-		
+		buttonPanel.add(mazeEditorButton);
 		
 		//ADDING ACTION LISTENERS TO THE BUTTONS
 		newGameButton.addActionListener(new ActionListener() {
@@ -170,6 +171,18 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 //				jMaze.setFocusable(false);
 				// jMazeOptions.paint(jMazeOptions.getGraphics());
 
+			}
+		});
+		
+		mazeEditorButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg) {
+
+				int i;
+				i = JOptionPane.showConfirmDialog(buttonPanel, "You will loose your current progress. Are you sure?", "Create a Maze", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+				if (i == JOptionPane.YES_OPTION) {
+					mazeEditorPanel.setVisible(true);
+					//do more stuff
+				}
 			}
 		});
 		

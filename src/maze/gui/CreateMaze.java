@@ -52,10 +52,15 @@ import maze.logic.Status;
 
 public class CreateMaze extends JPanel implements MouseListener, MouseMotionListener, KeyListener{
 	
-	char mazeEditor[][];
+	
+	JPanel editorPanel;
+	JPanel buttonPanel;
+	
 	boolean swordSet = false; // Has put a sword yet
 	boolean shieldSet = false; // Has put a shield yet
 	boolean exitSet = false; // Has put an exit yet
+	int dragonChoice = 3; // Defaults to 3
+	int mazeSize = 21;    // Defaults to 21
 
 	Status s;
 
@@ -81,7 +86,7 @@ public class CreateMaze extends JPanel implements MouseListener, MouseMotionList
 	public void initMaze(JMazeOptions options){
 		s = new Status();
 		
-		s.setDragonChoice(options.dragonChoice);
+		s.setDragonChoice(dragonChoice);
 		s.setMazeChoice(2);
 		
 		//Creates empty maze and puts walls around it
