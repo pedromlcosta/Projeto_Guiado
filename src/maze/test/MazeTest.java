@@ -133,7 +133,7 @@ public class MazeTest {
 
 		// TRIES TO LEAVE WITHOUT SWORD(!1) && DRAGON(S) DEAD(2) (if, for
 		// example, the hero kills him with darts)
-		s.getDragons()[0].setDragonAlive(false);
+		s.getDragons().get(0).setDragonAlive(false);
 		s.updateBoard('d');
 		assertEquals(false, s.isGameOver());
 
@@ -143,7 +143,7 @@ public class MazeTest {
 		assertEquals(true, s.getHero().isArmed());
 
 		// TRIES TO LEAVE WITH SWORD(1) && DRAGON(S) ALIVE(!2)
-		s.getDragons()[0].setDragonAlive(true); // HE RESSURRECTED, OMG!!!!
+		s.getDragons().get(0).setDragonAlive(true); // HE RESSURRECTED, OMG!!!!
 		s.moveHero(8, 5);
 		s.updateBoard('d');
 		assertEquals(false, s.isGameOver());
@@ -163,8 +163,8 @@ public class MazeTest {
 		status.setHeroPos(1, 1);
 		status.setExitPos(9, 5);
 		// status.setSwordPos(4, 4);
-		status.setDragons(new Dragon[1]);
-		status.getDragons()[0] = new Dragon(0, 0, 'D');
+		//status.setDragons(new Dragon[1]);
+		status.getDragons().add(new Dragon(0, 0, 'D'));
 		status.setDragonPos(8, 8);
 		int nDarts = 0;
 
@@ -172,20 +172,20 @@ public class MazeTest {
 			nDarts = Main.random(maze.length / 2);
 
 		Darts[] darts = new Darts[nDarts];
-		status.setDarts(darts);
-		status.initDarts('-');
+		//status.setDarts(darts);
+		status.initDarts('-', nDarts);
 
-		assertEquals(nDarts, status.getDarts().length);
-		assertEquals('-', status.getDarts()[0].getFigure());
+		assertEquals(nDarts, status.getDarts().size());
+		assertEquals('-', status.getDarts().get(0).getFigure());
 		nDarts = 0;
 		// Test randomness of Darts and catching all darts
 		catchDarts(status, maze, nDarts, darts);
 		assertEquals(status.getHero().getnDarts(), darts.length);
 		// Test killing dragons in all 4 directions
 		nDarts = 5;
-		darts = new Darts[nDarts];
-		status.setDarts(darts);
-		status.initDarts('-');
+		//darts = new Darts[nDarts];
+		//status.setDarts(darts);
+		status.initDarts('-', nDarts);
 		catchDarts(status, maze, nDarts, darts);
 		// assertEquals(5, status.getHero().getnDarts()); ver porque é que está
 		// a apanhar mais do que deve
@@ -193,13 +193,13 @@ public class MazeTest {
 		status.throwDart('s');
 		assertEquals(status.dragonsAlive(), false);
 
-		status.getDragons()[0].setDragonAlive(true);
+		status.getDragons().get(0).setDragonAlive(true);
 		status.setDragonPos(8, 1);
 		status.throwDart('w');
 		assertEquals(status.dragonsAlive(), false);
 
 		// 1º falha pois tem 1 obstáculo (parede)
-		status.getDragons()[0].setDragonAlive(true);
+		status.getDragons().get(0).setDragonAlive(true);
 		status.setDragonPos(1, 5);// ver porque é que com 4 mata
 		// MazeInterface.print_maze(maze);
 		status.throwDart('a');
@@ -210,7 +210,7 @@ public class MazeTest {
 		status.throwDart('a');
 		assertEquals(status.dragonsAlive(), false);
 
-		status.getDragons()[0].setDragonAlive(true);
+		status.getDragons().get(0).setDragonAlive(true);
 		status.setDragonPos(8, 1);
 		status.moveHero(1, 1);
 		status.throwDart('d');
@@ -225,7 +225,7 @@ public class MazeTest {
 	public void catchDarts(Status status, char[][] maze, int nDarts, Darts[] darts) {
 		// System.out.println("size: " + darts.length);
 		for (int i = 0; i < darts.length; i++) {
-			if (status.moveHero(status.getDarts()[i].getX(), status.getDarts()[i].getY() - 1)) {
+			if (status.moveHero(status.getDarts().get(i).getX(), status.getDarts().get(i).getY() - 1)) {
 
 				status.updateBoard('s');
 				nDarts++;
@@ -235,7 +235,7 @@ public class MazeTest {
 				status.moveHero(1, 1);
 			} else {
 				// Movimento não válido
-				status.moveHero(status.getDarts()[i].getX(), status.getDarts()[i].getY());
+				status.moveHero(status.getDarts().get(i).getX(), status.getDarts().get(i).getY());
 				nDarts++;
 			}
 		}
@@ -370,7 +370,7 @@ public class MazeTest {
 			assertNotNull("Invalid diagonals in maze:\n" + m, !hasSquare(m, badDiag1));
 			assertNotNull("Invalid diagonals in maze:\n" + m, !hasSquare(m, badDiag2));
 			// MazeInterface.print_maze(m.getMaze());
-			assertTrue("Missing or overlapping objects in maze:\n" + m, notNullAndDistinct(s.getExit(), s.getHero(), s.getDragons()[0], s.getSword()));
+			assertTrue("Missing or overlapping objects in maze:\n" + m, notNullAndDistinct(s.getExit(), s.getHero(), s.getDragons().get(0), s.getSword()));
 		}
 	}
 }

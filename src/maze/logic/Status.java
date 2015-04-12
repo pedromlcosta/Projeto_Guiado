@@ -1,6 +1,7 @@
 package maze.logic;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 
 import maze.logic.Main;
 import maze.logic.Hero;
@@ -12,12 +13,14 @@ public class Status implements Serializable {
 	private static final long serialVersionUID = 1L;
 	static int m = 0;
 	static int n = 0;
-	Dragon dragons[];
+	//Dragon dragons[];
+	ArrayList<Dragon> dragons;
 	Hero hero;
 	Exit exit;
 	Sword sword;
 	Shield shield;
-	Darts darts[];
+	//Darts darts[];
+	ArrayList<Darts> darts;
 	Maze maze;
 	int dragonChoice, mazeChoice;
 	boolean gameOver;
@@ -49,8 +52,10 @@ public class Status implements Serializable {
 	public Status() {
 		// quantos dragões devem existir
 		gameOver = false;
-		dragons = new Dragon[1];
-		darts = new Darts[1];
+		//dragons = new Dragon[1];
+		//darts = new Darts[1];
+		dragons = new ArrayList<Dragon>();
+		darts = new ArrayList<Darts>();
 		hero = new Hero(0, 0, 'H');
 		sword = new Sword(0, 0, 'E');
 		shield = new Shield(0, 0, 'P');
@@ -76,32 +81,32 @@ public class Status implements Serializable {
 	}
 
 	public int getDragonX(int i) {
-		return dragons[i].getX();
+		return dragons.get(i).getX();
 	}
 
 	public int getDragonY(int i) {
-		return dragons[i].getY();
+		return dragons.get(i).getY();
 	}
 
-	public Dragon[] getDragons() {
+	public ArrayList<Dragon> getDragons() {
 		return dragons;
 	}
 
 	// TODO: mudar para "i"
 	public void initNumbers() {
-		dragons = new Dragon[Main.random(maze.getMaze().length / 2) + 1];
+		//dragons = new Dragon[Main.random(maze.getMaze().length / 2) + 1];
 
-		darts = new Darts[Main.random(maze.getMaze().length / 2) + 1];
+		//darts = new Darts[Main.random(maze.getMaze().length / 2) + 1];
 	}
 
-	public void initDragons(char figure) {
-		for (int i = 0; i < dragons.length; i++) {
-			dragons[i] = new Dragon(0, 0, figure);
-			maze.generateCharacter(dragons[i]);
+	public void initDragons(char figure, int nDragons) {
+		for (int i = 0; i < nDragons; i++) {
+			dragons.add(new Dragon(0, 0, figure));
+			maze.generateCharacter(dragons.get(i));
 		}
 	}
 
-	public void setDragons(Dragon[] dragons) {
+	public void setDragons(ArrayList<Dragon> dragons) {
 		this.dragons = dragons;
 	}
 
@@ -137,11 +142,11 @@ public class Status implements Serializable {
 		this.shield = shield;
 	}
 
-	public Darts[] getDarts() {
+	public ArrayList<Darts> getDarts() {
 		return darts;
 	}
 
-	public void setDarts(Darts[] darts) {
+	public void setDarts(ArrayList<Darts> darts) {
 		this.darts = darts;
 	}
 
@@ -196,14 +201,14 @@ public class Status implements Serializable {
 		if (!Main.insideBoardEle(x, y, maze.getMaze()))
 			return;
 		// maze.getMaze()[dragons[0].getX()][dragons[0].getY()] = ' ';
-		dragons[0].setX(x);
-		dragons[0].setY(y);
-		maze.getMaze()[dragons[0].getY()][dragons[0].getX()] = 'D';
+		dragons.get(0).setX(x);
+		dragons.get(0).setY(y);
+		maze.getMaze()[dragons.get(0).getY()][dragons.get(0).getX()] = 'D';
 	}
 
 	public boolean dragonsAlive() {
-		for (int i = 0; i < dragons.length; i++) {
-			if (dragons[i].isDragonAlive())
+		for (int i = 0; i < dragons.size(); i++) {
+			if (dragons.get(i).isDragonAlive())
 				return true; // se ha algum vivo, da true
 		}
 		return false; // se nao houve nenhum vivo, e false
@@ -212,23 +217,22 @@ public class Status implements Serializable {
 	public void heroDarts() {
 		if (mazeChoice == 1)
 			return;
-		for (int i = 0; i < darts.length; i++) {
-			if (!darts[i].isPickedUp()) {
-				if (darts[i].getX() == hero.getX() && darts[i].getY() == hero.getY()) {
-					darts[i].setPickedUp(true);
+		for (int i = 0; i < darts.size(); i++) {
+			if (!darts.get(i).isPickedUp()) {
+				if (darts.get(i).getX() == hero.getX() && darts.get(i).getY() == hero.getY()) {
+					darts.get(i).setPickedUp(true);
 					hero.incDarts();
 				}
 			}
 		}
 	}
 
-	public void initDarts(char figure) {
-		for (int i = 0; i < darts.length; i++) {
-			darts[i] = new Darts(0, 0, figure);
-			darts[i].setPickedUp(false);
-			maze.generateCharacter(darts[i]);
+	public void initDarts(char figure, int nDarts) {
+		for (int i = 0; i < nDarts; i++) {
+			darts.add(new Darts(0, 0, figure));
+			darts.get(i).setPickedUp(false);
+			maze.generateCharacter(darts.get(i));
 		}
-
 	}
 
 	public void throwDart(char direction) {
@@ -236,11 +240,11 @@ public class Status implements Serializable {
 		switch (direction) {
 		case 'w':
 		case 'W':
-			for (int i = 0; i < dragons.length; i++) {
-				if (hero.getX() == dragons[i].getX() && hero.getY() > dragons[i].getY()) {
-					if (!obstacles(hero.getX(), hero.getY(), dragons[i].getX(), dragons[i].getY())) {
-						dragons[i].setDragonAlive(false);
-						maze.getMaze()[dragons[i].getY()][dragons[i].getX()] = ' ';
+			for (int i = 0; i < dragons.size(); i++) {
+				if (hero.getX() == dragons.get(i).getX() && hero.getY() > dragons.get(i).getY()) {
+					if (!obstacles(hero.getX(), hero.getY(), dragons.get(i).getX(), dragons.get(i).getY())) {
+						dragons.get(i).setDragonAlive(false);
+						maze.getMaze()[dragons.get(i).getY()][dragons.get(i).getX()] = ' ';
 					}
 					break;
 				}
@@ -249,11 +253,11 @@ public class Status implements Serializable {
 			break;
 		case 'a':
 		case 'A':
-			for (int i = 0; i < dragons.length; i++) {
-				if (hero.getY() == dragons[i].getY() && hero.getX() > dragons[i].getX()) {
-					if (!obstacles(hero.getX(), hero.getY(), dragons[i].getX(), dragons[i].getY())) {
-						dragons[i].setDragonAlive(false);
-						maze.getMaze()[dragons[i].getY()][dragons[i].getX()] = ' ';
+			for (int i = 0; i < dragons.size(); i++) {
+				if (hero.getY() == dragons.get(i).getY() && hero.getX() > dragons.get(i).getX()) {
+					if (!obstacles(hero.getX(), hero.getY(), dragons.get(i).getX(), dragons.get(i).getY())) {
+						dragons.get(i).setDragonAlive(false);
+						maze.getMaze()[dragons.get(i).getY()][dragons.get(i).getX()] = ' ';
 					}
 					break;
 				}
@@ -261,11 +265,11 @@ public class Status implements Serializable {
 			break;
 		case 's':
 		case 'S':
-			for (int i = 0; i < dragons.length; i++) {
-				if (hero.getX() == dragons[i].getX() && hero.getY() < dragons[i].getY()) {
-					if (!obstacles(hero.getX(), hero.getY(), dragons[i].getX(), dragons[i].getY())) {
-						dragons[i].setDragonAlive(false);
-						maze.getMaze()[dragons[i].getY()][dragons[i].getX()] = ' ';
+			for (int i = 0; i < dragons.size(); i++) {
+				if (hero.getX() == dragons.get(i).getX() && hero.getY() < dragons.get(i).getY()) {
+					if (!obstacles(hero.getX(), hero.getY(), dragons.get(i).getX(), dragons.get(i).getY())) {
+						dragons.get(i).setDragonAlive(false);
+						maze.getMaze()[dragons.get(i).getY()][dragons.get(i).getX()] = ' ';
 					}
 					break;
 				}
@@ -273,11 +277,11 @@ public class Status implements Serializable {
 			break;
 		case 'd':
 		case 'D':
-			for (int i = 0; i < dragons.length; i++) {
-				if (hero.getY() == dragons[i].getY() && hero.getX() < dragons[i].getX()) {
-					if (!obstacles(hero.getX(), hero.getY(), dragons[i].getX(), dragons[i].getY())) {
-						dragons[i].setDragonAlive(false);
-						maze.getMaze()[dragons[i].getY()][dragons[i].getX()] = ' ';
+			for (int i = 0; i < dragons.size(); i++) {
+				if (hero.getY() == dragons.get(i).getY() && hero.getX() < dragons.get(i).getX()) {
+					if (!obstacles(hero.getX(), hero.getY(), dragons.get(i).getX(), dragons.get(i).getY())) {
+						dragons.get(i).setDragonAlive(false);
+						maze.getMaze()[dragons.get(i).getY()][dragons.get(i).getX()] = ' ';
 					}
 					break;
 				}
@@ -361,10 +365,10 @@ public class Status implements Serializable {
 
 		// call a function which depending on the size of the board will "count"
 		// the number of dragons
-		initDragons('D');
+		initDragons('D', Main.random(maze.getMaze().length / 2) + 1);
 		// TODO: substituir por funcao?
 
-		initDarts('-');
+		initDarts('-', Main.random(maze.getMaze().length / 2) + 1);
 
 	}
 	
@@ -420,38 +424,38 @@ public class Status implements Serializable {
 		}
 		if (heroPlayed) {
 			// DRAGON MOVEMENT STUB - dragon only moves if the player played
-			for (int i = 0; i < dragons.length; i++)
+			for (int i = 0; i < dragons.size(); i++)
 				if (getDragonChoice() == 1) {
 					// OPTION 1 -> STATIC DRAGON
 				} else if (getDragonChoice() == 2) {
 					// OPTION 2 -> DRAGON WITH RANDOM MOVEMENT
-					moveDragon(dragons[i]);
+					moveDragon(dragons.get(i));
 				} else {
 
 					// OPTION 3 -> DRAGON WITH RANDOM MOVEMENT AND SLEEP
 					int number = Main.random(10);
-					if (dragons[i].isDragonAlive()) {
-						if (dragons[i].isAsleep()) { // IF ALREADY ASLEEP,
+					if (dragons.get(i).isDragonAlive()) {
+						if (dragons.get(i).isAsleep()) { // IF ALREADY ASLEEP,
 														// HAS
 														// 20% CHANCE TO WAKE UP
 														// AND
 														// MOVE
 							if (number == 0 || number == 1) {
-								dragons[i].setAsleep(false);
-								dragons[i].setFigure('D');
-								maze.getMaze()[dragons[i].getY()][dragons[i].getX()] = 'D';
-								moveDragon(dragons[i]);
+								dragons.get(i).setAsleep(false);
+								dragons.get(i).setFigure('D');
+								maze.getMaze()[dragons.get(i).getY()][dragons.get(i).getX()] = 'D';
+								moveDragon(dragons.get(i));
 							}
 						} else { // IF NOT ASLEEP, HAS 10% CHANCE TO GO ASLEEP
 									// AND
 									// 90%
 									// CHANCE TO MOVE
 							if (number == 0) {
-								dragons[i].setAsleep(true);
-								dragons[i].setFigure('Z');
-								maze.getMaze()[dragons[i].getY()][dragons[i].getX()] = 'Z';
+								dragons.get(i).setAsleep(true);
+								dragons.get(i).setFigure('Z');
+								maze.getMaze()[dragons.get(i).getY()][dragons.get(i).getX()] = 'Z';
 							} else
-								moveDragon(dragons[i]);
+								moveDragon(dragons.get(i));
 						}
 
 					}
@@ -608,17 +612,17 @@ public class Status implements Serializable {
 				dragonRange = 3;
 		}
 
-		for (int i = 0; i < getDragons().length; i++) {
+		for (int i = 0; i < getDragons().size(); i++) {
 
-			if (dragons[i].isDragonAlive()) {
+			if (dragons.get(i).isDragonAlive()) {
 
-				if (insideRange(hero.getX(), hero.getY(), dragons[i].getX(), dragons[i].getY(), 1) && hero.isArmed()) {
+				if (insideRange(hero.getX(), hero.getY(), dragons.get(i).getX(), dragons.get(i).getY(), 1) && hero.isArmed()) {
 
-					maze.getMaze()[dragons[i].getY()][dragons[i].getX()] = ' ';
-					dragons[i].setDragonAlive(false);
+					maze.getMaze()[dragons.get(i).getY()][dragons.get(i).getX()] = ' ';
+					dragons.get(i).setDragonAlive(false);
 
-				} else if (insideRange(hero.getX(), hero.getY(), dragons[i].getX(), dragons[i].getY(), dragonRange) && !dragons[i].isAsleep) {
-					if (!obstacles(hero.getX(), hero.getY(), dragons[i].getX(), dragons[i].getY())) {
+				} else if (insideRange(hero.getX(), hero.getY(), dragons.get(i).getX(), dragons.get(i).getY(), dragonRange) && !dragons.get(i).isAsleep) {
+					if (!obstacles(hero.getX(), hero.getY(), dragons.get(i).getX(), dragons.get(i).getY())) {
 						// System.out.println("Morto");
 						maze.getMaze()[hero.getY()][hero.getX()] = ' ';
 						hero.setHeroAlive(false);
@@ -651,8 +655,9 @@ public class Status implements Serializable {
 		setHeroPos(1, 1);
 		setExitPos(9, 5);
 		setSwordPos(4, 4);
-		setDragons(new Dragon[1]);
-		dragons[0] = new Dragon(0, 0, 'D');
+		//setDragons(new Dragon[1]);
+		//dragons[0] = new Dragon(0, 0, 'D');
+		dragons.add(new Dragon(0, 0, 'D'));
 		setDragonPos(1, 3);
 	}
 

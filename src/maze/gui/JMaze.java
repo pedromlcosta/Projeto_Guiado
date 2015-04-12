@@ -62,8 +62,8 @@ class JMaze extends JPanel implements MouseListener, MouseMotionListener,
 
 		s.setDragonChoice(options.dragonChoice);
 		s.setMazeChoice(options.mazeChoice);
-		s.setDarts(new Darts[options.dartsSize]);
-		s.setDragons(new Dragon[options.dragonsSize]);
+		//s.setDarts(new Darts[options.dartsSize]);
+		//s.setDragons(new Dragon[options.dragonsSize]);
 		if (s.getMazeChoice() == 2)
 			s.randomMaze(options.mazeSize, 1);
 		else
