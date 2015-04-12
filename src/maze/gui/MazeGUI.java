@@ -12,7 +12,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 
-import javax.swing.AbstractButton;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
@@ -21,7 +20,6 @@ import javax.swing.JPanel;
 import maze.logic.Status;
 import javax.swing.SwingConstants;
 
-@SuppressWarnings({ "serial", "unused" })
 public class MazeGUI implements MouseListener, MouseMotionListener, KeyListener {
 
 	JFrame mainFrame; // Main frame where the game runs, with 2 panels

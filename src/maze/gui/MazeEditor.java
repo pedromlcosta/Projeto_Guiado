@@ -37,7 +37,6 @@ import java.awt.BorderLayout;
 import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
-import java.awt.Point;
 import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -67,7 +66,7 @@ public class MazeEditor extends JDialog{
 	JMaze gamePanel;        //Panel where to introduce the new maze after it is finished
 	JPanel buttonPanel;
 	JPanel editorPanel;
-	JComboBox comboBox;
+	JComboBox<Elements> comboBox;
 	
 	boolean swordSet = false; // Has put a sword yet
 	boolean shieldSet = false; // Has put a shield yet
@@ -104,8 +103,8 @@ public class MazeEditor extends JDialog{
 		getContentPane().add(buttonPanel, BorderLayout.NORTH);
 		getContentPane().add(editorPanel, BorderLayout.CENTER);
 		
-		comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(Elements.values()));
+		comboBox = new JComboBox<Elements>();
+		comboBox.setModel(new DefaultComboBoxModel<Elements>(Elements.values()));
 		buttonPanel.add(comboBox);
 		
 		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{getContentPane(), buttonPanel, comboBox, editorPanel}));
