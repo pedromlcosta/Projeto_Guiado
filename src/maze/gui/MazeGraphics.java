@@ -48,6 +48,7 @@ public class MazeGraphics {
 		// sizeY = getHeight() / ((s.getMaze().getMaze().length));
 		
 		g.drawString("Darts: " + s.getHero().getnDarts(), 20, 20);
+		
 		int x1 = 0 + offsetX;
 		int y1 = size - offsetY;
 		for (int j = 0; j < s.getMaze().getMaze().length; j++) {

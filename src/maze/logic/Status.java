@@ -371,6 +371,13 @@ public class Status implements Serializable {
 	public void createMazeWalls(){
 		char temp[][] = maze.getMaze();
 		
+		//Enche tudo com espaços vazios
+		for(int i = 0; i< temp.length;i++){
+			for(int j = 0; j< temp.length;j++){
+				temp[i][j] = ' ';
+			}
+		}
+		//Enche os lados e cantos com paredes
 		for(int i = 0; i< temp.length;i++){
 			temp[0][i] = 'X';
 			temp[temp.length-1][i] = 'X';
