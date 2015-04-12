@@ -11,6 +11,7 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -18,6 +19,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import maze.logic.Status;
+
 import javax.swing.SwingConstants;
 
 public class MazeGUI implements MouseListener, MouseMotionListener, KeyListener {
@@ -55,6 +57,12 @@ public class MazeGUI implements MouseListener, MouseMotionListener, KeyListener 
 	public static void main(String[] args) {
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
+				try {
+					MazeGraphics.load();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				MazeGUI gui = new MazeGUI();
 				gui.mainFrame.setVisible(true);
 				gui.buttonPanel.setVisible(true);

@@ -34,7 +34,6 @@ package maze.gui;
 //
 //}
 import java.awt.BorderLayout;
-import java.awt.Component;
 import java.awt.Cursor;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -49,8 +48,6 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 
 import maze.logic.Status;
-
-import org.eclipse.wb.swing.FocusTraversalOnArray;
 
 public class MazeEditor extends JDialog{
 	
@@ -107,7 +104,7 @@ public class MazeEditor extends JDialog{
 		comboBox.setModel(new DefaultComboBoxModel<Elements>(Elements.values()));
 		buttonPanel.add(comboBox);
 		
-		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{getContentPane(), buttonPanel, comboBox, editorPanel}));
+		///potato////////////////setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{getContentPane(), buttonPanel, comboBox, editorPanel}));
 
 		//Game Editor initialization
 		gamePanel = game;    //gamePanel
