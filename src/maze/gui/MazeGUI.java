@@ -24,20 +24,20 @@ import javax.swing.SwingConstants;
 @SuppressWarnings({ "serial", "unused" })
 public class MazeGUI implements MouseListener, MouseMotionListener, KeyListener {
 
-	JFrame mainFrame;        //Main frame where the game runs, with 2 panels
-	JPanel buttonPanel;      //Button panel
-	JMaze gamePanel;             //Maze game panel
-	
+	JFrame mainFrame; // Main frame where the game runs, with 2 panels
+	JPanel buttonPanel; // Button panel
+	JMaze gamePanel; // Maze game panel
+
 	JButton newGameButton;
 	JButton exitButton;
 	JButton loadButton;
 	JButton saveButton;
 	JButton optionsButton;
 	JButton mazeEditorButton;
-	
-	GameIO gameInputOutput;    //Associated with the load and save buttons
-	JMazeOptions gameOptions; //Associated with the options button
-	MazeEditor mazeEditorPanel;//Associated with the maze editor button
+
+	GameIO gameInputOutput; // Associated with the load and save buttons
+	JMazeOptions gameOptions; // Associated with the options button
+	MazeEditor mazeEditorPanel;// Associated with the maze editor button
 
 	// int sizeX = 1;
 	// int sizeY = 1;
@@ -74,30 +74,30 @@ public class MazeGUI implements MouseListener, MouseMotionListener, KeyListener 
 		gameOptions = new JMazeOptions();
 		gameInputOutput = new GameIO(gamePanel.s);
 		mazeEditorPanel = new MazeEditor(gameOptions);
-		
+
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setPreferredSize(new Dimension(700, 500));
 		mainFrame.pack();
 
 		mainFrame.getContentPane().add(buttonPanel, BorderLayout.NORTH);
 		mainFrame.getContentPane().add(gamePanel, BorderLayout.CENTER);
-		
+
 		gamePanel.setRequestFocusEnabled(true);
 		gameOptions.setVisible(false);
 		gameOptions.setAutoRequestFocus(false);
 		gamePanel.setVisible(true);
 		gamePanel.grabFocus(); // para receber eventos do teclado
 		// this.requestFocus();
-		
-		//CREATING THE BUTTONS
+
+		// CREATING THE BUTTONS
 		newGameButton = new JButton("New Game");
 		exitButton = new JButton("Exit");
 		loadButton = new JButton("Load Game");
 		saveButton = new JButton("Save Game");
 		optionsButton = new JButton("Options");
-		mazeEditorButton = new JButton ("Maze Editor");
+		mazeEditorButton = new JButton("Maze Editor");
 
-		//ADDING THE BUTTONS TO THE PANEL
+		// ADDING THE BUTTONS TO THE PANEL
 		saveButton.setVerticalAlignment(SwingConstants.TOP);
 		exitButton.setVerticalAlignment(SwingConstants.BOTTOM);
 		buttonPanel.add(newGameButton);
@@ -106,8 +106,8 @@ public class MazeGUI implements MouseListener, MouseMotionListener, KeyListener 
 		buttonPanel.add(saveButton);
 		buttonPanel.add(optionsButton);
 		buttonPanel.add(mazeEditorButton);
-		
-		//ADDING ACTION LISTENERS TO THE BUTTONS
+
+		// ADDING ACTION LISTENERS TO THE BUTTONS
 		newGameButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg) {
 
@@ -119,7 +119,7 @@ public class MazeGUI implements MouseListener, MouseMotionListener, KeyListener 
 				}
 			}
 		});
-		
+
 		exitButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 
@@ -148,7 +148,7 @@ public class MazeGUI implements MouseListener, MouseMotionListener, KeyListener 
 				}
 			}
 		});
-		
+
 		saveButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg) {
 
@@ -159,21 +159,22 @@ public class MazeGUI implements MouseListener, MouseMotionListener, KeyListener 
 				}
 			}
 		});
-		
+
 		optionsButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg) {
+				gameOptions.setModal(true);
 				gameOptions.setVisible(true);
 				gameOptions.buttonPane.setVisible(true);
 				gameOptions.setAutoRequestFocus(true);
 				gameOptions.contentPanel.setVisible(true);
 				gameOptions.requestFocusInWindow();
-//				gamePanel.wa
-//				gamePanel.setFocusable(false);
+				// gamePanel.wa
+				// gamePanel.setFocusable(false);
 				// gameOptions.paint(gameOptions.getGraphics());
 
 			}
 		});
-		
+
 		mazeEditorButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg) {
 				int i;
@@ -185,7 +186,7 @@ public class MazeGUI implements MouseListener, MouseMotionListener, KeyListener 
 				}
 			}
 		});
-		
+
 		gamePanel.grabFocus();
 	}
 
@@ -216,7 +217,8 @@ public class MazeGUI implements MouseListener, MouseMotionListener, KeyListener 
 		gamePanel.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 		if (gamePanel.s.getHero().getnDarts() > 0) {
 			gamePanel.s.getHero().decDarts();
-			// System.out.println("Cursorx: " + gamePanel.cursorX + " Cursory:" +
+			// System.out.println("Cursorx: " + gamePanel.cursorX + " Cursory:"
+			// +
 			// gamePanel.cursorY);
 			for (int i = 0; i < gamePanel.s.getDragons().length; i++) {
 				if (gamePanel.s.getDragons()[i].isDragonAlive()) {
