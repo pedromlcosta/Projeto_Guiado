@@ -83,7 +83,7 @@ public class MazeEditor extends JPanel implements MouseListener, MouseMotionList
 	public MazeEditor(JMazeOptions options) {
 		initMaze(options);
 		loadImages();
-		
+		//this is only done once, on the constructor and nowhere else
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setPreferredSize(new Dimension(500, 500));
 		mainFrame.pack();
@@ -99,6 +99,11 @@ public class MazeEditor extends JPanel implements MouseListener, MouseMotionList
 		s.getMaze().setMaze(new char[options.mazeSize][options.mazeSize]);
 		s.createMazeWalls();
 		
+	}
+	
+	//this refreshes the editor for when it is opened again
+	public void refreshEditor(JMazeOptions options){
+		initMaze(options);
 	}
 	
 	public void loadImages() {
