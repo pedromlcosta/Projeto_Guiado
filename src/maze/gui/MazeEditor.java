@@ -47,14 +47,27 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
 import maze.logic.Status;
 
-public class MazeEditor extends JPanel implements MouseListener, MouseMotionListener, KeyListener{
+import java.awt.BorderLayout;
+import javax.swing.JList;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
+import maze.gui.MazeEditor.Elements;
+import java.awt.Window.Type;
+import org.eclipse.wb.swing.FocusTraversalOnArray;
+import java.awt.Component;
+
+public class MazeEditor extends JDialog implements MouseListener, MouseMotionListener, KeyListener{
 	
-	JFrame mainFrame;
+	public enum Elements {
+	    Hero, Dragon, Sword, Shield, Darts, Walls, Exit 
+	}
+	
 	JPanel editorPanel;
 	JPanel buttonPanel;
 	
@@ -81,12 +94,28 @@ public class MazeEditor extends JPanel implements MouseListener, MouseMotionList
 	BufferedImage aim;
 
 	public MazeEditor(JMazeOptions options) {
+		setTitle("Maze Editor");
+		setModal(true);
+		
+		JPanel panel = new JPanel();
+		getContentPane().add(panel, BorderLayout.NORTH);
+		
+		JComboBox comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(Elements.values()));
+		panel.add(comboBox);
+		
+		this.setMinimumSize(new Dimension(100,100));
+	    this.setSize(new Dimension(500,500));
+
+		
+		JPanel panel2 = new JPanel();
+		getContentPane().add(panel2, BorderLayout.CENTER);
+		setFocusTraversalPolicy(new FocusTraversalOnArray(new Component[]{getContentPane(), panel, comboBox, panel2}));
+	
 		initMaze(options);
 		loadImages();
 		//this is only done once, on the constructor and nowhere else
-		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		mainFrame.setPreferredSize(new Dimension(500, 500));
-		mainFrame.pack();
+
 	}
 	
 	public void initMaze(JMazeOptions options){
@@ -99,11 +128,6 @@ public class MazeEditor extends JPanel implements MouseListener, MouseMotionList
 		s.getMaze().setMaze(new char[options.mazeSize][options.mazeSize]);
 		s.createMazeWalls();
 		
-	}
-	
-	//this refreshes the editor for when it is opened again
-	public void refreshEditor(JMazeOptions options){
-		initMaze(options);
 	}
 	
 	public void loadImages() {

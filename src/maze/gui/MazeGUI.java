@@ -22,11 +22,11 @@ import maze.logic.Status;
 import javax.swing.SwingConstants;
 
 @SuppressWarnings({ "serial", "unused" })
-public class MazeGUI extends JPanel implements MouseListener, MouseMotionListener, KeyListener {
+public class MazeGUI implements MouseListener, MouseMotionListener, KeyListener {
 
 	JFrame mainFrame;        //Main frame where the game runs, with 2 panels
 	JPanel buttonPanel;      //Button panel
-	JMaze jMaze;             //Maze game panel
+	JMaze gamePanel;             //Maze game panel
 	
 	JButton newGameButton;
 	JButton exitButton;
@@ -36,7 +36,7 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 	JButton mazeEditorButton;
 	
 	GameIO gameInputOutput;    //Associated with the load and save buttons
-	JMazeOptions jMazeOptions; //Associated with the options button
+	JMazeOptions gameOptions; //Associated with the options button
 	MazeEditor mazeEditorPanel;//Associated with the maze editor button
 
 	// int sizeX = 1;
@@ -48,9 +48,9 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 
 	public MazeGUI() {
 		init();
-		jMaze.addMouseListener(this);
-		jMaze.addMouseMotionListener(this);
-		jMaze.addKeyListener(this);
+		gamePanel.addMouseListener(this);
+		gamePanel.addMouseMotionListener(this);
+		gamePanel.addKeyListener(this);
 
 	}
 
@@ -60,7 +60,7 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 				MazeGUI gui = new MazeGUI();
 				gui.mainFrame.setVisible(true);
 				gui.buttonPanel.setVisible(true);
-				gui.jMaze.setVisible(true);
+				gui.gamePanel.setVisible(true);
 			}
 		});
 	}
@@ -70,23 +70,23 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 		// CREATING MAIN FRAME AND ITS 2 PANELS
 		mainFrame = new JFrame("Ultra Cool Maze Game With Dragons!");
 		buttonPanel = new JPanel();
-		jMaze = new JMaze();
-		jMazeOptions = new JMazeOptions();
-		gameInputOutput = new GameIO(jMaze.s);
-		mazeEditorPanel = new MazeEditor(jMazeOptions);
+		gamePanel = new JMaze();
+		gameOptions = new JMazeOptions();
+		gameInputOutput = new GameIO(gamePanel.s);
+		mazeEditorPanel = new MazeEditor(gameOptions);
 		
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		mainFrame.setPreferredSize(new Dimension(500, 500));
+		mainFrame.setPreferredSize(new Dimension(700, 500));
 		mainFrame.pack();
 
 		mainFrame.getContentPane().add(buttonPanel, BorderLayout.NORTH);
-		mainFrame.getContentPane().add(jMaze, BorderLayout.CENTER);
+		mainFrame.getContentPane().add(gamePanel, BorderLayout.CENTER);
 		
-		jMaze.setRequestFocusEnabled(true);
-		jMazeOptions.setVisible(false);
-		jMazeOptions.setAutoRequestFocus(false);
-		jMaze.setVisible(true);
-		jMaze.grabFocus(); // para receber eventos do teclado
+		gamePanel.setRequestFocusEnabled(true);
+		gameOptions.setVisible(false);
+		gameOptions.setAutoRequestFocus(false);
+		gamePanel.setVisible(true);
+		gamePanel.grabFocus(); // para receber eventos do teclado
 		// this.requestFocus();
 		
 		//CREATING THE BUTTONS
@@ -114,8 +114,8 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 				int i;
 				i = JOptionPane.showConfirmDialog(buttonPanel, "You will loose your current progress. Are you sure?", "New game", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 				if (i == JOptionPane.YES_OPTION) {
-					jMaze.setVisible(true);
-					jMaze.newGame(jMazeOptions);
+					gamePanel.setVisible(true);
+					gamePanel.newGame(gameOptions);
 				}
 			}
 		});
@@ -143,7 +143,7 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 					if ((temp = gameInputOutput.loadGame()) == null) {
 						JOptionPane.showMessageDialog(mainFrame, "No save file was found. Load unsuccessful.", "Error Loading", JOptionPane.ERROR_MESSAGE);
 					} else {
-						jMaze.s = temp;
+						gamePanel.s = temp;
 					}
 				}
 			}
@@ -155,49 +155,49 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 				int i;
 				i = JOptionPane.showConfirmDialog(buttonPanel, "This action will replace your current save. Are you sure?", "New game", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 				if (i == JOptionPane.YES_OPTION) {
-					gameInputOutput.saveGame(jMaze.s);
+					gameInputOutput.saveGame(gamePanel.s);
 				}
 			}
 		});
 		
 		optionsButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg) {
-				jMazeOptions.setVisible(true);
-				jMazeOptions.buttonPane.setVisible(true);
-				jMazeOptions.setAutoRequestFocus(true);
-				jMazeOptions.contentPanel.setVisible(true);
-				jMazeOptions.requestFocusInWindow();
-//				jMaze.wa
-//				jMaze.setFocusable(false);
-				// jMazeOptions.paint(jMazeOptions.getGraphics());
+				gameOptions.setVisible(true);
+				gameOptions.buttonPane.setVisible(true);
+				gameOptions.setAutoRequestFocus(true);
+				gameOptions.contentPanel.setVisible(true);
+				gameOptions.requestFocusInWindow();
+//				gamePanel.wa
+//				gamePanel.setFocusable(false);
+				// gameOptions.paint(gameOptions.getGraphics());
 
 			}
 		});
 		
 		mazeEditorButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg) {
-
 				int i;
 				i = JOptionPane.showConfirmDialog(buttonPanel, "You will loose your current progress. Are you sure?", "Create a Maze", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 				if (i == JOptionPane.YES_OPTION) {
-					mazeEditorPanel.setVisible(true);
-					mazeEditorPanel.refreshEditor(jMazeOptions);
+					MazeEditor editor = new MazeEditor(gameOptions);
+					editor.setModal(true);
+					editor.setVisible(true);
 				}
 			}
 		});
 		
-		jMaze.grabFocus();
+		gamePanel.grabFocus();
 	}
 
 	public void paintComponent(Graphics g) {
-		jMaze.paintComponent(g); // TODO: background image
+		gamePanel.paintComponent(g); // TODO: background image
 	}
 
 	public void mouseMoved(MouseEvent arg0) {
 		// System.out.print(arg0.getX());
 		// System.out.print(" ");
 		// System.out.println(arg0.getY());
-		jMaze.mouseMoved(arg0);
+		gamePanel.mouseMoved(arg0);
 	}
 
 	public void mouseClicked(MouseEvent arg0) {
@@ -213,29 +213,29 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 	}
 
 	public void mouseReleased(MouseEvent arg0) {
-		jMaze.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-		if (jMaze.s.getHero().getnDarts() > 0) {
-			jMaze.s.getHero().decDarts();
-			// System.out.println("Cursorx: " + jMaze.cursorX + " Cursory:" +
-			// jMaze.cursorY);
-			for (int i = 0; i < jMaze.s.getDragons().length; i++) {
-				if (jMaze.s.getDragons()[i].isDragonAlive()) {
-					int drx = jMaze.s.getDragons()[i].getX();
-					int dry = jMaze.s.getDragons()[i].getY();
-					int hx = jMaze.s.getHero().getX();
-					int hy = jMaze.s.getHero().getY();
+		gamePanel.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+		if (gamePanel.s.getHero().getnDarts() > 0) {
+			gamePanel.s.getHero().decDarts();
+			// System.out.println("Cursorx: " + gamePanel.cursorX + " Cursory:" +
+			// gamePanel.cursorY);
+			for (int i = 0; i < gamePanel.s.getDragons().length; i++) {
+				if (gamePanel.s.getDragons()[i].isDragonAlive()) {
+					int drx = gamePanel.s.getDragons()[i].getX();
+					int dry = gamePanel.s.getDragons()[i].getY();
+					int hx = gamePanel.s.getHero().getX();
+					int hy = gamePanel.s.getHero().getY();
 					// System.out.println("dr: " + drx * size + " " + dry *
 					// size);
 
-					if (Math.abs(jMaze.cursorX - jMaze.offsetX - drx * jMaze.size) <= jMaze.size) {
-						if (Math.abs(jMaze.cursorY - jMaze.size + jMaze.offsetY - dry * jMaze.size) <= jMaze.size) {
-							if (jMaze.s.insideRange(hx, hy, drx, dry)) {
-								if (!jMaze.s.obstacles(hx, hy, drx, dry)) {
+					if (Math.abs(gamePanel.cursorX - gamePanel.offsetX - drx * gamePanel.size) <= gamePanel.size) {
+						if (Math.abs(gamePanel.cursorY - gamePanel.size + gamePanel.offsetY - dry * gamePanel.size) <= gamePanel.size) {
+							if (gamePanel.s.insideRange(hx, hy, drx, dry)) {
+								if (!gamePanel.s.obstacles(hx, hy, drx, dry)) {
 									// System.out.println("Dead");
-									jMaze.s.getMaze().getMaze()[dry][drx] = ' ';
-									jMaze.s.getDragons()[i].setDragonAlive(false);
-									jMaze.s.getHero().decDarts();
-									jMaze.repaint();
+									gamePanel.s.getMaze().getMaze()[dry][drx] = ' ';
+									gamePanel.s.getDragons()[i].setDragonAlive(false);
+									gamePanel.s.getHero().decDarts();
+									gamePanel.repaint();
 								}
 							}
 						}
@@ -248,12 +248,12 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 
 	public void mousePressed(MouseEvent e) {
 
-		jMaze.setCursor(jMaze.customCursor);
+		gamePanel.setCursor(gamePanel.customCursor);
 	}
 
 	public void mouseDragged(MouseEvent e) {
 
-		jMaze.mouseDragged(e);
+		gamePanel.mouseDragged(e);
 
 	}
 
@@ -264,7 +264,7 @@ public class MazeGUI extends JPanel implements MouseListener, MouseMotionListene
 	}
 
 	public void keyPressed(KeyEvent e) {
-		jMaze.keyPressed(e);
+		gamePanel.keyPressed(e);
 
 	}
 
