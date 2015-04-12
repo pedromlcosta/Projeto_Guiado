@@ -132,7 +132,6 @@ public class MazeEditor extends JDialog implements MouseListener, MouseMotionLis
 	
 	public void loadImages() {
 		try {
-			kit = Toolkit.getDefaultToolkit();
 			floor = ImageIO.read(new File("images\\wall.png"));
 			empty = ImageIO.read(new File("images\\empty.png"));
 			dragon = ImageIO.read(new File("images\\dragon.png"));
@@ -141,9 +140,7 @@ public class MazeEditor extends JDialog implements MouseListener, MouseMotionLis
 			darts = ImageIO.read(new File("images\\dart.png"));
 			shield = ImageIO.read(new File("images\\shield.png"));
 			exit = ImageIO.read(new File("images\\exit_closed.png"));
-			aim = ImageIO.read(new File("images\\aim.png"));
-			customCursor = kit.createCustomCursor(aim, new Point(16, 16),
-					"myCursor");
+			 
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
