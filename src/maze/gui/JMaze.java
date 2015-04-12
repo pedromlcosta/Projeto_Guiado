@@ -21,8 +21,7 @@ import javax.swing.JPanel;
 import maze.logic.*;
 
 @SuppressWarnings("serial")
-class JMaze extends JPanel implements MouseListener, MouseMotionListener,
-		KeyListener {
+class JMaze extends JPanel implements MouseListener, MouseMotionListener, KeyListener {
 	Status s;
 	int cursorX = 0, cursorY = 0;
 
@@ -33,10 +32,7 @@ class JMaze extends JPanel implements MouseListener, MouseMotionListener,
 	int size = 1;
 	int offsetY = 0;
 	int offsetX = 0;
-	int KEY_RIGHT;
-	int KEY_UP;
-	int KEY_LEFT;
-	int KEY_DOWN;
+
 
 	public JMaze() {
 
@@ -45,14 +41,12 @@ class JMaze extends JPanel implements MouseListener, MouseMotionListener,
 		s.setMazeChoice(2);
 		s.randomMaze(21, 0);
 
-		
 		try {
 			kit = Toolkit.getDefaultToolkit();
 
 			aim = ImageIO.read(new File("images\\aim.png"));
-			customCursor = kit.createCustomCursor(aim, new Point(16, 16),
-					"myCursor");
-			
+			customCursor = kit.createCustomCursor(aim, new Point(16, 16), "myCursor");
+
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -63,8 +57,8 @@ class JMaze extends JPanel implements MouseListener, MouseMotionListener,
 
 		s.setDragonChoice(options.dragonChoice);
 		s.setMazeChoice(options.mazeChoice);
-		//s.setDarts(new Darts[options.dartsSize]);
-		//s.setDragons(new Dragon[options.dragonsSize]);
+		s.setDragonSize(options.dragonsSize);
+		s.setDartsSize(options.dartsSize);
 		if (s.getMazeChoice() == 2)
 			s.randomMaze(options.mazeSize, 1);
 		else
@@ -72,16 +66,13 @@ class JMaze extends JPanel implements MouseListener, MouseMotionListener,
 
 		grabFocus();
 		repaint();
-
 	}
-
-	
 
 	public void paintComponent(Graphics g) {
 		if (s.isGameOver()) {
 
 		}
-		super.paintComponent(g); 
+		super.paintComponent(g);
 		g.setColor(Color.BLUE);
 		grabFocus();
 		try {
@@ -92,10 +83,10 @@ class JMaze extends JPanel implements MouseListener, MouseMotionListener,
 				size = getWidth() / ((s.getMaze().getMaze().length));
 				offsetY = (getHeight() - (s.getMaze().getMaze().length * size)) / 2;
 			}
-			
+
 			offsetX = (getWidth() - size * s.getMaze().getMaze().length) / 2;
 
-			MazeGraphics.paintMaze(g,offsetX,offsetY,size,s);
+			MazeGraphics.paintMaze(g, offsetX, offsetY, size, s);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -154,7 +145,7 @@ class JMaze extends JPanel implements MouseListener, MouseMotionListener,
 
 	public void mouseDragged(MouseEvent e) {
 	}
-	
+
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		// TODO Auto-generated method stub

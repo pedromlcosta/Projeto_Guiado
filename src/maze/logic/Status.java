@@ -13,16 +13,33 @@ public class Status implements Serializable {
 	private static final long serialVersionUID = 1L;
 	static int m = 0;
 	static int n = 0;
-	//Dragon dragons[];
+	// Dragon dragons[];
 	ArrayList<Dragon> dragons;
 	Hero hero;
 	Exit exit;
 	Sword sword;
 	Shield shield;
-	//Darts darts[];
+	// Darts darts[];
 	ArrayList<Darts> darts;
 	Maze maze;
-	int dragonChoice, mazeChoice;
+	int dragonChoice, mazeChoice, dragonSize, dartsSize;
+
+	public int getDragonSize() {
+		return dragonSize;
+	}
+
+	public void setDragonSize(int dragonSize) {
+		this.dragonSize = dragonSize;
+	}
+
+	public int getDartsSize() {
+		return dartsSize;
+	}
+
+	public void setDartsSize(int dartsSize) {
+		this.dartsSize = dartsSize;
+	}
+
 	boolean gameOver;
 
 	public boolean isGameOver() {
@@ -52,8 +69,8 @@ public class Status implements Serializable {
 	public Status() {
 		// quantos dragões devem existir
 		gameOver = false;
-		//dragons = new Dragon[1];
-		//darts = new Darts[1];
+		// dragons = new Dragon[1];
+		// darts = new Darts[1];
 		dragons = new ArrayList<Dragon>();
 		darts = new ArrayList<Darts>();
 		hero = new Hero(0, 0, 'H');
@@ -94,9 +111,9 @@ public class Status implements Serializable {
 
 	// TODO: mudar para "i"
 	public void initNumbers() {
-		//dragons = new Dragon[Main.random(maze.getMaze().length / 2) + 1];
-
-		//darts = new Darts[Main.random(maze.getMaze().length / 2) + 1];
+		// dragons = new Dragon[Main.random(maze.getMaze().length / 2) + 1];
+		//
+		// darts = new Darts[Main.random(maze.getMaze().length / 2) + 1];
 	}
 
 	public void initDragons(char figure, int nDragons) {
@@ -360,33 +377,35 @@ public class Status implements Serializable {
 		maze.generateCharacter(hero);
 		maze.generateCharacter(sword);
 		maze.generateCharacter(shield);
-		if (choice == 0)
-			initNumbers();
-
+		if (choice == 0) {
+			initDarts('-', Main.random(maze.getMaze().length / 2) + 1);
+			initDragons('D', Main.random(maze.getMaze().length / 2) + 1);
+		} else {
+			initDarts('-', dartsSize);
+			initDragons('D', dragonSize);
+		}
 		// call a function which depending on the size of the board will "count"
 		// the number of dragons
-		initDragons('D', Main.random(maze.getMaze().length / 2) + 1);
+
 		// TODO: substituir por funcao?
 
-		initDarts('-', Main.random(maze.getMaze().length / 2) + 1);
-
 	}
-	
-	public void createMazeWalls(){
+
+	public void createMazeWalls() {
 		char temp[][] = maze.getMaze();
-		
-		//Enche tudo com espaços vazios
-		for(int i = 0; i< temp.length;i++){
-			for(int j = 0; j< temp.length;j++){
+
+		// Enche tudo com espaços vazios
+		for (int i = 0; i < temp.length; i++) {
+			for (int j = 0; j < temp.length; j++) {
 				temp[i][j] = ' ';
 			}
 		}
-		//Enche os lados e cantos com paredes
-		for(int i = 0; i< temp.length;i++){
+		// Enche os lados e cantos com paredes
+		for (int i = 0; i < temp.length; i++) {
 			temp[0][i] = 'X';
-			temp[temp.length-1][i] = 'X';
+			temp[temp.length - 1][i] = 'X';
 			temp[i][0] = 'X';
-			temp[i][temp.length-1] = 'X';
+			temp[i][temp.length - 1] = 'X';
 		}
 		maze.setMaze(temp);
 	}
@@ -436,10 +455,11 @@ public class Status implements Serializable {
 					int number = Main.random(10);
 					if (dragons.get(i).isDragonAlive()) {
 						if (dragons.get(i).isAsleep()) { // IF ALREADY ASLEEP,
-														// HAS
-														// 20% CHANCE TO WAKE UP
-														// AND
-														// MOVE
+															// HAS
+															// 20% CHANCE TO
+															// WAKE UP
+															// AND
+															// MOVE
 							if (number == 0 || number == 1) {
 								dragons.get(i).setAsleep(false);
 								dragons.get(i).setFigure('D');
@@ -655,8 +675,8 @@ public class Status implements Serializable {
 		setHeroPos(1, 1);
 		setExitPos(9, 5);
 		setSwordPos(4, 4);
-		//setDragons(new Dragon[1]);
-		//dragons[0] = new Dragon(0, 0, 'D');
+		// setDragons(new Dragon[1]);
+		// dragons[0] = new Dragon(0, 0, 'D');
 		dragons.add(new Dragon(0, 0, 'D'));
 		setDragonPos(1, 3);
 	}

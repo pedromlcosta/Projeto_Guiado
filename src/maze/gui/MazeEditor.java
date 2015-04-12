@@ -57,7 +57,7 @@ public class MazeEditor extends JDialog {
 	int mazeSize = 21; // Defaults to 21
 
 	int cursorX = 0, cursorY = 0;
-	private JComboBox comboBox;
+	private JComboBox<String> comboBox;
 
 	public MazeEditor(JMazeOptions options, JMaze game) {
 		// Panel and other design stuff
@@ -74,20 +74,18 @@ public class MazeEditor extends JDialog {
 
 		elementBox = new JComboBox<EditorPanel.Element>();
 
-		elementBox.setModel(new DefaultComboBoxModel<EditorPanel.Element>(
-				EditorPanel.Element.values()));
+		elementBox.setModel(new DefaultComboBoxModel<EditorPanel.Element>(EditorPanel.Element.values()));
 		elementBox.setSelectedIndex(0);
-		
+
 		elementBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				EditorPanel.setElement(elementBox.getItemAt(elementBox.getSelectedIndex()));
 			}
 		});
-		
-		comboBox = new JComboBox();
-		comboBox.setModel(new DefaultComboBoxModel(new String[] {"teste 1", "teste 2"}));
+
+		comboBox = new JComboBox<String>();
+		comboBox.setModel(new DefaultComboBoxModel<String>(new String[] { "teste 1", "teste 2" }));
 		buttonPanel.add(comboBox);
-		
 		buttonPanel.add(elementBox);
 
 		// Saving the JMaze game reference to pass the status when editing is
@@ -95,8 +93,7 @@ public class MazeEditor extends JDialog {
 		gamePanel = game;
 
 		// ACTION LISTENERS
-		
 
 	}
-	
+
 }

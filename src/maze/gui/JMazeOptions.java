@@ -9,8 +9,10 @@ import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.JSpinner;
+import javax.swing.KeyStroke;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EmptyBorder;
+import javax.swing.JTextArea;
 
 @SuppressWarnings("serial")
 public class JMazeOptions extends JDialog {
@@ -34,10 +36,11 @@ public class JMazeOptions extends JDialog {
 	JSpinner dragonNumber;
 	Choice dragonChoices;
 	Choice mazeChoices;
-	private JButton buttomKeyUp;
-	private JButton buttomKeyRight;
-	private JButton buttomKeyLeft;
-	private JButton buttomKeyBack;
+	JButton buttomKeyUp;
+	JButton buttomKeyRight;
+	JButton buttomKeyLeft;
+	JButton buttomKeyDown;
+	
 
 	/**
 	 * Launch the application.
@@ -133,26 +136,26 @@ public class JMazeOptions extends JDialog {
 			contentPanel.add(mazeChoices);
 		}
 		{
-			buttomKeyUp = new JButton("New button");
+			buttomKeyUp = new JButton("Move Up: ");
 			buttomKeyUp.setBounds(83, 185, 120, 22);
 			contentPanel.add(buttomKeyUp);
 		}
 		{
-			buttomKeyRight = new JButton("New button");
+			buttomKeyRight = new JButton("Move Right: ");
 			buttomKeyRight.setBounds(298, 218, 121, 23);
 			contentPanel.add(buttomKeyRight);
 		}
 		{
-			buttomKeyLeft = new JButton("New button");
+			buttomKeyLeft = new JButton("Move Left: ");
 			buttomKeyLeft.setBounds(298, 185, 121, 23);
 			contentPanel.add(buttomKeyLeft);
 		}
 		{
-			buttomKeyBack = new JButton("New button");
-			buttomKeyBack.setBounds(84, 218, 119, 23);
-			contentPanel.add(buttomKeyBack);
+			buttomKeyDown = new JButton("Move Down: ");
+			buttomKeyDown.setBounds(84, 218, 119, 23);
+			contentPanel.add(buttomKeyDown);
 		}
-
+	 
 		{
 			buttonPane.setBounds(0, 0, 434, 33);
 			getContentPane().add(buttonPane);
@@ -229,6 +232,23 @@ public class JMazeOptions extends JDialog {
 						mazeSize = 11;
 
 					}
+				}
+			});
+			buttomKeyUp.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+
+				}
+			});
+			buttomKeyRight.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+				}
+			});
+			buttomKeyLeft.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
+				}
+			});
+			buttomKeyDown.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent arg0) {
 				}
 			});
 		}

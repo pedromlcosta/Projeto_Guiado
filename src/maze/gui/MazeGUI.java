@@ -21,6 +21,8 @@ import javax.swing.JPanel;
 import maze.logic.Status;
 
 import javax.swing.SwingConstants;
+import javax.swing.JComboBox;
+import javax.swing.DefaultComboBoxModel;
 
 public class MazeGUI implements MouseListener, MouseMotionListener, KeyListener {
 
@@ -111,17 +113,17 @@ public class MazeGUI implements MouseListener, MouseMotionListener, KeyListener 
 		exitButton = new JButton("Exit");
 		exitButton.setVerticalAlignment(SwingConstants.BOTTOM);
 		buttonPanel.add(exitButton);
-		
-				exitButton.addActionListener(new ActionListener() {
-					public void actionPerformed(ActionEvent e) {
-		
-						int i;
-						i = JOptionPane.showConfirmDialog(buttonPanel, "You will loose your current progress. Are you sure?", "Exit game", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-						if (i == JOptionPane.YES_OPTION)
-							System.exit(0);
-		
-					}
-				});
+
+		exitButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+
+				int i;
+				i = JOptionPane.showConfirmDialog(buttonPanel, "You will loose your current progress. Are you sure?", "Exit game", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+				if (i == JOptionPane.YES_OPTION)
+					System.exit(0);
+
+			}
+		});
 
 		// ADDING ACTION LISTENERS TO THE BUTTONS
 		newGameButton.addActionListener(new ActionListener() {
