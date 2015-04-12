@@ -51,8 +51,6 @@ import javax.swing.JPanel;
 import maze.logic.Status;
 
 public class CreateMaze extends JPanel implements MouseListener, MouseMotionListener, KeyListener{
-
-	
 	
 	char mazeEditor[][];
 	boolean swordSet = false; // Has put a sword yet
@@ -82,9 +80,14 @@ public class CreateMaze extends JPanel implements MouseListener, MouseMotionList
 	
 	public void initMaze(JMazeOptions options){
 		s = new Status();
+		
 		s.setDragonChoice(options.dragonChoice);
+		s.setMazeChoice(2);
+		
+		//Creates empty maze and puts walls around it
 		s.getMaze().setMaze(new char[options.mazeSize][options.mazeSize]);
-		// mazeEditor = new char[options.mazeSize][options.mazeSize];
+		s.createMazeWalls();
+		
 	}
 	
 	public void loadImages() {
@@ -105,7 +108,7 @@ public class CreateMaze extends JPanel implements MouseListener, MouseMotionList
 			e.printStackTrace();
 		}
 	}
-
+	
 	@Override
 	public void keyPressed(KeyEvent arg0) {
 		// TODO Auto-generated method stub

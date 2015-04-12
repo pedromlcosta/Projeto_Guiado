@@ -2,7 +2,6 @@ package maze.teste;
 
 import java.util.Random;
 
-import maze.cli.*;
 import maze.logic.*;
 import static org.junit.Assert.*;
 
@@ -20,7 +19,7 @@ public class Teste {
 		s.updateBoard('a');
 		assertEquals(1, s.getHero().getX());
 		assertEquals(1, s.getHero().getY());
-		s.move_hero(s.getSword().getX(), 1);
+		s.moveHero(s.getSword().getX(), 1);
 		s.updateBoard('s');
 		assertEquals(s.getSword().getX(), s.getHero().getX());
 		assertEquals(2, s.getHero().getY());
@@ -48,7 +47,7 @@ public class Teste {
 	public void swordTest() {
 		Status s = new Status();
 		s.defaultMaze();
-		s.move_hero(4, 3);
+		s.moveHero(4, 3);
 		s.updateBoard('s');
 		assertEquals(true, s.getHero().isArmed());
 		assertEquals('A', s.getHero().getFigure());
@@ -61,11 +60,11 @@ public class Teste {
 		Status s = new Status();
 		s.defaultMaze();
 		s.setShieldPos(4, 1);
-		s.move_hero(3, 1);
+		s.moveHero(3, 1);
 		s.updateBoard('d');
 		assertEquals(true, s.getHero().isHasShield());
 		assertEquals('p', s.getHero().getFigure());
-		s.move_hero(4, 3);
+		s.moveHero(4, 3);
 		s.updateBoard('s');
 		assertEquals(true, s.getHero().isArmed());
 		assertEquals('K', s.getHero().getFigure());
@@ -85,10 +84,10 @@ public class Teste {
 	public void killDragon() {
 		Status s = new Status();
 		s.defaultMaze();
-		s.move_hero(4, 3);
+		s.moveHero(4, 3);
 		s.updateBoard('s');
 		assertEquals(true, s.getHero().isArmed());
-		s.move_hero(1, 1);
+		s.moveHero(1, 1);
 		s.updateBoard('s');
 		assertEquals(false, s.dragonsAlive());
 	}
@@ -109,13 +108,13 @@ public class Teste {
 	public void victory() {
 		Status s = new Status();
 		s.defaultMaze();
-		s.move_hero(4, 3);
+		s.moveHero(4, 3);
 		s.updateBoard('s');
 		assertEquals(true, s.getHero().isArmed());
-		s.move_hero(1, 1);
+		s.moveHero(1, 1);
 		s.updateBoard('s');
 		assertEquals(false, s.dragonsAlive());
-		s.move_hero(8, 5);
+		s.moveHero(8, 5);
 		s.updateBoard('d');
 		assertEquals(true, s.isGameOver());
 
@@ -128,7 +127,7 @@ public class Teste {
 		// TRIES TO LEAVE WITHOUT(!1) SWORD && DRAGON(S) ALIVE(!2)
 		Status s = new Status();
 		s.defaultMaze();
-		s.move_hero(8, 5);
+		s.moveHero(8, 5);
 		s.updateBoard('d');
 		assertEquals(false, s.isGameOver());
 
@@ -139,13 +138,13 @@ public class Teste {
 		assertEquals(false, s.isGameOver());
 
 		// GETS SWORD
-		s.move_hero(4, 3);
+		s.moveHero(4, 3);
 		s.updateBoard('s');
 		assertEquals(true, s.getHero().isArmed());
 
 		// TRIES TO LEAVE WITH SWORD(1) && DRAGON(S) ALIVE(!2)
 		s.getDragons()[0].setDragonAlive(true); // HE RESSURRECTED, OMG!!!!
-		s.move_hero(8, 5);
+		s.moveHero(8, 5);
 		s.updateBoard('d');
 		assertEquals(false, s.isGameOver());
 
@@ -190,7 +189,7 @@ public class Teste {
 		catchDarts(status, maze, nDarts, darts);
 		// assertEquals(5, status.getHero().getnDarts()); ver porque é que está
 		// a apanhar mais do que deve
-		status.move_hero(8, 5);
+		status.moveHero(8, 5);
 		status.throwDart('s');
 		assertEquals(status.dragonsAlive(), false);
 
@@ -207,13 +206,13 @@ public class Teste {
 		// MazeInterface.print_maze(maze);
 		assertEquals(status.dragonsAlive(), true);
 		status.setDragonPos(1, 5);
-		status.move_hero(6, 5);
+		status.moveHero(6, 5);
 		status.throwDart('a');
 		assertEquals(status.dragonsAlive(), false);
 
 		status.getDragons()[0].setDragonAlive(true);
 		status.setDragonPos(8, 1);
-		status.move_hero(1, 1);
+		status.moveHero(1, 1);
 		status.throwDart('d');
 		// corregir quando se manda o dardo ele anda
 		assertEquals(status.dragonsAlive(), false);
@@ -226,17 +225,17 @@ public class Teste {
 	public void catchDarts(Status status, char[][] maze, int nDarts, Darts[] darts) {
 		// System.out.println("size: " + darts.length);
 		for (int i = 0; i < darts.length; i++) {
-			if (status.move_hero(status.getDarts()[i].getX(), status.getDarts()[i].getY() - 1)) {
+			if (status.moveHero(status.getDarts()[i].getX(), status.getDarts()[i].getY() - 1)) {
 
 				status.updateBoard('s');
 				nDarts++;
 
 				if (!status.getHero().isHeroAlive())
 					status.getHero().setHeroAlive(true); // just in case
-				status.move_hero(1, 1);
+				status.moveHero(1, 1);
 			} else {
 				// Movimento não válido
-				status.move_hero(status.getDarts()[i].getX(), status.getDarts()[i].getY());
+				status.moveHero(status.getDarts()[i].getX(), status.getDarts()[i].getY());
 				nDarts++;
 			}
 		}

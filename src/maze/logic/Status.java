@@ -84,7 +84,7 @@ public class Status implements Serializable {
 	}
 
 	// TODO: mudar para "i"
-	public void Init_Numbers() {
+	public void initNumbers() {
 		dragons = new Dragon[Main.random(maze.getMaze().length / 2) + 1];
 
 		darts = new Darts[Main.random(maze.getMaze().length / 2) + 1];
@@ -353,7 +353,7 @@ public class Status implements Serializable {
 		maze.generateCharacter(sword);
 		maze.generateCharacter(shield);
 		if (choice == 0)
-			Init_Numbers();
+			initNumbers();
 
 		// call a function which depending on the size of the board will "count"
 		// the number of dragons
@@ -363,6 +363,18 @@ public class Status implements Serializable {
 		initDarts('-');
 
 	}
+	
+	public void createMazeWalls(){
+		char temp[][] = maze.getMaze();
+		
+		for(int i = 0; i< temp.length;i++){
+			temp[0][i] = 'X';
+			temp[temp.length-1][i] = 'X';
+			temp[i][0] = 'X';
+			temp[i][temp.length-1] = 'X';
+		}
+		maze.setMaze(temp);
+	}
 
 	public void updateBoard(char inputChar) {
 
@@ -371,22 +383,22 @@ public class Status implements Serializable {
 		switch (inputChar) {
 		case 'A':
 		case 'a':
-			heroPlayed = move_hero(hero.getX() - 1, hero.getY());
+			heroPlayed = moveHero(hero.getX() - 1, hero.getY());
 			break;
 
 		case 'W':
 		case 'w':
-			heroPlayed = move_hero(hero.getX(), hero.getY() - 1);
+			heroPlayed = moveHero(hero.getX(), hero.getY() - 1);
 			break;
 
 		case 'D':
 		case 'd':
-			heroPlayed = move_hero(hero.getX() + 1, hero.getY());
+			heroPlayed = moveHero(hero.getX() + 1, hero.getY());
 			break;
 
 		case 'S':
 		case 's':
-			heroPlayed = move_hero(hero.getX(), hero.getY() + 1);
+			heroPlayed = moveHero(hero.getX(), hero.getY() + 1);
 			break;
 
 		case 'E':
@@ -402,7 +414,7 @@ public class Status implements Serializable {
 					// OPTION 1 -> STATIC DRAGON
 				} else if (getDragonChoice() == 2) {
 					// OPTION 2 -> DRAGON WITH RANDOM MOVEMENT
-					move_dragon(dragons[i]);
+					moveDragon(dragons[i]);
 				} else {
 
 					// OPTION 3 -> DRAGON WITH RANDOM MOVEMENT AND SLEEP
@@ -417,7 +429,7 @@ public class Status implements Serializable {
 								dragons[i].setAsleep(false);
 								dragons[i].setFigure('D');
 								maze.getMaze()[dragons[i].getY()][dragons[i].getX()] = 'D';
-								move_dragon(dragons[i]);
+								moveDragon(dragons[i]);
 							}
 						} else { // IF NOT ASLEEP, HAS 10% CHANCE TO GO ASLEEP
 									// AND
@@ -428,13 +440,13 @@ public class Status implements Serializable {
 								dragons[i].setFigure('Z');
 								maze.getMaze()[dragons[i].getY()][dragons[i].getX()] = 'Z';
 							} else
-								move_dragon(dragons[i]);
+								moveDragon(dragons[i]);
 						}
 
 					}
 				}
 		}
-		update_status();
+		updateStatus();
 
 	}
 
@@ -442,7 +454,7 @@ public class Status implements Serializable {
 	// ficar
 	// O resto das alteracoes, passar para a funcao updateStatus
 
-	public boolean move_hero(int newX, int newY) {
+	public boolean moveHero(int newX, int newY) {
 
 		// INVALID MOVEMENTS - parede, dragao adormecido ou ir para a saida
 		// quando nao pode
@@ -509,7 +521,7 @@ public class Status implements Serializable {
 		}
 	}
 
-	public boolean move_dragon(Dragon dragon) {
+	public boolean moveDragon(Dragon dragon) {
 
 		int new_x = 0, new_y = 0;
 
@@ -575,7 +587,7 @@ public class Status implements Serializable {
 	// Updates status - is only called after the coordinates change(after the
 	// units move)
 
-	private void update_status() {
+	private void updateStatus() {
 
 		int dragonRange = 1;
 		if (mazeChoice == 2) {
