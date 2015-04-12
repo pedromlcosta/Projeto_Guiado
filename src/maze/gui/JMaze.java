@@ -44,27 +44,14 @@ class JMaze extends JPanel implements MouseListener, MouseMotionListener,
 		s.setMazeChoice(2);
 		s.randomMaze(21, 0);
 
-		// KEY_RIGHT = KeyEvent.VK_RIGHT;
-		// KEY_UP = KeyEvent.VK_UP;
-		// KEY_LEFT = KeyEvent.VK_LEFT;
-		// KEY_DOWN = KeyEvent.VK_DOWN;
-		// // s = new Status();
-		// s.setDragonChoice(1);
-		// s.setMazeChoice(2);
-		// MazeInterface.defaultMaze(s);
-		// // MazeInterface.randomMaze(s, 21);
-
+		
 		try {
 			kit = Toolkit.getDefaultToolkit();
 
 			aim = ImageIO.read(new File("images\\aim.png"));
 			customCursor = kit.createCustomCursor(aim, new Point(16, 16),
 					"myCursor");
-			// this.setCursor(customCursor);
-			// Cursor cursor =
-			// Toolkit.getDefaultToolkit().createCustomCursor(aim, new
-			// Point(16, 16), "blank cursor");
-			// this.setCursor(cursor);
+			
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
@@ -87,21 +74,13 @@ class JMaze extends JPanel implements MouseListener, MouseMotionListener,
 
 	}
 
-	public void mouseMoved(MouseEvent e) {
-		cursorX = e.getX();
-		cursorY = e.getY();
-		repaint();
-
-	}
-
-	public void mouseDragged(MouseEvent e) {
-	}
+	
 
 	public void paintComponent(Graphics g) {
 		if (s.isGameOver()) {
 
-		}// TODO: erro de o dragão poder estar em cima da espada
-		super.paintComponent(g); // limpa fundo ...
+		}
+		super.paintComponent(g); 
 		g.setColor(Color.BLUE);
 		grabFocus();
 		try {
@@ -163,6 +142,16 @@ class JMaze extends JPanel implements MouseListener, MouseMotionListener,
 
 	}
 
+	public void mouseMoved(MouseEvent e) {
+		cursorX = e.getX();
+		cursorY = e.getY();
+		repaint();
+
+	}
+
+	public void mouseDragged(MouseEvent e) {
+	}
+	
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		// TODO Auto-generated method stub
