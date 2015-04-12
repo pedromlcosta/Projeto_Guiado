@@ -47,6 +47,7 @@ public class MazeEditor extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 
+	
 	JMaze gamePanel; // Panel where to introduce the new maze after it is
 						// finished
 	JPanel buttonPanel;

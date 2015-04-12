@@ -140,6 +140,7 @@ class EditorPanel extends JPanel implements MouseListener, MouseMotionListener,
 	public void mouseReleased(MouseEvent arg0) {
 		setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 		
+		
 		selectedMazeX = (cursorX - offsetX) / size;
 		selectedMazeY = (cursorY - offsetY) / size;
 		
