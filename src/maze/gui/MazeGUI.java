@@ -90,7 +90,6 @@ public class MazeGUI implements MouseListener, MouseMotionListener, KeyListener 
 
 		// CREATING THE BUTTONS
 		newGameButton = new JButton("New Game");
-		exitButton = new JButton("Exit");
 		loadButton = new JButton("Load Game");
 		saveButton = new JButton("Save Game");
 		optionsButton = new JButton("Options");
@@ -98,13 +97,25 @@ public class MazeGUI implements MouseListener, MouseMotionListener, KeyListener 
 
 		// ADDING THE BUTTONS TO THE PANEL
 		saveButton.setVerticalAlignment(SwingConstants.TOP);
-		exitButton.setVerticalAlignment(SwingConstants.BOTTOM);
 		buttonPanel.add(newGameButton);
-		buttonPanel.add(exitButton);
 		buttonPanel.add(loadButton);
 		buttonPanel.add(saveButton);
 		buttonPanel.add(optionsButton);
 		buttonPanel.add(mazeEditorButton);
+		exitButton = new JButton("Exit");
+		exitButton.setVerticalAlignment(SwingConstants.BOTTOM);
+		buttonPanel.add(exitButton);
+		
+				exitButton.addActionListener(new ActionListener() {
+					public void actionPerformed(ActionEvent e) {
+		
+						int i;
+						i = JOptionPane.showConfirmDialog(buttonPanel, "You will loose your current progress. Are you sure?", "Exit game", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+						if (i == JOptionPane.YES_OPTION)
+							System.exit(0);
+		
+					}
+				});
 
 		// ADDING ACTION LISTENERS TO THE BUTTONS
 		newGameButton.addActionListener(new ActionListener() {
@@ -116,17 +127,6 @@ public class MazeGUI implements MouseListener, MouseMotionListener, KeyListener 
 					gamePanel.setVisible(true);
 					gamePanel.newGame(gameOptions);
 				}
-			}
-		});
-
-		exitButton.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-
-				int i;
-				i = JOptionPane.showConfirmDialog(buttonPanel, "You will loose your current progress. Are you sure?", "Exit game", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-				if (i == JOptionPane.YES_OPTION)
-					System.exit(0);
-
 			}
 		});
 
