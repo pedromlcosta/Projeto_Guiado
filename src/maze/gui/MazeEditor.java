@@ -47,7 +47,6 @@ public class MazeEditor extends JDialog {
 
 	private static final long serialVersionUID = 1L;
 
-	
 	JMaze gamePanel; // Panel where to introduce the new maze after it is
 						// finished
 	JPanel buttonPanel;
@@ -58,6 +57,7 @@ public class MazeEditor extends JDialog {
 	int mazeSize = 21; // Defaults to 21
 
 	int cursorX = 0, cursorY = 0;
+	private JComboBox comboBox;
 
 	public MazeEditor(JMazeOptions options, JMaze game) {
 		// Panel and other design stuff
@@ -83,6 +83,10 @@ public class MazeEditor extends JDialog {
 				EditorPanel.setElement(elementBox.getItemAt(elementBox.getSelectedIndex()));
 			}
 		});
+		
+		comboBox = new JComboBox();
+		comboBox.setModel(new DefaultComboBoxModel(new String[] {"teste 1", "teste 2"}));
+		buttonPanel.add(comboBox);
 		
 		buttonPanel.add(elementBox);
 

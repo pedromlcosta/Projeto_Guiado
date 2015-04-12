@@ -10,6 +10,8 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.io.IOException;
 
+import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import maze.logic.Status;
@@ -42,6 +44,8 @@ class EditorPanel extends JPanel implements MouseListener, MouseMotionListener,
 	int KEY_DOWN;
 
 	public EditorPanel(JMazeOptions options) {
+		
+		this.addMouseListener(this);
 
 		s = new Status();
 		
@@ -82,6 +86,8 @@ class EditorPanel extends JPanel implements MouseListener, MouseMotionListener,
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		
+		g.drawString(offsetX + " " + offsetY + " " + size + " " + cursorX + " " + cursorY, 20, 50);
 	}
 	
 	public void mouseMoved(MouseEvent e) {
@@ -141,8 +147,12 @@ class EditorPanel extends JPanel implements MouseListener, MouseMotionListener,
 		setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 		
 		
-		selectedMazeX = (cursorX - offsetX) / size;
-		selectedMazeY = (cursorY - offsetY) / size;
+		selectedMazeX = (arg0.getX() - offsetX) / size;
+		selectedMazeY = (arg0.getY() - 0) / size;
+		
+		
+		//JOptionPane.showConfirmDialog(getParent(), selectedMazeX + " " + selectedMazeY, "", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+		
 		
 		switch (selectedElement){
 		case Hero:
@@ -164,7 +174,7 @@ class EditorPanel extends JPanel implements MouseListener, MouseMotionListener,
 		case Exit:
 		}
 		
-
+		repaint();
 	}
 
 	
