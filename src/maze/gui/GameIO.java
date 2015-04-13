@@ -59,7 +59,6 @@ public class GameIO {
 		try {
 			File test = new File("Maze.sav");
 			if(!test.exists()){
-				System.out.println("lelelel derped");
 				return null;
 			}
 			FileInputStream stuff = new FileInputStream("Maze.sav");
@@ -92,11 +91,9 @@ public void saveOptions(GameOptions opt) {
 	}
                         
 	public GameOptions loadOptions() {
-		
 		try {
 			File test = new File("Options.sav");
 			if(!test.exists()){
-				System.out.println("lelelel derped");
 				return null;
 			}
 			FileInputStream stuff = new FileInputStream("Options.sav");

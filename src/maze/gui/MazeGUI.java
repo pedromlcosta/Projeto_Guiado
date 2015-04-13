@@ -78,19 +78,19 @@ public class MazeGUI implements MouseListener, MouseMotionListener, KeyListener 
 		mainFrame = new JFrame("Ultra Cool Maze Game With Dragons!");
 		buttonPanel = new JPanel();
 		gamePanel = new JMaze();
-		gameOptions = new JMazeOptions();
 		gameInputOutput = new GameIO(gamePanel.s, MazeGUI.gameOpt);
-
+		/////LOADING OPTIONS/////
+		
 		GameOptions temp;
 
 		if ((temp = gameInputOutput.loadOptions()) == null) {
 			// There was no file, nothing happens
 		} else {
-			System.out.println("Load");
-			System.out.println(temp.mazeSize);
+			
 			MazeGUI.gameOpt = temp;
-			System.out.println(MazeGUI.gameOpt.mazeSize);
 		}
+		/////////////////////////
+		gameOptions = new JMazeOptions();
 		
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setPreferredSize(new Dimension(700, 500));
@@ -181,9 +181,8 @@ public class MazeGUI implements MouseListener, MouseMotionListener, KeyListener 
 			public void actionPerformed(ActionEvent arg) {
 				
 				gameOptions.setModal(true);
-				System.out.println("Aqui 1");
 				gameOptions.setVisible(true);
-				System.out.println("Aqui 2");
+				
 
 				gamePanel.K_DOWN = gameOptions.getKeyDown();
 				gamePanel.K_UP = gameOptions.getKeyUp();

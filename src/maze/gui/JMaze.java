@@ -53,6 +53,7 @@ class JMaze extends JPanel implements MouseListener, MouseMotionListener, KeyLis
 	}
 
 	public void newGame(JMazeOptions options) {
+		System.out.println(MazeGUI.gameOpt.dragonChoice-1);
 		s = new Status();
 		this.setEnabled(true);
 		s.setDragonChoice(MazeGUI.gameOpt.dragonChoice);
