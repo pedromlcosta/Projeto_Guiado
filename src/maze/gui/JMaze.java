@@ -71,7 +71,12 @@ class JMaze extends JPanel implements MouseListener, MouseMotionListener, KeyLis
 	public void paintComponent(Graphics g) {
 		if (s.isGameOver()) {
 			this.setEnabled(false);
-			JOptionPane.showMessageDialog(this, "You lost!", "Game Over", JOptionPane.WARNING_MESSAGE);
+			if (!s.getHero().isHeroAlive())
+				JOptionPane.showMessageDialog(this, "You lost!", "Game Over", JOptionPane.YES_NO_CANCEL_OPTION);
+			else {
+				JOptionPane.showMessageDialog(this, "You Won!", "Game Over", JOptionPane.YES_NO_CANCEL_OPTION);
+
+			}
 		}
 		super.paintComponent(g);
 		g.setColor(Color.BLUE);

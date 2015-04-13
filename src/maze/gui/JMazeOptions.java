@@ -36,7 +36,7 @@ public class JMazeOptions extends JDialog {
 	JButton buttomKeyRight;
 	JButton buttomKeyLeft;
 	JButton buttomKeyDown;
-	
+
 	Label labelMazeChoice;
 	Label labelDragonChoice;
 	Label labelDartsNumber;
@@ -69,13 +69,13 @@ public class JMazeOptions extends JDialog {
 	 */
 	public JMazeOptions() {
 		// JMazeOptions dialog = new JMazeOptions();
-		
+
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
 		contentPanel = new JPanel();
 		buttonPane = new JPanel();
 		getContentPane().setLayout(null);
-		
-		//Creates Panels
+
+		// Creates Panels
 		contentPanel.setBounds(0, 31, 484, 292);
 		this.setBounds(0, 0, 500, 350);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -101,14 +101,14 @@ public class JMazeOptions extends JDialog {
 			labelDragonNumber.setBounds(10, 79, 94, 22);
 		}
 		contentPanel.setLayout(null);
-		//Adds labels to contentPanel
+		// Adds labels to contentPanel
 		contentPanel.add(labelMazeChoice);
 		contentPanel.add(labelDragonChoice);
 		contentPanel.add(labelDartsNumber);
 		contentPanel.add(labelMazeSize);
 		contentPanel.add(labelDragonNumber);
 		{
-			//Creates Spinner for Darts 
+			// Creates Spinner for Darts
 			Darts = new JSpinner();
 			Darts.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 			Darts.setBounds(324, 79, 66, 22);
@@ -183,12 +183,16 @@ public class JMazeOptions extends JDialog {
 							MazeGUI.gameOpt.mazeSize++;
 
 						MazeGUI.gameOpt.dartsSize = (int) Darts.getValue();
-						if (MazeGUI.gameOpt.dartsSize >= MazeGUI.gameOpt.mazeSize * 0.75)
+						if (MazeGUI.gameOpt.dartsSize >= MazeGUI.gameOpt.mazeSize * 0.75) {
 							MazeGUI.gameOpt.dartsSize = MazeGUI.gameOpt.mazeSize / 4;
+							Darts.setValue(MazeGUI.gameOpt.dartsSize);
+						}
 
 						MazeGUI.gameOpt.dragonsSize = (int) dragonNumber.getValue();
-						if (MazeGUI.gameOpt.dragonsSize >= MazeGUI.gameOpt.mazeSize * 0.75)
+						if (MazeGUI.gameOpt.dragonsSize >= MazeGUI.gameOpt.mazeSize * 0.75) {
 							MazeGUI.gameOpt.dragonsSize = MazeGUI.gameOpt.mazeSize / 4;
+							dragonNumber.setValue(MazeGUI.gameOpt.dragonsSize);
+						}
 
 						switch (mazeChoices.getSelectedItem()) {
 						case "Default":
