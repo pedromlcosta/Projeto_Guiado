@@ -78,6 +78,7 @@ public class MazeEditor extends JDialog {
 				i = JOptionPane.showConfirmDialog(buttonPanel, "You will loose your current progress. Are you sure?", "Create a Maze", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
 				if (i == JOptionPane.YES_OPTION) {
 					gamePanel.s = editor.s;
+					gamePanel.setEnabled(true);
 					setVisible(false);
 				}
 			}

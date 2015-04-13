@@ -406,7 +406,6 @@ public class Status implements Serializable {
 	public boolean dragonsAlive() {
 		if (dragons.isEmpty())
 			return false;
-
 		for (int i = 0; i < dragons.size(); i++) {
 			if (dragons.get(i).isDragonAlive())
 				return true; // se ha algum vivo, da true
