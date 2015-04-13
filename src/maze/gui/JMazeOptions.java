@@ -117,7 +117,7 @@ public class JMazeOptions extends JDialog {
 		}
 		{
 			sizeSpinner = new JSpinner();
-			sizeSpinner.setModel(new SpinnerNumberModel(new Integer(11), new Integer(5), null, new Integer(2)));
+			sizeSpinner.setModel(new SpinnerNumberModel(MazeGUI.gameOpt.mazeSize, new Integer(5), null, new Integer(2)));
 			sizeSpinner.setBounds(322, 37, 68, 20);
 			contentPanel.add(sizeSpinner);
 		}
