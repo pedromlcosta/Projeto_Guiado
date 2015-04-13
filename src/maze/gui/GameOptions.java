@@ -1,8 +1,10 @@
 package maze.gui;
 
+import java.io.Serializable;
+
 import com.sun.glass.events.KeyEvent;
 
-public class GameOptions {
+public class GameOptions implements Serializable{
 
 	int dragonsSize;
 	int dartsSize;

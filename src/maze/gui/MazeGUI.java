@@ -38,6 +38,7 @@ public class MazeGUI implements MouseListener, MouseMotionListener, KeyListener 
 	final int defaultRandomSize = 13;
 	JMazeOptions gameOptions; // Associated with the options button
 	MazeEditor mazeEditorPanel;// Associated with the maze editor button
+	public static GameOptions gameOpt = new GameOptions(); //Saving game options
 
 	// int sizeX = 1;
 	// int sizeY = 1;
@@ -78,7 +79,7 @@ public class MazeGUI implements MouseListener, MouseMotionListener, KeyListener 
 		buttonPanel = new JPanel();
 		gamePanel = new JMaze();
 		gameOptions = new JMazeOptions();
-		gameInputOutput = new GameIO(gamePanel.s, JMazeOptions.gameOpt);
+		gameInputOutput = new GameIO(gamePanel.s, MazeGUI.gameOpt);
 
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setPreferredSize(new Dimension(700, 500));
@@ -167,15 +168,20 @@ public class MazeGUI implements MouseListener, MouseMotionListener, KeyListener 
 
 		optionsButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg) {
-				JMazeOptions temp;
+				GameOptions temp;
 				
-//				if ((temp = gameInputOutput.loadOptions()) == null) {
-//					//There was no file, nothing happens
-//				} else {
-//					gameOptions = temp;
-//				}
+				if ((temp = gameInputOutput.loadOptions()) == null) {
+					//There was no file, nothing happens
+				} else {
+					System.out.println("Load");
+					System.out.println(temp.mazeSize);
+					MazeGUI.gameOpt = temp;
+					System.out.println(MazeGUI.gameOpt.mazeSize);
+				}
 				gameOptions.setModal(true);
+				System.out.println("Aqui 1");
 				gameOptions.setVisible(true);
+				System.out.println("Aqui 2");
 				gameOptions.buttonPane.setVisible(true);
 				gameOptions.setAutoRequestFocus(true);
 				gameOptions.contentPanel.setVisible(true);
@@ -184,8 +190,8 @@ public class MazeGUI implements MouseListener, MouseMotionListener, KeyListener 
 				gamePanel.K_UP = gameOptions.getKeyUp();
 				gamePanel.K_LEFT = gameOptions.getKeyLeft();
 				gamePanel.K_RIGHT = gameOptions.getKeyRight();
-				gamePanel.s.setDragonChoice(JMazeOptions.gameOpt.dragonChoice);
-//				gameInputOutput.saveOptions(gameOptions);
+				gamePanel.s.setDragonChoice(MazeGUI.gameOpt.dragonChoice);
+				gameInputOutput.saveOptions(MazeGUI.gameOpt);
 				gamePanel.grabFocus();
 				
 			}
