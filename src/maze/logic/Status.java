@@ -11,31 +11,46 @@ public class Status implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	static int m = 0;
-	static int n = 0;
-	// Dragon dragons[];
+
 	ArrayList<Dragon> dragons;
 	Hero hero;
 	Exit exit;
 	Sword sword;
 	Shield shield;
-	// Darts darts[];
 	ArrayList<Darts> darts;
 	Maze maze;
 	int dragonChoice, mazeChoice, dragonSize, dartsSize;
 
+	/**
+	 * 
+	 * @return the total number of dragons
+	 */
 	public int getDragonSize() {
 		return dragonSize;
 	}
 
+	/**
+	 * changes the dragonSize
+	 * 
+	 * @param dragonSize
+	 */
 	public void setDragonSize(int dragonSize) {
 		this.dragonSize = dragonSize;
 	}
 
+	/**
+	 * 
+	 * @return the total number of darts
+	 */
 	public int getDartsSize() {
 		return dartsSize;
 	}
 
+	/**
+	 * changes the value of dartsSize
+	 * 
+	 * @param dartsSize
+	 */
 	public void setDartsSize(int dartsSize) {
 		this.dartsSize = dartsSize;
 	}
@@ -107,13 +122,6 @@ public class Status implements Serializable {
 
 	public ArrayList<Dragon> getDragons() {
 		return dragons;
-	}
-	
-	// TODO: mudar para "i"
-	public void initNumbers() {
-		// dragons = new Dragon[Main.random(maze.getMaze().length / 2) + 1];
-		//
-		// darts = new Darts[Main.random(maze.getMaze().length / 2) + 1];
 	}
 
 	public void initDragons(char figure, int nDragons) {
@@ -224,9 +232,9 @@ public class Status implements Serializable {
 	}
 
 	public boolean dragonsAlive() {
-		if(dragons.isEmpty())
+		if (dragons.isEmpty())
 			return false;
-		
+
 		for (int i = 0; i < dragons.size(); i++) {
 			if (dragons.get(i).isDragonAlive())
 				return true; // se ha algum vivo, da true
