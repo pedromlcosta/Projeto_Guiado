@@ -188,7 +188,9 @@ public class MazeGUI implements MouseListener, MouseMotionListener, KeyListener 
 					MazeEditor editor = new MazeEditor(gameOptions, gamePanel);
 					editor.setModal(true);
 					editor.setVisible(true);
+					gamePanel.repaint();
 				}
+
 			}
 		});
 		gamePanel.K_DOWN = gameOptions.getKeyDown();

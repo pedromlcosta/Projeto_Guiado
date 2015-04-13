@@ -72,7 +72,7 @@ public class MazeEditor extends JDialog {
 		setModal(true);
 		this.setMinimumSize(new Dimension(100, 100));
 		this.setSize(new Dimension(500, 500));
-
+		gamePanel = game;
 		buttonPanel = new JPanel();
 		editor = new EditorPanel(options);
 
@@ -109,7 +109,8 @@ public class MazeEditor extends JDialog {
 				// Saving the JMaze game reference to pass the status when
 				// editing is
 				// finished
-				gamePanel = game;
+				gamePanel.s = editor.s;
+				setVisible(false);
 			}
 		});
 		cancelButton.addActionListener(new ActionListener() {
