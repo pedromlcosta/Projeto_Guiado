@@ -82,6 +82,7 @@ class EditorPanel extends JPanel implements MouseListener, MouseMotionListener,
 						&& s.getDarts().get(i).getY() == y) {
 					// Found the dart we wanted to remove, at index i
 					s.getDarts().remove(i);
+					//System.out.println("Removeu dardo " +i);
 				}
 			}
 		}
@@ -250,13 +251,14 @@ class EditorPanel extends JPanel implements MouseListener, MouseMotionListener,
 				repaint();
 			} else if (SwingUtilities.isRightMouseButton(arg0)) {
 
-				// Attempts to remove dart or dragon, if the user clicked on any
-				// of them
-				removeDart(selectedMazeX, selectedMazeY);
-				removeDragon(selectedMazeX, selectedMazeY);
-
 				if (selectedMazeX < mazeSize - 1 && selectedMazeX > 0
 						&& selectedMazeY < mazeSize - 1 && selectedMazeY > 0) {
+					
+					// Attempts to remove dart or dragon, if the user clicked on any
+					// of them
+					removeDart(selectedMazeX, selectedMazeY);
+					removeDragon(selectedMazeX, selectedMazeY);
+					
 					s.getMaze().getMaze()[selectedMazeY][selectedMazeX] = ' ';
 				}
 
@@ -349,13 +351,16 @@ class EditorPanel extends JPanel implements MouseListener, MouseMotionListener,
 				repaint();
 			} else if (arg0.getButton() == MouseEvent.BUTTON3) { // RIGHT MOUSE
 																	// BUTTON
-				// Attempts to remove dart or dragon, if the user clicked on any
-				// of them
-				removeDart(selectedMazeX, selectedMazeY);
-				removeDragon(selectedMazeX, selectedMazeY);
 
+				
 				if (selectedMazeX < mazeSize - 1 && selectedMazeX > 0
 						&& selectedMazeY < mazeSize - 1 && selectedMazeY > 0) {
+					
+					// Attempts to remove dart or dragon, if the user clicked on any
+					// of them
+					removeDart(selectedMazeX, selectedMazeY);
+					removeDragon(selectedMazeX, selectedMazeY);
+					
 					s.getMaze().getMaze()[selectedMazeY][selectedMazeX] = ' ';
 				}
 
