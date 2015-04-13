@@ -39,9 +39,6 @@ class JMaze extends JPanel implements MouseListener, MouseMotionListener, KeyLis
 	public JMaze() {
 
 		s = new Status();
-		s.setDragonChoice(3);
-		s.setMazeChoice(2);
-		s.randomMaze(21, 0);
 
 		try {
 			kit = Toolkit.getDefaultToolkit();
@@ -56,7 +53,7 @@ class JMaze extends JPanel implements MouseListener, MouseMotionListener, KeyLis
 
 	public void newGame(JMazeOptions options) {
 		s = new Status();
-
+		this.setEnabled(true);
 		s.setDragonChoice(MazeGUI.gameOpt.dragonChoice);
 		s.setMazeChoice(MazeGUI.gameOpt.mazeChoice);
 		s.setDragonSize(MazeGUI.gameOpt.dragonsSize);
@@ -77,6 +74,12 @@ class JMaze extends JPanel implements MouseListener, MouseMotionListener, KeyLis
 		super.paintComponent(g);
 		g.setColor(Color.BLUE);
 		grabFocus();
+
+		if (s.getMaze().getMaze().length == 0) {
+			this.setEnabled(false);
+			return;
+		}
+
 		try {
 			if (getWidth() > getHeight()) {
 				size = getHeight() / ((s.getMaze().getMaze().length));

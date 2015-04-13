@@ -38,7 +38,8 @@ public class MazeGUI implements MouseListener, MouseMotionListener, KeyListener 
 	final int defaultRandomSize = 13;
 	JMazeOptions gameOptions; // Associated with the options button
 	MazeEditor mazeEditorPanel;// Associated with the maze editor button
-	public static GameOptions gameOpt = new GameOptions(); //Saving game options
+	public static GameOptions gameOpt = new GameOptions(); // Saving game
+															// options
 
 	// int sizeX = 1;
 	// int sizeY = 1;
@@ -61,7 +62,6 @@ public class MazeGUI implements MouseListener, MouseMotionListener, KeyListener 
 				try {
 					MazeGraphics.load();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 				MazeGUI gui = new MazeGUI();
@@ -169,9 +169,9 @@ public class MazeGUI implements MouseListener, MouseMotionListener, KeyListener 
 		optionsButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg) {
 				GameOptions temp;
-				
+
 				if ((temp = gameInputOutput.loadOptions()) == null) {
-					//There was no file, nothing happens
+					// There was no file, nothing happens
 				} else {
 					System.out.println("Load");
 					System.out.println(temp.mazeSize);
@@ -182,7 +182,7 @@ public class MazeGUI implements MouseListener, MouseMotionListener, KeyListener 
 				System.out.println("Aqui 1");
 				gameOptions.setVisible(true);
 				System.out.println("Aqui 2");
-				
+
 				gamePanel.K_DOWN = gameOptions.getKeyDown();
 				gamePanel.K_UP = gameOptions.getKeyUp();
 				gamePanel.K_LEFT = gameOptions.getKeyLeft();
@@ -190,17 +190,17 @@ public class MazeGUI implements MouseListener, MouseMotionListener, KeyListener 
 				gamePanel.s.setDragonChoice(MazeGUI.gameOpt.dragonChoice);
 				gameInputOutput.saveOptions(MazeGUI.gameOpt);
 				gamePanel.grabFocus();
-				
+
 			}
 		});
 
 		mazeEditorButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg) {
-			
-					MazeEditor editor = new MazeEditor(gameOptions, gamePanel);
-					editor.setModal(true);
-					editor.setVisible(true);
-					gamePanel.repaint();
+
+				MazeEditor editor = new MazeEditor(gameOptions, gamePanel);
+				editor.setModal(true);
+				editor.setVisible(true);
+				gamePanel.repaint();
 			}
 		});
 		gamePanel.K_DOWN = gameOptions.getKeyDown();

@@ -23,7 +23,8 @@ public class Maze implements Serializable {
 	}
 
 	/**
-	 * Create a maze Object but the @param is the maze itself 
+	 * Create a maze Object but the @param is the maze itself
+	 * 
 	 * @param maze
 	 */
 	public Maze(char[][] maze) {
@@ -38,15 +39,31 @@ public class Maze implements Serializable {
 		return maze.length;
 	}
 
+	/**
+	 * Return the Maze
+	 * 
+	 * @return
+	 */
 	public char[][] getMaze() {
 		return maze;
 	}
 
+	/**
+	 * Changes the Maze
+	 * 
+	 * @param maze
+	 */
 	public void setMaze(char[][] maze) {
 
 		this.maze = maze;
 	}
 
+	/**
+	 * Generates a Maze, where x and y are the startp up point
+	 * 
+	 * @param x
+	 * @param y
+	 */
 	public void generateMaze(int x, int y) {
 		int direction[] = new int[4];
 		Arrays.fill(direction, -1);
@@ -94,6 +111,14 @@ public class Maze implements Serializable {
 		return;
 	}
 
+	/**
+	 * Adds an Element to the maze, the pos1 and pos2 must be valid
+	 * 
+	 * @param pos1
+	 * @param pos2
+	 * @param ele
+	 * @return
+	 */
 	public boolean addElement(int pos1, int pos2, Element ele) {
 		if (pos1 >= maze.length - 1 || pos1 <= 0 || pos2 >= maze.length - 1 || pos2 <= 0 || maze[pos2][pos1] != ' ') {
 			return false;
@@ -105,7 +130,12 @@ public class Maze implements Serializable {
 		}
 	}
 
-	// Adaptada a classes
+	/**
+	 * generates an Exit
+	 * 
+	 * @param s
+	 * @return
+	 */
 	public boolean generateExit(Status s) {
 		int pos1, pos2;
 		boolean created = false;
@@ -141,6 +171,12 @@ public class Maze implements Serializable {
 
 	}
 
+	/**
+	 * Creates a Element
+	 * 
+	 * @param ele
+	 * @return
+	 */
 	public boolean generateCharacter(Element ele) {
 		int pos1, pos2;
 
@@ -154,6 +190,9 @@ public class Maze implements Serializable {
 		}
 	}
 
+	/**
+	 * toString of Maze
+	 */
 	public String toString() {
 		String resp = "";
 		for (int i = 0; i < maze.length; i++) {
