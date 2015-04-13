@@ -12,6 +12,8 @@ import javax.swing.JSpinner;
 import javax.swing.SpinnerNumberModel;
 import javax.swing.border.EmptyBorder;
 
+import com.sun.glass.events.KeyEvent;
+
 @SuppressWarnings("serial")
 public class JMazeOptions extends JDialog {
 	final int defaultRandomSize = 13;
@@ -71,15 +73,14 @@ public class JMazeOptions extends JDialog {
 		dartsSize = 0;
 		dragonsSize = 1;
 		mazeSize = 11;
-		KEY_UP = 0;
-		KEY_DOWN = 1;
-		KEY_LEFT = 2;
-		KEY_RIGHT = 3;
 
-		//
+		KEY_UP = KeyEvent.VK_UP;
+		KEY_DOWN = KeyEvent.VK_DOWN;
+		KEY_LEFT = KeyEvent.VK_LEFT;
+		KEY_RIGHT = KeyEvent.VK_RIGHT;
 
 		getContentPane().setLayout(null);
-		contentPanel.setBounds(0, 31, 500, 400);
+		contentPanel.setBounds(0, 31, 484, 292);
 		this.setBounds(0, 0, 500, 350);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
 		getContentPane().add(contentPanel);
@@ -144,22 +145,22 @@ public class JMazeOptions extends JDialog {
 		}
 		{
 			buttomKeyUp = new JButton("Move Up: ");
-			buttomKeyUp.setBounds(83, 185, 120, 22);
+			buttomKeyUp.setBounds(33, 185, 199, 22);
 			contentPanel.add(buttomKeyUp);
 		}
 		{
 			buttomKeyRight = new JButton("Move Right: ");
-			buttomKeyRight.setBounds(298, 218, 121, 23);
+			buttomKeyRight.setBounds(263, 218, 199, 23);
 			contentPanel.add(buttomKeyRight);
 		}
 		{
 			buttomKeyLeft = new JButton("Move Left: ");
-			buttomKeyLeft.setBounds(298, 185, 121, 23);
+			buttomKeyLeft.setBounds(263, 185, 199, 23);
 			contentPanel.add(buttomKeyLeft);
 		}
 		{
 			buttomKeyDown = new JButton("Move Down: ");
-			buttomKeyDown.setBounds(84, 218, 119, 23);
+			buttomKeyDown.setBounds(33, 218, 199, 22);
 			contentPanel.add(buttomKeyDown);
 		}
 
@@ -228,8 +229,8 @@ public class JMazeOptions extends JDialog {
 			cancelButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					try {
-						contentPanel.setVisible(false);
-						contentPanel.setVisible(false);
+
+						setVisible(false);
 
 					} catch (Exception e) {
 						dragonChoice = 1;
@@ -244,31 +245,52 @@ public class JMazeOptions extends JDialog {
 			buttomKeyUp.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					key = new KeyBinding(KEY_UP);
+					key.setVisible(true);
 					KEY_UP = key.keyToBeRead;
-					buttomKeyUp.setText(buttomKeyUp.getText() + " " + key.getName());
+					buttomKeyUp.setText("Move Up: " + key.letter);
 				}
 			});
 			buttomKeyRight.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					key = new KeyBinding(KEY_RIGHT);
+					key.setVisible(true);
 					KEY_RIGHT = key.keyToBeRead;
-					buttomKeyRight.setText(buttomKeyRight.getText() + " " + key.getName());
+					buttomKeyRight.setText("Move Right: " + key.letter);
 				}
 			});
 			buttomKeyLeft.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					key = new KeyBinding(KEY_LEFT);
+					key.setVisible(true);
 					KEY_LEFT = key.keyToBeRead;
-					buttomKeyLeft.setText(buttomKeyLeft.getText() + " " + key.getName());
+					buttomKeyLeft.setText("Move Left: " + key.letter);
 				}
 			});
 			buttomKeyDown.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent arg0) {
 					key = new KeyBinding(KEY_DOWN);
+					key.setVisible(true);
 					KEY_DOWN = key.keyToBeRead;
-					buttomKeyDown.setText(buttomKeyDown.getText() + " " + key.getName());
+					buttomKeyDown.setText("Move Down: " + key.letter);
 				}
 			});
 		}
+
+	}
+
+	public int getKeyDown() {
+		return KEY_DOWN;
+	}
+
+	public int getKeyUp() {
+		return KEY_UP;
+	}
+
+	public int getKeyRight() {
+		return KEY_RIGHT;
+	}
+
+	public int getKeyLeft() {
+		return KEY_LEFT;
 	}
 }

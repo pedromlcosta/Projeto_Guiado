@@ -12,6 +12,7 @@ public class KeyBinding extends JDialog implements KeyListener {
 	 */
 	private static final long serialVersionUID = 1L;
 	int keyToBeRead;
+	String letter;
 	JLabel newKeyLabel;
 
 	public KeyBinding(int Key) {
@@ -32,6 +33,7 @@ public class KeyBinding extends JDialog implements KeyListener {
 	@Override
 	public void keyPressed(KeyEvent arg0) {
 		keyToBeRead = arg0.getKeyCode();
+		letter = KeyEvent.getKeyText(keyToBeRead);
 		this.setVisible(false);
 		this.setFocusable(false);
 	}

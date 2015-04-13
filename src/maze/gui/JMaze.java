@@ -31,7 +31,10 @@ class JMaze extends JPanel implements MouseListener, MouseMotionListener, KeyLis
 	int size = 1;
 	int offsetY = 0;
 	int offsetX = 0;
-
+	int K_UP;
+	int K_DOWN;
+	int K_LEFT;
+	int K_RIGHT;
 
 	public JMaze() {
 
@@ -92,34 +95,24 @@ class JMaze extends JPanel implements MouseListener, MouseMotionListener, KeyLis
 	}
 
 	public void keyPressed(KeyEvent e) {
-		switch (e.getKeyCode()) {
-		case KeyEvent.VK_LEFT:
+		if (e.getKeyCode() == K_LEFT) {
 			s.updateBoard('a');
 			// s.move_hero(s.getHero().getX(), s.getHero().getY() - 1);
 			repaint();
-			break;
-
-		case KeyEvent.VK_RIGHT:
+		} else if (e.getKeyCode() == K_RIGHT) {
 			s.updateBoard('d');
 			// s.move_hero(s.getHero().getX(), s.getHero().getY() + 1);
 			repaint();
-			break;
-
-		case KeyEvent.VK_UP:
+		} else if (e.getKeyCode() == K_UP) {
 			s.updateBoard('w');
 			// s.move_hero(s.getHero().getX() - 1, s.getHero().getY());
 			repaint();
-			break;
-
-		case KeyEvent.VK_DOWN:
+		} else if (e.getKeyCode() == K_DOWN) {
 			s.updateBoard('s');
 			// s.move_hero(s.getHero().getX() + 1, s.getHero().getY());
 			repaint();
-			break;
-
-		default: {
+		} else {
 			repaint();
-		}
 		}
 	}
 
