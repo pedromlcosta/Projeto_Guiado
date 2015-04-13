@@ -725,9 +725,12 @@ public class Status implements Serializable {
 	}
 
 	/**
-	 * checks if the hero movement is  valid and moves the hero
-	 * @param newX for the Hero
-	 * @param newY for the hero
+	 * checks if the hero movement is valid and moves the hero
+	 * 
+	 * @param newX
+	 *            for the Hero
+	 * @param newY
+	 *            for the hero
 	 * @return if the movement was efectuated
 	 */
 	public boolean moveHero(int newX, int newY) {
@@ -799,6 +802,7 @@ public class Status implements Serializable {
 
 	/**
 	 * is responsible for moving the dragons
+	 * 
 	 * @param dragon
 	 * @return
 	 */
@@ -867,7 +871,7 @@ public class Status implements Serializable {
 	// Updates status - is only called after the coordinates change(after the
 	// units move)
 	/**
-	 * deals with all the changes caused by the moving elements  
+	 * deals with all the changes caused by the moving elements
 	 */
 	private void updateStatus() {
 
@@ -897,8 +901,11 @@ public class Status implements Serializable {
 			}
 
 			// CHECKS IF GAME IS OVER
+			System.out.println(hero.isArmed() + "  " + !dragonsAlive());
 			if (hero.isArmed() && !dragonsAlive()) {
+
 				if (hero.getX() == exit.getX() && hero.getY() == exit.getY()) {
+
 					gameOver = true;
 				}
 			}
@@ -932,8 +939,12 @@ public class Status implements Serializable {
 
 	/**
 	 * creates a new Maze whose elements positions will be random
-	 * @param size Size of the maze that is going to be created
-	 * @param choice WHen 0, everything is random, when 1, dragon and dart numbers are defined by the options
+	 * 
+	 * @param size
+	 *            Size of the maze that is going to be created
+	 * @param choice
+	 *            WHen 0, everything is random, when 1, dragon and dart numbers
+	 *            are defined by the options
 	 */
 	public void randomMaze(int size, int choice) {
 		maze.setMaze(new char[size][size]);
