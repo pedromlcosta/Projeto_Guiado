@@ -25,9 +25,9 @@ class EditorPanel extends JPanel implements MouseListener, MouseMotionListener,
 		Walls, Hero, Dragon, Sword, Shield, Darts, Exit
 	}
 
-	 Element selectedElement; // Default value is the wall
-	 JComboBox<Element> elementBox;
-	 
+	Element selectedElement; // Default value is the wall
+	JComboBox<Element> elementBox;
+
 	Status s;
 	int cursorX = 0, cursorY = 0;
 	int selectedMazeX;
@@ -66,7 +66,7 @@ class EditorPanel extends JPanel implements MouseListener, MouseMotionListener,
 		this.grabFocus();
 
 	}
-	
+
 	public Element getElement() {
 		return selectedElement;
 	}
@@ -152,149 +152,173 @@ class EditorPanel extends JPanel implements MouseListener, MouseMotionListener,
 
 		setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 
-		// JOptionPane.showConfirmDialog(getParent(), selectedMazeX + " " +
-		// selectedMazeY, "", JOptionPane.YES_NO_OPTION,
-		// JOptionPane.WARNING_MESSAGE);
-
-		if (SwingUtilities.isLeftMouseButton(arg0)) {
-			switch (selectedElement) {
-			case Walls:
-				if (selectedMazeX < mazeSize - 1 && selectedMazeX > 0
-						&& selectedMazeY < mazeSize - 1 && selectedMazeY > 0) // inside
-																				// acceptable
-																				// boundaries
-				{
-					if (s.getMaze().getMaze()[selectedMazeY][selectedMazeX] == ' ') {
-						s.getMaze().getMaze()[selectedMazeY][selectedMazeX] = 'X';
+		// Will only enter the switch if the X and Y are inside the maze
+		if (selectedMazeX < mazeSize && selectedMazeX >= 0
+				&& selectedMazeY < mazeSize && selectedMazeY >= 0) {
+			if (SwingUtilities.isLeftMouseButton(arg0)) {
+				switch (selectedElement) {
+				case Walls:
+					if (selectedMazeX < mazeSize - 1 && selectedMazeX > 0
+							&& selectedMazeY < mazeSize - 1
+							&& selectedMazeY > 0) { // inside
+													// acceptable
+													// boundaries
+						if (s.getMaze().getMaze()[selectedMazeY][selectedMazeX] == ' ') {
+							s.getMaze().getMaze()[selectedMazeY][selectedMazeX] = 'X';
+						}
 					}
-				}
-				break;
-			case Hero:
-				break;
-			case Dragon:
-				break;
-			case Sword:
-				break;
-			case Shield:
-				break;
-			case Darts:
-				break;
-			
-			case Exit:
-				break;
-			}
+					break;
+				case Hero:
+					break;
+				case Dragon:
+					if (s.getMaze().getMaze()[selectedMazeY][selectedMazeX] == ' ') {
+						s.getMaze().getMaze()[selectedMazeY][selectedMazeX] = 'D';
+						//ADICIONAR A S.DRAGONS
+					}
+					break;
+				case Sword:
+					break;
+				case Shield:
+					break;
+				case Darts:
+					if (s.getMaze().getMaze()[selectedMazeY][selectedMazeX] == ' ') {
+						s.getMaze().getMaze()[selectedMazeY][selectedMazeX] = '-';
+						//ADICIONAR A S.DARTS
+					}
+					break;
 
-			repaint();
-		} else if (SwingUtilities.isRightMouseButton(arg0)) { 
-			switch (selectedElement) {
-			case Walls:
-				if (selectedMazeX < mazeSize - 1 && selectedMazeX > 0
-						&& selectedMazeY < mazeSize - 1 && selectedMazeY > 0) // inside
-																				// acceptable
-																				// boundaries
-				{
-					//RIGHT BUTTON REMOVES WHEN DRAGGED
+				case Exit:
+					break;
+				}
+
+				repaint();
+			} else if (SwingUtilities.isRightMouseButton(arg0)) {
+				switch (selectedElement) {
+				case Walls:
+					if (selectedMazeX < mazeSize - 1 && selectedMazeX > 0
+							&& selectedMazeY < mazeSize - 1
+							&& selectedMazeY > 0) { // inside
+													// acceptable
+													// boundaries
+						// RIGHT BUTTON REMOVES WHEN DRAGGED
+						s.getMaze().getMaze()[selectedMazeY][selectedMazeX] = ' ';
+					}
+					break;
+				case Hero:
 					s.getMaze().getMaze()[selectedMazeY][selectedMazeX] = ' ';
+					break;
+				case Dragon:
+					s.getMaze().getMaze()[selectedMazeY][selectedMazeX] = ' ';
+					break;
+				case Sword:
+					s.getMaze().getMaze()[selectedMazeY][selectedMazeX] = ' ';
+					break;
+				case Shield:
+					s.getMaze().getMaze()[selectedMazeY][selectedMazeX] = ' ';
+					break;
+				case Darts:
+					s.getMaze().getMaze()[selectedMazeY][selectedMazeX] = ' ';
+					//
+					break;
+				case Exit:
+					//Substitutes exit for a wall, since exits are only on the sides
+					s.getMaze().getMaze()[selectedMazeY][selectedMazeX] = 'X';
+					break;
 				}
-				break;
-			case Hero:
-				break;
-			case Dragon:
-				break;
-			case Sword:
-				break;
-			case Shield:
-				break;
-			case Darts:
-				break;
-			case Exit:
-				break;
-			}
 
-			repaint();
+				repaint();
+			}
 		}
 	}
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
 
-		
-		
 		cursorX = arg0.getX();
 		cursorY = arg0.getY();
+		selectedMazeX = (arg0.getX() - offsetX) / size;
+		selectedMazeY = (arg0.getY() - offsetY) / size;
 		int mazeSize = s.getMaze().getMaze().length;
-		if (arg0.getButton() == MouseEvent.BUTTON1) { // LEFT MOUSE BUTTON
-			setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+		setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 
-			selectedMazeX = (arg0.getX() - offsetX) / size;
-			selectedMazeY = (arg0.getY() - offsetY) / size;
+		// Will only enter the switch if the X and Y are inside the maze
+		if (selectedMazeX < mazeSize && selectedMazeX >= 0
+				&& selectedMazeY < mazeSize && selectedMazeY >= 0) {
 
-			// JOptionPane.showConfirmDialog(getParent(), selectedMazeX + " " +
-			// selectedMazeY, "", JOptionPane.YES_NO_OPTION,
-			// JOptionPane.WARNING_MESSAGE);
+			if (arg0.getButton() == MouseEvent.BUTTON1) { // LEFT MOUSE BUTTON
 
-			switch (selectedElement) {
-			case Walls:
-				if (selectedMazeX < mazeSize - 1 && selectedMazeX > 0
-						&& selectedMazeY < mazeSize - 1 && selectedMazeY > 0) { // inside
-																				// acceptable
-																				// boundaries
-					if (s.getMaze().getMaze()[selectedMazeY][selectedMazeX] == ' ') {
-						s.getMaze().getMaze()[selectedMazeY][selectedMazeX] = 'X';
+				switch (selectedElement) {
+				case Walls:
+					if (selectedMazeX < mazeSize - 1 && selectedMazeX > 0
+							&& selectedMazeY < mazeSize - 1
+							&& selectedMazeY > 0) { // inside
+													// acceptable
+													// boundaries
+						if (s.getMaze().getMaze()[selectedMazeY][selectedMazeX] == ' ') {
+							s.getMaze().getMaze()[selectedMazeY][selectedMazeX] = 'X';
+						}
 					}
+					break;
+				case Hero:
+					break;
+				case Dragon:
+					if (s.getMaze().getMaze()[selectedMazeY][selectedMazeX] == ' ') {
+						s.getMaze().getMaze()[selectedMazeY][selectedMazeX] = 'D';
+						//ADICIONAR A S.DRAGONS
+					}
+					break;
+				case Sword:
+					break;
+				case Shield:
+					break;
+				case Darts:
+					if (s.getMaze().getMaze()[selectedMazeY][selectedMazeX] == ' ') {
+						s.getMaze().getMaze()[selectedMazeY][selectedMazeX] = '-';
+						//ADICIONAR A S.DARTS
+					}
+					break;
+				case Exit:
+					break;
 				}
-				break;
-			case Hero:
-				break;
-			case Dragon:
-				break;
-			case Sword:
-				break;
-			case Shield:
-				break;
-			case Darts:
-				break;
-			case Exit:
-				break;
-			}
 
-			repaint();
-		} else if (arg0.getButton() == MouseEvent.BUTTON3) { // RIGHT MOUSE
-			// BUTTON
-			setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+				repaint();
+			} else if (arg0.getButton() == MouseEvent.BUTTON3) { //RIGHT MOUSE BUTTON
 
-			selectedMazeX = (arg0.getX() - offsetX) / size;
-			selectedMazeY = (arg0.getY() - offsetY) / size;
+				selectedMazeX = (arg0.getX() - offsetX) / size;
+				selectedMazeY = (arg0.getY() - offsetY) / size;
 
-			// JOptionPane.showConfirmDialog(getParent(), selectedMazeX + " " +
-			// selectedMazeY, "", JOptionPane.YES_NO_OPTION,
-			// JOptionPane.WARNING_MESSAGE);
-
-			switch (selectedElement) {
-			case Walls:
-				if (selectedMazeX < mazeSize - 1 && selectedMazeX > 0
-						&& selectedMazeY < mazeSize - 1 && selectedMazeY > 0) {
-
+				switch (selectedElement) {
+				case Walls:
+					if (selectedMazeX < mazeSize - 1 && selectedMazeX > 0
+							&& selectedMazeY < mazeSize - 1
+							&& selectedMazeY > 0) {
+						s.getMaze().getMaze()[selectedMazeY][selectedMazeX] = ' ';
+					}
+					break;
+				case Hero:
 					s.getMaze().getMaze()[selectedMazeY][selectedMazeX] = ' ';
-
+					break;
+				case Dragon:
+					s.getMaze().getMaze()[selectedMazeY][selectedMazeX] = ' ';
+					break;
+				case Sword:
+					s.getMaze().getMaze()[selectedMazeY][selectedMazeX] = ' ';
+					break;
+				case Shield:
+					s.getMaze().getMaze()[selectedMazeY][selectedMazeX] = ' ';
+					break;
+				case Darts:
+					s.getMaze().getMaze()[selectedMazeY][selectedMazeX] = ' ';
+					break;
+				case Exit:
+					s.getMaze().getMaze()[selectedMazeY][selectedMazeX] = 'X';
+					break;
 				}
-				break;
-			case Hero:
-				break;
-			case Dragon:
-				break;
-			case Sword:
-				break;
-			case Shield:
-				break;
-			case Darts:
-				break;
-			case Exit:
-				break;
-			}
 
-			repaint();
+				repaint();
+			}
 		}
+
 	}
 
 	@Override
