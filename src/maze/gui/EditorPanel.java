@@ -81,22 +81,22 @@ class EditorPanel extends JPanel implements MouseListener, MouseMotionListener, 
 				if (s.getDarts().get(i).getX() == x && s.getDarts().get(i).getY() == y) {
 					// Found the dart we wanted to remove, at index i
 					s.getDarts().remove(i);
+					break;
 				}
 			}
 		}
 	}
 
 	public void removeDragon(int x, int y) {
-		// If there is a dragon on the location, attempt to remove from
-		// arrayList
+		// If there is a dart on the location, attempt to remove from arrayList
 		if (s.getMaze().getMaze()[y][x] == 'D') {
 			for (int i = 0; i < s.getDragons().size(); i++) {
-				if (s.getDragons().get(i).getX() == x && s.getDarts().get(i).getY() == y) {
-					// Found the dragon we wanted to remove, at index i
+				if (s.getDragons().get(i).getX() == x && s.getDragons().get(i).getY() == y) {
+					// Found the dart we wanted to remove, at index i
 					s.getDragons().remove(i);
+					break;
 				}
 			}
-
 		}
 	}
 
