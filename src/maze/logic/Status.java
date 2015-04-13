@@ -415,7 +415,7 @@ public class Status implements Serializable {
 	}
 
 	/**
-	 * Checks if hero is in Radom Mode (Default does not have Darts) checks if
+	 * Checks if hero is in Random Mode (Default does not have Darts) checks if
 	 * any Dart is being picked up by the hero
 	 */
 	public void heroDarts() {
@@ -446,7 +446,7 @@ public class Status implements Serializable {
 	}
 
 	/**
-	 * checks if the darts throw by the hero in the direction kills any dragon
+	 * checks if the darts thrown by the hero in the direction kills any dragon
 	 * 
 	 * @param direction
 	 */
@@ -726,10 +726,10 @@ public class Status implements Serializable {
 	}
 
 	/**
-	 * checks if the hero movement is  valid 
-	 * @param newX
-	 * @param newY
-	 * @return
+	 * checks if the hero movement is  valid and moves the hero
+	 * @param newX for the Hero
+	 * @param newY for the hero
+	 * @return if the movement was efectuated
 	 */
 	public boolean moveHero(int newX, int newY) {
 
