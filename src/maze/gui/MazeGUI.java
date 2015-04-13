@@ -81,6 +81,17 @@ public class MazeGUI implements MouseListener, MouseMotionListener, KeyListener 
 		gameOptions = new JMazeOptions();
 		gameInputOutput = new GameIO(gamePanel.s, MazeGUI.gameOpt);
 
+		GameOptions temp;
+
+		if ((temp = gameInputOutput.loadOptions()) == null) {
+			// There was no file, nothing happens
+		} else {
+			System.out.println("Load");
+			System.out.println(temp.mazeSize);
+			MazeGUI.gameOpt = temp;
+			System.out.println(MazeGUI.gameOpt.mazeSize);
+		}
+		
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setPreferredSize(new Dimension(700, 500));
 		mainFrame.pack();
@@ -168,16 +179,7 @@ public class MazeGUI implements MouseListener, MouseMotionListener, KeyListener 
 
 		optionsButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg) {
-				GameOptions temp;
-
-				if ((temp = gameInputOutput.loadOptions()) == null) {
-					// There was no file, nothing happens
-				} else {
-					System.out.println("Load");
-					System.out.println(temp.mazeSize);
-					MazeGUI.gameOpt = temp;
-					System.out.println(MazeGUI.gameOpt.mazeSize);
-				}
+				
 				gameOptions.setModal(true);
 				System.out.println("Aqui 1");
 				gameOptions.setVisible(true);
@@ -287,6 +289,7 @@ public class MazeGUI implements MouseListener, MouseMotionListener, KeyListener 
 
 	public void keyPressed(KeyEvent e) {
 		gamePanel.keyPressed(e);
+		
 
 	}
 
