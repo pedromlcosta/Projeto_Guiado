@@ -45,6 +45,9 @@ import maze.gui.EditorPanel.Element;
 
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
+import javax.swing.JButton;
 
 public class MazeEditor extends JDialog {
 
@@ -75,16 +78,23 @@ public class MazeEditor extends JDialog {
 		getContentPane().add(editor, BorderLayout.CENTER);
 
 		elementBox = new JComboBox<EditorPanel.Element>();
+		
 
 		elementBox.setModel(new DefaultComboBoxModel<EditorPanel.Element>(EditorPanel.Element.values()));
 		elementBox.setSelectedIndex(0);
 
+		elementBox.addMouseListener(new MouseAdapter() {
+			public void mouseClicked(MouseEvent arg0) {
+				editor.setElement(elementBox.getItemAt(elementBox.getSelectedIndex()));
+			}
+		});
+		buttonPanel.add(elementBox);
+		
 		elementBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				editor.setElement(elementBox.getItemAt(elementBox.getSelectedIndex()));
 			}
 		});
-		buttonPanel.add(elementBox);
 
 		// Saving the JMaze game reference to pass the status when editing is
 		// finished

@@ -10,6 +10,7 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.io.IOException;
 
+import javax.swing.JComboBox;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
@@ -25,7 +26,8 @@ class EditorPanel extends JPanel implements MouseListener, MouseMotionListener,
 	}
 
 	 Element selectedElement; // Default value is the wall
-															
+	 JComboBox<Element> elementBox;
+	 
 	Status s;
 	int cursorX = 0, cursorY = 0;
 	int selectedMazeX;
@@ -64,7 +66,7 @@ class EditorPanel extends JPanel implements MouseListener, MouseMotionListener,
 		this.grabFocus();
 
 	}
-
+	
 	public Element getElement() {
 		return selectedElement;
 	}
@@ -156,16 +158,6 @@ class EditorPanel extends JPanel implements MouseListener, MouseMotionListener,
 
 		if (SwingUtilities.isLeftMouseButton(arg0)) {
 			switch (selectedElement) {
-			case Hero:
-
-			case Dragon:
-
-			case Sword:
-
-			case Shield:
-
-			case Darts:
-
 			case Walls:
 				if (selectedMazeX < mazeSize - 1 && selectedMazeX > 0
 						&& selectedMazeY < mazeSize - 1 && selectedMazeY > 0) // inside
@@ -176,22 +168,25 @@ class EditorPanel extends JPanel implements MouseListener, MouseMotionListener,
 						s.getMaze().getMaze()[selectedMazeY][selectedMazeX] = 'X';
 					}
 				}
+				break;
+			case Hero:
+				break;
+			case Dragon:
+				break;
+			case Sword:
+				break;
+			case Shield:
+				break;
+			case Darts:
+				break;
+			
 			case Exit:
+				break;
 			}
 
 			repaint();
 		} else if (SwingUtilities.isRightMouseButton(arg0)) { 
 			switch (selectedElement) {
-			case Hero:
-
-			case Dragon:
-
-			case Sword:
-
-			case Shield:
-
-			case Darts:
-
 			case Walls:
 				if (selectedMazeX < mazeSize - 1 && selectedMazeX > 0
 						&& selectedMazeY < mazeSize - 1 && selectedMazeY > 0) // inside
@@ -201,7 +196,19 @@ class EditorPanel extends JPanel implements MouseListener, MouseMotionListener,
 					//RIGHT BUTTON REMOVES WHEN DRAGGED
 					s.getMaze().getMaze()[selectedMazeY][selectedMazeX] = ' ';
 				}
+				break;
+			case Hero:
+				break;
+			case Dragon:
+				break;
+			case Sword:
+				break;
+			case Shield:
+				break;
+			case Darts:
+				break;
 			case Exit:
+				break;
 			}
 
 			repaint();
@@ -211,6 +218,8 @@ class EditorPanel extends JPanel implements MouseListener, MouseMotionListener,
 	@Override
 	public void mousePressed(MouseEvent arg0) {
 
+		
+		
 		cursorX = arg0.getX();
 		cursorY = arg0.getY();
 		int mazeSize = s.getMaze().getMaze().length;
@@ -225,16 +234,6 @@ class EditorPanel extends JPanel implements MouseListener, MouseMotionListener,
 			// JOptionPane.WARNING_MESSAGE);
 
 			switch (selectedElement) {
-			case Hero:
-
-			case Dragon:
-
-			case Sword:
-
-			case Shield:
-
-			case Darts:
-
 			case Walls:
 				if (selectedMazeX < mazeSize - 1 && selectedMazeX > 0
 						&& selectedMazeY < mazeSize - 1 && selectedMazeY > 0) { // inside
@@ -244,7 +243,19 @@ class EditorPanel extends JPanel implements MouseListener, MouseMotionListener,
 						s.getMaze().getMaze()[selectedMazeY][selectedMazeX] = 'X';
 					}
 				}
+				break;
+			case Hero:
+				break;
+			case Dragon:
+				break;
+			case Sword:
+				break;
+			case Shield:
+				break;
+			case Darts:
+				break;
 			case Exit:
+				break;
 			}
 
 			repaint();
@@ -260,16 +271,6 @@ class EditorPanel extends JPanel implements MouseListener, MouseMotionListener,
 			// JOptionPane.WARNING_MESSAGE);
 
 			switch (selectedElement) {
-			case Hero:
-
-			case Dragon:
-
-			case Sword:
-
-			case Shield:
-
-			case Darts:
-
 			case Walls:
 				if (selectedMazeX < mazeSize - 1 && selectedMazeX > 0
 						&& selectedMazeY < mazeSize - 1 && selectedMazeY > 0) {
@@ -277,7 +278,19 @@ class EditorPanel extends JPanel implements MouseListener, MouseMotionListener,
 					s.getMaze().getMaze()[selectedMazeY][selectedMazeX] = ' ';
 
 				}
+				break;
+			case Hero:
+				break;
+			case Dragon:
+				break;
+			case Sword:
+				break;
+			case Shield:
+				break;
+			case Darts:
+				break;
 			case Exit:
+				break;
 			}
 
 			repaint();
