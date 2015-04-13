@@ -8,7 +8,7 @@ import static org.junit.Assert.*;
 import org.junit.Test;
 
 public class MazeTest {
-
+	
 	@Test
 	public void moveTest() {
 		Status s = new Status();
@@ -51,8 +51,6 @@ public class MazeTest {
 		s.updateBoard('s');
 		assertEquals(true, s.getHero().isArmed());
 		assertEquals('A', s.getHero().getFigure());
-		//
-
 	}
 
 	@Test
@@ -162,8 +160,6 @@ public class MazeTest {
 		status.getMaze().setMaze(maze);
 		status.setHeroPos(1, 1);
 		status.setExitPos(9, 5);
-		// status.setSwordPos(4, 4);
-		//status.setDragons(new Dragon[1]);
 		status.getDragons().add(new Dragon(0, 0, 'D'));
 		status.setDragonPos(8, 8);
 		int nDarts = 0;
@@ -172,7 +168,6 @@ public class MazeTest {
 			nDarts = Main.random(maze.length / 2);
 
 		Darts[] darts = new Darts[nDarts];
-		//status.setDarts(darts);
 		status.initDarts('-', nDarts);
 
 		assertEquals(nDarts, status.getDarts().size());
@@ -183,12 +178,8 @@ public class MazeTest {
 		assertEquals(status.getHero().getnDarts(), darts.length);
 		// Test killing dragons in all 4 directions
 		nDarts = 5;
-		//darts = new Darts[nDarts];
-		//status.setDarts(darts);
 		status.initDarts('-', nDarts);
 		catchDarts(status, maze, nDarts, darts);
-		// assertEquals(5, status.getHero().getnDarts()); ver porque é que está
-		// a apanhar mais do que deve
 		status.moveHero(8, 5);
 		status.throwDart('s');
 		assertEquals(status.dragonsAlive(), false);
@@ -201,9 +192,7 @@ public class MazeTest {
 		// 1º falha pois tem 1 obstáculo (parede)
 		status.getDragons().get(0).setDragonAlive(true);
 		status.setDragonPos(1, 5);// ver porque é que com 4 mata
-		// MazeInterface.print_maze(maze);
 		status.throwDart('a');
-		// MazeInterface.print_maze(maze);
 		assertEquals(status.dragonsAlive(), true);
 		status.setDragonPos(1, 5);
 		status.moveHero(6, 5);
@@ -217,9 +206,6 @@ public class MazeTest {
 		// corregir quando se manda o dardo ele anda
 		assertEquals(status.dragonsAlive(), false);
 
-		// assertEquals(0, status.getHero().getnDarts());
-
-		// MazeInterface.print_maze(maze);
 	}
 
 	public void catchDarts(Status status, char[][] maze, int nDarts, Darts[] darts) {
@@ -245,6 +231,40 @@ public class MazeTest {
 	// /////////////////////////////////////////////////////////////////////////////////////////////
 	// /////////////////////////////////////////////////////////////////////////////////////////////
 	// /////////////////////////////////////////////////////////////////////////////////////////////
+
+	@Test
+	public void testRandomMazeGenerator() throws Exception {
+		int numMazes = 1001;
+		int maxSize = 101; // can change to any odd number >= 5
+
+		char[][] badWalls = { { 'X', 'X', 'X' }, { 'X', 'X', 'X' }, { 'X', 'X', 'X' } };
+		char[][] badSpaces = { { ' ', ' ' }, { ' ', ' ' } };
+		char[][] badDiag1 = { { 'X', ' ' }, { ' ', 'X' } };
+		char[][] badDiag2 = { { ' ', 'X' }, { 'X', ' ' } };
+
+		Random rand = new Random();
+		for (int i = 0; i < numMazes; i++) {
+			int size = maxSize == 5 ? 5 : 5 + 2 * rand.nextInt((maxSize - 5) / 2);
+
+			size = 13;
+			Status s = new Status();
+			s.setDragonChoice(1);
+			s.setMazeChoice(2);
+			s.randomMaze(size, 0);
+			Maze m = s.getMaze();
+
+			// MazeInterface.print_maze(m.getMaze());
+
+			assertTrue("Invalid maze boundaries in maze:\n" + m, checkBoundaries(m));
+			assertTrue("Maze exit not reachable in maze:\n" + m, checkExitReachable(s, m));
+			assertNotNull("Invalid walls in maze:\n" + m, !hasSquare(m, badWalls));
+			assertNotNull("Invalid spaces in maze:\n" + m, !hasSquare(m, badSpaces));
+			assertNotNull("Invalid diagonals in maze:\n" + m, !hasSquare(m, badDiag1));
+			assertNotNull("Invalid diagonals in maze:\n" + m, !hasSquare(m, badDiag2));
+			// MazeInterface.print_maze(m.getMaze());
+			assertTrue("Missing or overlapping objects in maze:\n" + m, notNullAndDistinct(s.getExit(), s.getHero(), s.getDragons().get(0), s.getSword()));
+		}
+	}
 
 	// a) the maze boundaries must have exactly one exit and everything else
 	// walls
@@ -318,9 +338,6 @@ public class MazeTest {
 		char[][] m = deepClone(maze.getMaze());
 		visit(m, s.getExit().getY(), s.getExit().getX());
 
-		// System.out.println("FECK");
-		// MazeInterface.print_maze(m);
-		// System.out.println("FECK2");
 
 		for (int i = 0; i < m.length; i++)
 			for (int j = 0; j < m.length; j++)
@@ -338,39 +355,5 @@ public class MazeTest {
 				if (args[i] == null || args[j] == null || args[i].equals(args[j]))
 					return false;
 		return true;
-	}
-
-	@Test
-	public void testRandomMazeGenerator() throws Exception {
-		int numMazes = 1001;
-		int maxSize = 101; // can change to any odd number >= 5
-
-		char[][] badWalls = { { 'X', 'X', 'X' }, { 'X', 'X', 'X' }, { 'X', 'X', 'X' } };
-		char[][] badSpaces = { { ' ', ' ' }, { ' ', ' ' } };
-		char[][] badDiag1 = { { 'X', ' ' }, { ' ', 'X' } };
-		char[][] badDiag2 = { { ' ', 'X' }, { 'X', ' ' } };
-
-		Random rand = new Random();
-		for (int i = 0; i < numMazes; i++) {
-			int size = maxSize == 5 ? 5 : 5 + 2 * rand.nextInt((maxSize - 5) / 2);
-
-			size = 13;
-			Status s = new Status();
-			s.setDragonChoice(1);
-			s.setMazeChoice(2);
-			s.randomMaze(size, 0);
-			Maze m = s.getMaze();
-
-			// MazeInterface.print_maze(m.getMaze());
-
-			assertTrue("Invalid maze boundaries in maze:\n" + m, checkBoundaries(m));
-			assertTrue("Maze exit not reachable in maze:\n" + m, checkExitReachable(s, m));
-			assertNotNull("Invalid walls in maze:\n" + m, !hasSquare(m, badWalls));
-			assertNotNull("Invalid spaces in maze:\n" + m, !hasSquare(m, badSpaces));
-			assertNotNull("Invalid diagonals in maze:\n" + m, !hasSquare(m, badDiag1));
-			assertNotNull("Invalid diagonals in maze:\n" + m, !hasSquare(m, badDiag2));
-			// MazeInterface.print_maze(m.getMaze());
-			assertTrue("Missing or overlapping objects in maze:\n" + m, notNullAndDistinct(s.getExit(), s.getHero(), s.getDragons().get(0), s.getSword()));
-		}
 	}
 }
