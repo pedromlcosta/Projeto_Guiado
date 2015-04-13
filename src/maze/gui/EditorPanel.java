@@ -197,9 +197,9 @@ class EditorPanel extends JPanel implements MouseListener, MouseMotionListener,
 					break;
 				case Hero:
 					if (s.getMaze().getMaze()[selectedMazeY][selectedMazeX] == ' ') {
-						//removes hero from old position
+						// removes hero from old position
 						s.getMaze().getMaze()[s.getHeroY()][s.getHeroX()] = ' ';
-						//Sets position and puts figure on maze
+						// Sets position and puts figure on maze
 						s.setHeroPos(selectedMazeX, selectedMazeY);
 
 					}
@@ -213,17 +213,27 @@ class EditorPanel extends JPanel implements MouseListener, MouseMotionListener,
 					break;
 				case Sword:
 					if (s.getMaze().getMaze()[selectedMazeY][selectedMazeX] == ' ') {
-						System.out.println("Posicao antiga: X - " + s.getSwordX() + " e Y - "+ s.getSwordY());
-						//removes hero from old position
+						// removes hero from old position
 						s.getMaze().getMaze()[s.getSwordY()][s.getSwordX()] = ' ';
-						//Sets position and puts figure on maze
+						// Sets position and puts figure on maze
 						s.setSwordPos(selectedMazeX, selectedMazeY);
-						
-						s.getMaze().getMaze()[selectedMazeY][selectedMazeX] = 'E';
 
 					}
 					break;
 				case Shield:
+					if (!shieldSet) {
+						if (s.getMaze().getMaze()[selectedMazeY][selectedMazeX] == ' ') {
+							// Sets position and puts figure on maze
+							s.setShieldPos(selectedMazeX, selectedMazeY);
+							shieldSet = true;
+						}
+					} else {
+						// removes shield from old position
+						s.getMaze().getMaze()[s.getShield().getY()][s
+								.getShield().getX()] = ' ';
+						// Sets position and puts figure on maze
+						s.setShieldPos(selectedMazeX, selectedMazeY);
+					}
 					break;
 				case Darts:
 					if (s.getMaze().getMaze()[selectedMazeY][selectedMazeX] == ' ') {
@@ -264,8 +274,8 @@ class EditorPanel extends JPanel implements MouseListener, MouseMotionListener,
 		selectedMazeY = (arg0.getY() - offsetY) / size;
 		int mazeSize = s.getMaze().getMaze().length;
 		setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-		
-		System.out.println("X: "+ selectedMazeX + " Y: " + selectedMazeY);
+
+		System.out.println("X: " + selectedMazeX + " Y: " + selectedMazeY);
 
 		// Will only enter the switch if the X and Y are inside the maze
 		if (selectedMazeX < mazeSize && selectedMazeX >= 0
@@ -287,9 +297,9 @@ class EditorPanel extends JPanel implements MouseListener, MouseMotionListener,
 					break;
 				case Hero:
 					if (s.getMaze().getMaze()[selectedMazeY][selectedMazeX] == ' ') {
-						//removes hero from old position
+						// removes hero from old position
 						s.getMaze().getMaze()[s.getHeroY()][s.getHeroX()] = ' ';
-						//Sets position and puts figure on maze
+						// Sets position and puts figure on maze
 						s.setHeroPos(selectedMazeX, selectedMazeY);
 
 					}
@@ -303,16 +313,27 @@ class EditorPanel extends JPanel implements MouseListener, MouseMotionListener,
 					break;
 				case Sword:
 					if (s.getMaze().getMaze()[selectedMazeY][selectedMazeX] == ' ') {
-						//removes hero from old position
-						System.out.println("Posicao antiga: X - " + s.getSwordX() + " e Y - "+ s.getSwordY());
+						// removes hero from old position
 						s.getMaze().getMaze()[s.getSwordY()][s.getSwordX()] = ' ';
-						//Sets position and puts figure on maze
+						// Sets position and puts figure on maze
 						s.setSwordPos(selectedMazeX, selectedMazeY);
-						s.getMaze().getMaze()[selectedMazeY][selectedMazeX] = 'E';
 
 					}
 					break;
 				case Shield:
+					if (!shieldSet) {
+						if (s.getMaze().getMaze()[selectedMazeY][selectedMazeX] == ' ') {
+							// Sets position and puts figure on maze
+							s.setShieldPos(selectedMazeX, selectedMazeY);
+							shieldSet = true;
+						}
+					} else {
+						// removes shield from old position
+						s.getMaze().getMaze()[s.getShield().getY()][s
+								.getShield().getX()] = ' ';
+						// Sets position and puts figure on maze
+						s.setShieldPos(selectedMazeX, selectedMazeY);
+					}
 					break;
 				case Darts:
 					if (s.getMaze().getMaze()[selectedMazeY][selectedMazeX] == ' ') {
