@@ -933,8 +933,8 @@ public class Status implements Serializable {
 
 	/**
 	 * creates a new Maze whose elements positions will be random
-	 * @param size
-	 * @param choice
+	 * @param size Size of the maze that is going to be created
+	 * @param choice WHen 0, everything is random, when 1, dragon and dart numbers are defined by the options
 	 */
 	public void randomMaze(int size, int choice) {
 		maze.setMaze(new char[size][size]);
