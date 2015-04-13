@@ -36,10 +36,10 @@ public class MazeGraphics {
 		shield = ImageIO.read(new File("images\\shield.png"));
 		exit = ImageIO.read(new File("images\\exit_open.png"));
 		dragonSleep = ImageIO.read(new File("images\\dragonSleeping.png"));
-		dragonSword = ImageIO.read(new File("images\\swordDragon.png"));
+		dragonSword = ImageIO.read(new File("images\\dragonSword.png"));
 		heroShield = ImageIO.read(new File("images\\heroShield.png"));
 		heroSword = ImageIO.read(new File("images\\heroArmed.png"));
-		dragonSwordSleep = ImageIO.read(new File("images\\swordDragonSleeping.png"));
+		dragonSwordSleep = ImageIO.read(new File("images\\dragonSwordSleeping.png"));
 		heroSwordShield = ImageIO.read(new File("images\\heroArmedShield.png"));
 	}
 	
