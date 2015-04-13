@@ -15,6 +15,7 @@ import java.io.File;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 import maze.logic.Status;
@@ -69,7 +70,8 @@ class JMaze extends JPanel implements MouseListener, MouseMotionListener, KeyLis
 
 	public void paintComponent(Graphics g) {
 		if (s.isGameOver()) {
-
+			this.setEnabled(false);
+			JOptionPane.showMessageDialog(this, "You lost!", "Game Over", JOptionPane.WARNING_MESSAGE);
 		}
 		super.paintComponent(g);
 		g.setColor(Color.BLUE);
