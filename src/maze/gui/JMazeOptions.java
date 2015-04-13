@@ -14,39 +14,42 @@ import javax.swing.border.EmptyBorder;
 
 @SuppressWarnings("serial")
 public class JMazeOptions extends JDialog {
-	
+
 	final int defaultRandomSize = 13;
-	
-//	int dragonsSize;
-//	int dartsSize;
-//	int mazeSize;
-//	int mazeChoice;
-//	int dragonChoice;
-//	int KEY_UP;
-//	int KEY_DOWN;
-//	int KEY_LEFT;
-//	int KEY_RIGHT;
-	
-	
+
+	// int dragonsSize;
+	// int dartsSize;
+	// int mazeSize;
+	// int mazeChoice;
+	// int dragonChoice;
+	// int KEY_UP;
+	// int KEY_DOWN;
+	// int KEY_LEFT;
+	// int KEY_RIGHT;
+
 	JPanel contentPanel;
 	JPanel buttonPane;
+
 	JButton cancelButton;
 	JButton doneButton;
-	Label labelMazeChoice;
-	Label labelDragonChoice;
-	Label labelDartsNumber;
-	Label labelMazeSize;
-	Label labelDragonNumber;
-	JSpinner Darts;
-	JSpinner sizeSpinner;
-	JSpinner dragonNumber;
-	Choice dragonChoices;
-	Choice mazeChoices;
 	JButton buttomKeyUp;
 	JButton buttomKeyRight;
 	JButton buttomKeyLeft;
 	JButton buttomKeyDown;
 	
+	Label labelMazeChoice;
+	Label labelDragonChoice;
+	Label labelDartsNumber;
+	Label labelMazeSize;
+	Label labelDragonNumber;
+
+	JSpinner Darts;
+	JSpinner sizeSpinner;
+	JSpinner dragonNumber;
+
+	Choice dragonChoices;
+	Choice mazeChoices;
+
 	KeyBinding key;
 
 	/**
@@ -66,12 +69,13 @@ public class JMazeOptions extends JDialog {
 	 */
 	public JMazeOptions() {
 		// JMazeOptions dialog = new JMazeOptions();
+		
 		setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-		setVisible(false);
 		contentPanel = new JPanel();
 		buttonPane = new JPanel();
-
 		getContentPane().setLayout(null);
+		
+		//Creates Panels
 		contentPanel.setBounds(0, 31, 484, 292);
 		this.setBounds(0, 0, 500, 350);
 		contentPanel.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -97,12 +101,14 @@ public class JMazeOptions extends JDialog {
 			labelDragonNumber.setBounds(10, 79, 94, 22);
 		}
 		contentPanel.setLayout(null);
+		//Adds labels to contentPanel
 		contentPanel.add(labelMazeChoice);
 		contentPanel.add(labelDragonChoice);
 		contentPanel.add(labelDartsNumber);
 		contentPanel.add(labelMazeSize);
 		contentPanel.add(labelDragonNumber);
 		{
+			//Creates Spinner for Darts 
 			Darts = new JSpinner();
 			Darts.setModel(new SpinnerNumberModel(new Integer(0), new Integer(0), null, new Integer(1)));
 			Darts.setBounds(324, 79, 66, 22);
@@ -122,7 +128,7 @@ public class JMazeOptions extends JDialog {
 			contentPanel.add(dragonNumber);
 		}
 		dragonChoices = new Choice();
-		
+
 		dragonChoices.setBounds(100, 135, 208, 20);
 		dragonChoices.add("Random Moving Dragon w/ sleep");
 		dragonChoices.add("Random Moving Dragon");

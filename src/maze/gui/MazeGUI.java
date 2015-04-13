@@ -182,10 +182,7 @@ public class MazeGUI implements MouseListener, MouseMotionListener, KeyListener 
 				System.out.println("Aqui 1");
 				gameOptions.setVisible(true);
 				System.out.println("Aqui 2");
-				gameOptions.buttonPane.setVisible(true);
-				gameOptions.setAutoRequestFocus(true);
-				gameOptions.contentPanel.setVisible(true);
-				gameOptions.requestFocusInWindow();
+				
 				gamePanel.K_DOWN = gameOptions.getKeyDown();
 				gamePanel.K_UP = gameOptions.getKeyUp();
 				gamePanel.K_LEFT = gameOptions.getKeyLeft();
