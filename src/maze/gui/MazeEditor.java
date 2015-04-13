@@ -44,6 +44,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 
 public class MazeEditor extends JDialog {
@@ -106,8 +107,12 @@ public class MazeEditor extends JDialog {
 				// Saving the JMaze game reference to pass the status when
 				// editing is
 				// finished
-				gamePanel.s = editor.s;
-				setVisible(false);
+				int i;
+				i = JOptionPane.showConfirmDialog(buttonPanel, "You will loose your current progress. Are you sure?", "Create a Maze", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+				if (i == JOptionPane.YES_OPTION) {
+					gamePanel.s = editor.s;
+					setVisible(false);
+				}
 			}
 		});
 		cancelButton.addActionListener(new ActionListener() {

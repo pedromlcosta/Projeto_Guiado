@@ -199,15 +199,11 @@ public class MazeGUI implements MouseListener, MouseMotionListener, KeyListener 
 
 		mazeEditorButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg) {
-				int i;
-				i = JOptionPane.showConfirmDialog(buttonPanel, "You will loose your current progress. Are you sure?", "Create a Maze", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
-				if (i == JOptionPane.YES_OPTION) {
+			
 					MazeEditor editor = new MazeEditor(gameOptions, gamePanel);
 					editor.setModal(true);
 					editor.setVisible(true);
 					gamePanel.repaint();
-				}
-
 			}
 		});
 		gamePanel.K_DOWN = gameOptions.getKeyDown();

@@ -13,28 +13,29 @@ public class Maze implements Serializable {
 	private static final long serialVersionUID = 1L;
 	char maze[][];
 
+	/**
+	 * Create a maze Object with the size -> Size
+	 * 
+	 * @param Size
+	 */
 	public Maze(int Size) {
 		maze = new char[Size][Size];
 	}
 
+	/**
+	 * Create a maze Object but the @param is the maze itself 
+	 * @param maze
+	 */
 	public Maze(char[][] maze) {
 		this.maze = maze;
 	}
 
+	/**
+	 * 
+	 * @return the size of the maze
+	 */
 	public int getSize() {
 		return maze.length;
-	}
-
-	public void mazePrint() {
-		for (int i = 0; i < maze.length; i++) {
-			for (int j = 0; j < maze[0].length; j++) {
-
-				System.out.print(maze[i][j]);
-				System.out.print(" ");
-
-			}
-			System.out.println("");
-		}
 	}
 
 	public char[][] getMaze() {
@@ -101,7 +102,7 @@ public class Maze implements Serializable {
 			ele.setX(pos1);
 			ele.setY(pos2);
 			return true;
-		} 
+		}
 	}
 
 	// Adaptada a classes
