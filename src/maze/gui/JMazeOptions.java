@@ -73,11 +73,11 @@ public class JMazeOptions extends JDialog {
 		}
 		{
 			labelDartsNumber = new Label("Darts number");
-			labelDartsNumber.setBounds(239, 79, 79, 22);
+			labelDartsNumber.setBounds(252, 79, 79, 22);
 		}
 		{
 			labelMazeSize = new Label("Size");
-			labelMazeSize.setBounds(242, 35, 35, 22);
+			labelMazeSize.setBounds(252, 35, 35, 22);
 		}
 		{
 			labelDragonNumber = new Label("Dragons number");
@@ -94,14 +94,14 @@ public class JMazeOptions extends JDialog {
 			// Creates Spinner for Darts
 			Darts = new JSpinner();
 			Darts.setModel(new SpinnerNumberModel(MazeGUI.gameOpt.dartsSize, new Integer(0), null, new Integer(1)));
-			Darts.setBounds(324, 79, 66, 22);
+			Darts.setBounds(340, 79, 66, 22);
 			// Darts.
 			contentPanel.add(Darts);
 		}
 		{
 			sizeSpinner = new JSpinner();
 			sizeSpinner.setModel(new SpinnerNumberModel(MazeGUI.gameOpt.mazeSize, new Integer(5), null, new Integer(2)));
-			sizeSpinner.setBounds(322, 37, 68, 20);
+			sizeSpinner.setBounds(340, 35, 68, 20);
 			contentPanel.add(sizeSpinner);
 		}
 		{
@@ -125,10 +125,10 @@ public class JMazeOptions extends JDialog {
 		// MAZE CHOICE BOX
 
 		mazeChoiceBox = new JComboBox<String>();
-		mazeChoiceBox.setModel(new DefaultComboBoxModel<String>(new String[] { "Default Maze", "Random Maze" }));
+		mazeChoiceBox.setModel(new DefaultComboBoxModel<String>(new String[] { "Default Maze", "Random Maze w Options", "Random Maze" }));
 		// maze choice is from 1 to 2, index is 0 to 1
 		mazeChoiceBox.setSelectedIndex(MazeGUI.gameOpt.mazeChoice - 1);
-		mazeChoiceBox.setBounds(100, 35, 122, 22);
+		mazeChoiceBox.setBounds(100, 35, 146, 22);
 		contentPanel.add(mazeChoiceBox);
 
 		// KEY BUTTONS
@@ -191,6 +191,8 @@ public class JMazeOptions extends JDialog {
 						case 1:
 							MazeGUI.gameOpt.mazeChoice = 2;
 							break;
+						case 2:
+							MazeGUI.gameOpt.mazeChoice = 3;
 						default:
 
 							break;
