@@ -53,7 +53,6 @@ class JMaze extends JPanel implements MouseListener, MouseMotionListener, KeyLis
 	}
 
 	public void newGame(JMazeOptions options) {
-		System.out.println(MazeGUI.gameOpt.dragonChoice-1);
 		s = new Status();
 		this.setEnabled(true);
 		s.setDragonChoice(MazeGUI.gameOpt.dragonChoice);
@@ -70,15 +69,7 @@ class JMaze extends JPanel implements MouseListener, MouseMotionListener, KeyLis
 	}
 
 	public void paintComponent(Graphics g) {
-//		if (s.isGameOver()) {
-//			this.setEnabled(false);
-//			if (!s.getHero().isHeroAlive())
-//				JOptionPane.showMessageDialog(this, "You lost!", "Game Over", JOptionPane.YES_NO_CANCEL_OPTION);
-//			else {
-//				JOptionPane.showMessageDialog(this, "You Won!", "Game Over", JOptionPane.YES_NO_CANCEL_OPTION);
-//
-//			}
-//		}
+
 		super.paintComponent(g);
 		g.setColor(Color.BLUE);
 		grabFocus();
@@ -125,7 +116,7 @@ class JMaze extends JPanel implements MouseListener, MouseMotionListener, KeyLis
 		} else {
 			repaint();
 		}
-		
+
 		if (s.isGameOver()) {
 			this.setEnabled(false);
 			if (!s.getHero().isHeroAlive())
@@ -139,13 +130,11 @@ class JMaze extends JPanel implements MouseListener, MouseMotionListener, KeyLis
 
 	@Override
 	public void keyReleased(KeyEvent arg0) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void keyTyped(KeyEvent arg0) {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -161,31 +150,26 @@ class JMaze extends JPanel implements MouseListener, MouseMotionListener, KeyLis
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void mouseReleased(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 
 	}
 }

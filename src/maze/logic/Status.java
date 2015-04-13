@@ -20,6 +20,7 @@ public class Status implements Serializable {
 	ArrayList<Darts> darts;
 	Maze maze;
 	int dragonChoice, mazeChoice, dragonSize, dartsSize;
+	boolean gameOver;
 
 	/**
 	 * 
@@ -55,32 +56,64 @@ public class Status implements Serializable {
 		this.dartsSize = dartsSize;
 	}
 
-	boolean gameOver;
-
+	/**
+	 * 
+	 * @return true if the hero has died or if the victory conditions have been
+	 *         achieved Victory conditions: Hero has Sword Kill all dragons
+	 *         Reach the Exit
+	 */
 	public boolean isGameOver() {
 		return gameOver;
 	}
 
+	/**
+	 * changes the flag gameOver
+	 * 
+	 * @param gameOver
+	 */
 	public void setGameOver(boolean gameOver) {
 		this.gameOver = gameOver;
 	}
 
+	/**
+	 * 
+	 * @return 1 if the Maze is the Default Maze or 2 if the Maze is Random
+	 */
 	public int getMazeChoice() {
 		return mazeChoice;
 	}
 
+	/**
+	 * changes the MazeChoice
+	 * 
+	 * @param mazeChoice
+	 */
 	public void setMazeChoice(int mazeChoice) {
 		this.mazeChoice = mazeChoice;
 	}
 
+	/**
+	 * returns the DragonChoice: 1- Static 2- Random Movement 3- Random Movement
+	 * with Sleep
+	 * 
+	 * @return
+	 */
 	public int getDragonChoice() {
 		return dragonChoice;
 	}
 
+	/**
+	 * changes the dragonChoice
+	 * 
+	 * @param dragonChoice
+	 */
 	public void setDragonChoice(int dragonChoice) {
 		this.dragonChoice = dragonChoice;
 	}
 
+	/**
+	 * Creates an Status Object with default values
+	 */
 	public Status() {
 		// quantos dragões devem existir
 		gameOver = false;
@@ -96,34 +129,73 @@ public class Status implements Serializable {
 
 	}
 
+	/**
+	 * 
+	 * @return the Hero´s X
+	 */
 	public int getHeroX() {
 		return hero.getX();
 	}
 
+	/**
+	 * 
+	 * @return the Hero´s Y
+	 */
 	public int getHeroY() {
 		return hero.getY();
 	}
 
+	/**
+	 * 
+	 * @return the Sword´s X
+	 */
 	public int getSwordX() {
 		return sword.getX();
 	}
 
+	/**
+	 * 
+	 * @return the Sword´s Y
+	 */
 	public int getSwordY() {
 		return sword.getY();
 	}
 
+	/**
+	 * 
+	 * @param i
+	 *            - index in the Array List
+	 * @return the Dragon´s X
+	 */
 	public int getDragonX(int i) {
 		return dragons.get(i).getX();
 	}
 
+	/**
+	 * 
+	 * @param i
+	 *            - index in the Array List
+	 * @return the Dragon´s Y
+	 */
 	public int getDragonY(int i) {
 		return dragons.get(i).getY();
 	}
 
+	/**
+	 * 
+	 * @return the Array List of Dragons
+	 */
 	public ArrayList<Dragon> getDragons() {
 		return dragons;
 	}
 
+	/**
+	 * 
+	 * @param figure
+	 * @param nDragons
+	 *            -number of Dragons Fills the Array List with nDragons
+	 *
+	 */
 	public void initDragons(char figure, int nDragons) {
 		for (int i = 0; i < nDragons; i++) {
 			dragons.add(new Dragon(0, 0, figure));
@@ -131,87 +203,174 @@ public class Status implements Serializable {
 		}
 	}
 
+	/**
+	 * changes the ArrayList with the dragons
+	 * 
+	 * @param dragons
+	 */
 	public void setDragons(ArrayList<Dragon> dragons) {
 		this.dragons = dragons;
 	}
 
+	/**
+	 * 
+	 * @return the Hero Object
+	 */
 	public Hero getHero() {
 		return hero;
 	}
 
+	/**
+	 * 
+	 * @param hero
+	 *            replaces the Hero object with the new hero object
+	 */
 	public void setHero(Hero hero) {
 		this.hero = hero;
 	}
 
+	/**
+	 * 
+	 * @return exit return the Exit object
+	 */
 	public Exit getExit() {
 		return exit;
 	}
 
+	/**
+	 * 
+	 * @param exit
+	 *            replaces the old Exit
+	 */
 	public void setExit(Exit exit) {
 		this.exit = exit;
 	}
 
+	/**
+	 * 
+	 * @return sword
+	 */
 	public Sword getSword() {
 		return sword;
 	}
 
+	/**
+	 * replaces the old sword with the new Sword
+	 * 
+	 * @param sword
+	 */
 	public void setSword(Sword sword) {
 		this.sword = sword;
 	}
 
+	/**
+	 * 
+	 * @return the shield
+	 */
 	public Shield getShield() {
 		return shield;
 	}
 
+	/**
+	 * replaces the Shield
+	 * 
+	 * @param shield
+	 */
 	public void setShield(Shield shield) {
 		this.shield = shield;
 	}
 
+	/**
+	 * 
+	 * @return the Array List of darts
+	 */
 	public ArrayList<Darts> getDarts() {
 		return darts;
 	}
 
+	/**
+	 * changes the darts ArrayList
+	 * 
+	 * @param darts
+	 */
 	public void setDarts(ArrayList<Darts> darts) {
 		this.darts = darts;
 	}
 
+	/**
+	 * 
+	 * @return the Maze object
+	 */
 	public Maze getMaze() {
 		return maze;
 	}
 
+	/**
+	 * replaces the maze
+	 * 
+	 * @param maze
+	 */
 	public void setMaze(Maze maze) {
 		this.maze = maze;
 	}
 
+	/**
+	 * changes the position of the Hero
+	 * 
+	 * @param x
+	 *            new Hero X
+	 * @param y
+	 *            new Hero Y
+	 */
 	public void setHeroPos(int x, int y) {
 		if (!Main.insideBoardEle(x, y, maze.getMaze()))
 			return;
-		// maze.getMaze()[this.hero.getX()][this.hero.getX()] = ' ';
 		this.hero.setX(x);
-		this.hero.setY(y); // TODO: Change to "set and get"
+		this.hero.setY(y);
 		maze.getMaze()[this.hero.getY()][this.hero.getX()] = 'H';
 
 	}
 
+	/**
+	 * changes the position of the Sword
+	 * 
+	 * @param x
+	 *            new Sword X
+	 * @param y
+	 *            new Sword Y
+	 */
 	public void setSwordPos(int x, int y) {
 		if (!Main.insideBoardEle(x, y, maze.getMaze()))
 			return;
-		// maze.getMaze()[this.sword.getX()][this.sword.getX()] = ' ';
 		this.sword.setX(x);
 		this.sword.setY(y);
 		maze.getMaze()[this.sword.getY()][this.sword.getX()] = 'E';
 
 	}
 
+	/**
+	 * changes the position of the Exit
+	 * 
+	 * @param x
+	 *            new Exit X
+	 * @param y
+	 *            new Exit Y
+	 */
 	public void setExitPos(int x, int y) {
-
-		// maze.getMaze()[this.exit.getX()][this.exit.getX()] = ' ';
 		this.exit.setX(x);
 		this.exit.setY(y);
 		maze.getMaze()[this.exit.getY()][this.exit.getX()] = 'S';
 
 	}
 
+	/**
+	 * changes the position of the Hero
+	 * 
+	 * @param x
+	 *            new Shield X
+	 * @param y
+	 *            new Shield Y
+	 */
 	public void setShieldPos(int x, int y) {
 		if (!Main.insideBoardEle(x, y, maze.getMaze()))
 			return;
@@ -222,6 +381,14 @@ public class Status implements Serializable {
 	}
 
 	// Só usar quando só houver UM dragão
+	/**
+	 * changes the position of the first dragon
+	 * 
+	 * @param x
+	 *            new Dragon X
+	 * @param y
+	 *            new Dragon Y
+	 */
 	public void setDragonPos(int x, int y) {
 		if (!Main.insideBoardEle(x, y, maze.getMaze()))
 			return;
@@ -231,6 +398,11 @@ public class Status implements Serializable {
 		maze.getMaze()[dragons.get(0).getY()][dragons.get(0).getX()] = 'D';
 	}
 
+	/**
+	 * 
+	 * @return true if any dragon is still Alive or false if all dragons are
+	 *         dead
+	 */
 	public boolean dragonsAlive() {
 		if (dragons.isEmpty())
 			return false;
@@ -242,6 +414,10 @@ public class Status implements Serializable {
 		return false; // se nao houve nenhum vivo, e false
 	}
 
+	/**
+	 * Checks if hero is in Radom Mode (Default does not have Darts) checks if
+	 * any Dart is being picked up by the hero
+	 */
 	public void heroDarts() {
 		if (mazeChoice == 1)
 			return;
@@ -255,6 +431,12 @@ public class Status implements Serializable {
 		}
 	}
 
+	/**
+	 * Fills the Array List of Darts with nDarts
+	 * 
+	 * @param figure
+	 * @param nDarts
+	 */
 	public void initDarts(char figure, int nDarts) {
 		for (int i = 0; i < nDarts; i++) {
 			darts.add(new Darts(0, 0, figure));
@@ -263,6 +445,11 @@ public class Status implements Serializable {
 		}
 	}
 
+	/**
+	 * checks if the darts throw by the hero in the direction kills any dragon
+	 * 
+	 * @param direction
+	 */
 	public void throwDart(char direction) {
 		hero.decDarts();
 		switch (direction) {
@@ -319,17 +506,44 @@ public class Status implements Serializable {
 
 	}
 
+	/**
+	 * checks if two points are within a certain dist
+	 * 
+	 * @param x
+	 * @param y
+	 * @param x1
+	 * @param y1
+	 * @param dist
+	 * @return
+	 */
 	public boolean insideRange(int x, int y, int x1, int y1, int dist) {
 		return ((x == x1 && Math.abs(y1 - y) <= dist) || (y1 == y && Math.abs(x1 - x) <= dist));
 	}
 
+	/**
+	 * checks if two points are in the line/row
+	 * 
+	 * @param x
+	 * @param y
+	 * @param x1
+	 * @param y1
+	 * @return
+	 */
 	public boolean insideRange(int x, int y, int x1, int y1) {
 		return ((x == x1) || (y1 == y));
 
 	}
 
+	/**
+	 * checks if there are any obstacles between two points
+	 * 
+	 * @param x
+	 * @param y
+	 * @param x1
+	 * @param y1
+	 * @return
+	 */
 	public boolean obstacles(int x, int y, int x1, int y1) {//
-
 		int dist;
 		if (x == x1) {
 			dist = Math.abs(y1 - y);
@@ -381,6 +595,13 @@ public class Status implements Serializable {
 		return false;
 	}
 
+	/**
+	 * generates a random maze
+	 * 
+	 * @param choice
+	 *            - if choice 0 the number of Darts and Dragons is random if not
+	 *            it uses dartSize and dragonSize
+	 */
 	public void generate(int choice) {
 		Main.fillMaze(maze.getMaze(), 'X');
 		maze.generateMaze(Main.randomOddNumber(maze.getMaze().length), Main.randomOddNumber(maze.getMaze().length));
@@ -402,6 +623,9 @@ public class Status implements Serializable {
 
 	}
 
+	/**
+	 * creates the walls of the maze
+	 */
 	public void createMazeWalls() {
 		char temp[][] = maze.getMaze();
 
@@ -421,8 +645,13 @@ public class Status implements Serializable {
 		maze.setMaze(temp);
 	}
 
+	/**
+	 * deals with updating the game, it´s responsible for calling heroMove and
+	 * dragonMove which will deal with the movement of said elements
+	 * 
+	 * @param inputChar
+	 */
 	public void updateBoard(char inputChar) {
-
 		boolean heroPlayed = false;
 
 		switch (inputChar) {
@@ -496,10 +725,12 @@ public class Status implements Serializable {
 
 	}
 
-	// TODO: Alterar para ver se a mudanca for valida, mudar so x e y, senao
-	// ficar
-	// O resto das alteracoes, passar para a funcao updateStatus
-
+	/**
+	 * checks if the hero movement is  valid 
+	 * @param newX
+	 * @param newY
+	 * @return
+	 */
 	public boolean moveHero(int newX, int newY) {
 
 		// INVALID MOVEMENTS - parede, dragao adormecido ou ir para a saida
@@ -567,8 +798,12 @@ public class Status implements Serializable {
 		}
 	}
 
+	/**
+	 * is responsible for moving the dragons
+	 * @param dragon
+	 * @return
+	 */
 	public boolean moveDragon(Dragon dragon) {
-
 		int new_x = 0, new_y = 0;
 
 		if (!dragon.isDragonAlive())
@@ -632,7 +867,9 @@ public class Status implements Serializable {
 
 	// Updates status - is only called after the coordinates change(after the
 	// units move)
-
+	/**
+	 * deals with all the changes caused by the moving elements  
+	 */
 	private void updateStatus() {
 
 		int dragonRange = 1;
@@ -654,7 +891,6 @@ public class Status implements Serializable {
 
 				} else if (insideRange(hero.getX(), hero.getY(), dragons.get(i).getX(), dragons.get(i).getY(), dragonRange) && !dragons.get(i).isAsleep) {
 					if (!obstacles(hero.getX(), hero.getY(), dragons.get(i).getX(), dragons.get(i).getY())) {
-						// System.out.println("Morto");
 						maze.getMaze()[hero.getY()][hero.getX()] = ' ';
 						hero.setHeroAlive(false);
 					}
@@ -674,6 +910,9 @@ public class Status implements Serializable {
 		}
 	}
 
+	/**
+	 * creates a default Maze
+	 */
 	public void defaultMaze() {
 
 		char maze[][] = { { 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X', 'X' }, { 'X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', 'X' }, { 'X', ' ', 'X', 'X', ' ', 'X', ' ', 'X', ' ', 'X' },
@@ -692,6 +931,11 @@ public class Status implements Serializable {
 		setDragonPos(1, 3);
 	}
 
+	/**
+	 * creates a new Maze whose elements positions will be random
+	 * @param size
+	 * @param choice
+	 */
 	public void randomMaze(int size, int choice) {
 		maze.setMaze(new char[size][size]);
 		generate(choice);

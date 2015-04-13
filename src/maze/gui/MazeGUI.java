@@ -79,19 +79,19 @@ public class MazeGUI implements MouseListener, MouseMotionListener, KeyListener 
 		buttonPanel = new JPanel();
 		gamePanel = new JMaze();
 		gameInputOutput = new GameIO(gamePanel.s, MazeGUI.gameOpt);
-		/////LOADING OPTIONS/////
-		
+		// ///LOADING OPTIONS/////
+
 		GameOptions temp;
 
 		if ((temp = gameInputOutput.loadOptions()) == null) {
 			// There was no file, nothing happens
 		} else {
-			
+
 			MazeGUI.gameOpt = temp;
 		}
-		/////////////////////////
+		// ///////////////////////
 		gameOptions = new JMazeOptions();
-		
+
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setPreferredSize(new Dimension(700, 500));
 		mainFrame.pack();
@@ -179,16 +179,15 @@ public class MazeGUI implements MouseListener, MouseMotionListener, KeyListener 
 
 		optionsButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg) {
-				
+
 				gameOptions.setModal(true);
 				gameOptions.setVisible(true);
-				
 
 				gamePanel.K_DOWN = gameOptions.getKeyDown();
 				gamePanel.K_UP = gameOptions.getKeyUp();
 				gamePanel.K_LEFT = gameOptions.getKeyLeft();
 				gamePanel.K_RIGHT = gameOptions.getKeyRight();
-				gamePanel.s.setDragonChoice(MazeGUI.gameOpt.dragonChoice);
+				// gamePanel.s.setDragonChoice(MazeGUI.gameOpt.dragonChoice);
 				gameInputOutput.saveOptions(MazeGUI.gameOpt);
 				gamePanel.grabFocus();
 
@@ -216,45 +215,33 @@ public class MazeGUI implements MouseListener, MouseMotionListener, KeyListener 
 	}
 
 	public void mouseMoved(MouseEvent arg0) {
-		// System.out.print(arg0.getX());
-		// System.out.print(" ");
-		// System.out.println(arg0.getY());
 		gamePanel.mouseMoved(arg0);
 	}
 
 	public void mouseClicked(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 	}
 
 	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 	}
 
 	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 	}
 
 	public void mouseReleased(MouseEvent arg0) {
 		gamePanel.setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 		if (gamePanel.s.getHero().getnDarts() > 0) {
 			gamePanel.s.getHero().decDarts();
-			// System.out.println("Cursorx: " + gamePanel.cursorX + " Cursory:"
-			// +
-			// gamePanel.cursorY);
 			for (int i = 0; i < gamePanel.s.getDragons().size(); i++) {
 				if (gamePanel.s.getDragons().get(i).isDragonAlive()) {
 					int drx = gamePanel.s.getDragons().get(i).getX();
 					int dry = gamePanel.s.getDragons().get(i).getY();
 					int hx = gamePanel.s.getHero().getX();
 					int hy = gamePanel.s.getHero().getY();
-					// System.out.println("dr: " + drx * size + " " + dry *
-					// size);
 
 					if (Math.abs(gamePanel.cursorX - gamePanel.offsetX - drx * gamePanel.size) <= gamePanel.size) {
 						if (Math.abs(gamePanel.cursorY - gamePanel.size + gamePanel.offsetY - dry * gamePanel.size) <= gamePanel.size) {
 							if (gamePanel.s.insideRange(hx, hy, drx, dry)) {
 								if (!gamePanel.s.obstacles(hx, hy, drx, dry)) {
-									// System.out.println("Dead");
 									gamePanel.s.getMaze().getMaze()[dry][drx] = ' ';
 									gamePanel.s.getDragons().get(i).setDragonAlive(false);
 									gamePanel.s.getHero().decDarts();
@@ -288,7 +275,6 @@ public class MazeGUI implements MouseListener, MouseMotionListener, KeyListener 
 
 	public void keyPressed(KeyEvent e) {
 		gamePanel.keyPressed(e);
-		
 
 	}
 

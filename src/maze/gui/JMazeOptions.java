@@ -4,6 +4,7 @@ import java.awt.Choice;
 import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -18,16 +19,6 @@ import javax.swing.DefaultComboBoxModel;
 public class JMazeOptions extends JDialog {
 
 	final int defaultRandomSize = 13;
-
-	// int dragonsSize;
-	// int dartsSize;
-	// int mazeSize;
-	// int mazeChoice;
-	// int dragonChoice;
-	// int KEY_UP;
-	// int KEY_DOWN;
-	// int KEY_LEFT;
-	// int KEY_RIGHT;
 
 	JPanel contentPanel;
 	JPanel buttonPane;
@@ -51,23 +42,10 @@ public class JMazeOptions extends JDialog {
 
 	Choice mazeChoices;
 
-	JComboBox dragonChoiceBox;
-	JComboBox mazeChoiceBox;
-	
-	KeyBinding key;
-	
+	JComboBox<String> dragonChoiceBox;
+	JComboBox<String> mazeChoiceBox;
 
-	/**
-	 * Launch the application.
-	 */
-	// public static void main(String[] args) {
-	// try {
-	// JMazeOptions dialog = new JMazeOptions();
-	// dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-	// dialog.setVisible(true);
-	// } catch (Exception e) {
-	// e.printStackTrace();
-	// }}
+	KeyBinding key;
 
 	/**
 	 * Create the dialog.
@@ -115,25 +93,20 @@ public class JMazeOptions extends JDialog {
 		{
 			// Creates Spinner for Darts
 			Darts = new JSpinner();
-			Darts.setModel(new SpinnerNumberModel(MazeGUI.gameOpt.dartsSize,
-					new Integer(0), null, new Integer(1)));
+			Darts.setModel(new SpinnerNumberModel(MazeGUI.gameOpt.dartsSize, new Integer(0), null, new Integer(1)));
 			Darts.setBounds(324, 79, 66, 22);
 			// Darts.
 			contentPanel.add(Darts);
 		}
 		{
 			sizeSpinner = new JSpinner();
-			sizeSpinner.setModel(new SpinnerNumberModel(
-					MazeGUI.gameOpt.mazeSize, new Integer(5), null,
-					new Integer(2)));
+			sizeSpinner.setModel(new SpinnerNumberModel(MazeGUI.gameOpt.mazeSize, new Integer(5), null, new Integer(2)));
 			sizeSpinner.setBounds(322, 37, 68, 20);
 			contentPanel.add(sizeSpinner);
 		}
 		{
 			dragonNumber = new JSpinner();
-			dragonNumber.setModel(new SpinnerNumberModel(
-					MazeGUI.gameOpt.dragonsSize, new Integer(0), null,
-					new Integer(1)));
+			dragonNumber.setModel(new SpinnerNumberModel(MazeGUI.gameOpt.dragonsSize, new Integer(0), null, new Integer(1)));
 			dragonNumber.setBounds(110, 79, 66, 22);
 			contentPanel.add(dragonNumber);
 		}
@@ -141,45 +114,42 @@ public class JMazeOptions extends JDialog {
 		// COMBO BOXES
 
 		// DRAGON CHOICE BOX
-		JComboBox dragonChoiceBox = new JComboBox();
-		dragonChoiceBox.setModel(new DefaultComboBoxModel(new String[] {
-				"Static Dragon", "Random Dragon Movement",
-				"Random Dragon Movement w/ Sleep" }));
+		dragonChoiceBox = new JComboBox<String>();
+		dragonChoiceBox.setModel(new DefaultComboBoxModel<String>(new String[] { "Static Dragon", "Random Dragon Movement", "Random Dragon Movement w/ Sleep" }));
 		dragonChoiceBox.setBounds(100, 133, 208, 22);
-		//dragon choice is from 1 to 3, index is 0 to 2
+		// dragon choice is from 1 to 3, index is 0 to 2
 		dragonChoiceBox.setSelectedIndex(MazeGUI.gameOpt.dragonChoice - 1);
-		
+
 		contentPanel.add(dragonChoiceBox);
 
 		// MAZE CHOICE BOX
 
-		mazeChoiceBox = new JComboBox();
-		mazeChoiceBox.setModel(new DefaultComboBoxModel(new String[] {
-				"Default Maze", "Random Maze" }));
-		//maze choice is from 1 to 2, index is 0 to 1
+		mazeChoiceBox = new JComboBox<String>();
+		mazeChoiceBox.setModel(new DefaultComboBoxModel<String>(new String[] { "Default Maze", "Random Maze" }));
+		// maze choice is from 1 to 2, index is 0 to 1
 		mazeChoiceBox.setSelectedIndex(MazeGUI.gameOpt.mazeChoice - 1);
 		mazeChoiceBox.setBounds(100, 35, 122, 22);
 		contentPanel.add(mazeChoiceBox);
 
 		// KEY BUTTONS
 		{
-			buttomKeyUp = new JButton("Move Up: ");
+			buttomKeyUp = new JButton("Move Up: " + KeyEvent.getKeyText(MazeGUI.gameOpt.KEY_UP));
 			buttomKeyUp.setBounds(33, 185, 199, 22);
 			contentPanel.add(buttomKeyUp);
 		}
 
 		{
-			buttomKeyRight = new JButton("Move Right: ");
+			buttomKeyRight = new JButton("Move Right: " + KeyEvent.getKeyText(MazeGUI.gameOpt.KEY_RIGHT));
 			buttomKeyRight.setBounds(263, 218, 199, 23);
 			contentPanel.add(buttomKeyRight);
 		}
 		{
-			buttomKeyLeft = new JButton("Move Left: ");
+			buttomKeyLeft = new JButton("Move Left: " + KeyEvent.getKeyText(MazeGUI.gameOpt.KEY_LEFT));
 			buttomKeyLeft.setBounds(263, 185, 199, 23);
 			contentPanel.add(buttomKeyLeft);
 		}
 		{
-			buttomKeyDown = new JButton("Move Down: ");
+			buttomKeyDown = new JButton("Move Down: " + KeyEvent.getKeyText(MazeGUI.gameOpt.KEY_DOWN));
 			buttomKeyDown.setBounds(33, 218, 199, 22);
 			contentPanel.add(buttomKeyDown);
 		}
@@ -208,34 +178,33 @@ public class JMazeOptions extends JDialog {
 							Darts.setValue(MazeGUI.gameOpt.dartsSize);
 						}
 
-						MazeGUI.gameOpt.dragonsSize = (int) dragonNumber
-								.getValue();
+						MazeGUI.gameOpt.dragonsSize = (int) dragonNumber.getValue();
 						if (MazeGUI.gameOpt.dragonsSize >= MazeGUI.gameOpt.mazeSize * 0.75) {
 							MazeGUI.gameOpt.dragonsSize = MazeGUI.gameOpt.mazeSize / 4;
 							dragonNumber.setValue(MazeGUI.gameOpt.dragonsSize);
 						}
 
-						
-						switch (mazeChoiceBox.getSelectedItem().toString()) {
-						case "Default":
+						switch (mazeChoiceBox.getSelectedIndex()) {
+						case 0:
 							MazeGUI.gameOpt.mazeChoice = 1;
 							break;
-						case "Random":
+						case 1:
 							MazeGUI.gameOpt.mazeChoice = 2;
 							break;
 						default:
+
 							break;
 						}
-						
-						switch (dragonChoiceBox.getSelectedItem().toString()) {
 
-						case "Static Dragon":
+						switch (dragonChoiceBox.getSelectedIndex()) {
+
+						case 0:
 							MazeGUI.gameOpt.dragonChoice = 1;
 							break;
-						case "Random Dragon Movement":
+						case 1:
 							MazeGUI.gameOpt.dragonChoice = 2;
 							break;
-						case "Random Dragon Movement w/ Sleep":
+						case 2:
 							MazeGUI.gameOpt.dragonChoice = 3;
 							break;
 						default:

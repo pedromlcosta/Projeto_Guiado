@@ -34,7 +34,7 @@ public class MazeGraphics {
 		sword = ImageIO.read(new File("images\\sword.png"));
 		darts = ImageIO.read(new File("images\\dart.png"));
 		shield = ImageIO.read(new File("images\\shield.png"));
-		exit = ImageIO.read(new File("images\\exit_closed.png"));
+		exit = ImageIO.read(new File("images\\exit_open.png"));
 		dragonSleep = ImageIO.read(new File("images\\dragonSleeping.png"));
 		dragonSword = ImageIO.read(new File("images\\swordDragon.png"));
 		heroShield = ImageIO.read(new File("images\\heroShield.png"));
@@ -44,11 +44,6 @@ public class MazeGraphics {
 	}
 	
 	public static void paintMaze(Graphics g, int offsetX, int offsetY,int size, Status s) throws IOException {
-		// sizeX = getWidth() / ((s.getMaze().getMaze().length));
-		// sizeY = getHeight() / ((s.getMaze().getMaze().length));
-		
-		g.drawString("Darts: " + s.getHero().getnDarts(), 20, 20);
-		
 		int x1 = 0 + offsetX;
 		int y1 = offsetY;
 		for (int j = 0; j < s.getMaze().getMaze().length; j++) {
