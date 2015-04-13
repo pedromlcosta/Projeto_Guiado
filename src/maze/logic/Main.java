@@ -69,7 +69,7 @@ public class Main {
 
 	public static boolean insideBoardEle(int x, int y, char maze[][]) {
 
-		if (x >= maze.length - 1 || x <= 0 || y >= maze.length - 1 || y <= 0 || maze[x][y] != ' ')
+		if (x >= maze.length - 1 || x <= 0 || y >= maze.length - 1 || y <= 0 || maze[y][x] != ' ')
 			return false;
 
 		return true;
