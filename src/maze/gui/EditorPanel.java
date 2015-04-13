@@ -11,11 +11,12 @@ import java.awt.event.MouseMotionListener;
 import java.io.IOException;
 
 import javax.swing.JComboBox;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-import maze.logic.*;
+import maze.logic.Darts;
+import maze.logic.Dragon;
+import maze.logic.Status;
 
 @SuppressWarnings("serial")
 class EditorPanel extends JPanel implements MouseListener, MouseMotionListener,
@@ -51,7 +52,7 @@ class EditorPanel extends JPanel implements MouseListener, MouseMotionListener,
 		selectedElement = Element.Walls;
 		s = new Status();
 
-		s.getMaze().setMaze(new char[options.mazeSize][options.mazeSize]);
+		s.getMaze().setMaze(new char[JMazeOptions.gameOpt.mazeSize][JMazeOptions.gameOpt.mazeSize]);
 		s.createMazeWalls(); // Everything empty and only walls surrounding
 
 		// The hero, sword and exit always exist
@@ -59,7 +60,7 @@ class EditorPanel extends JPanel implements MouseListener, MouseMotionListener,
 		s.setSwordPos(2, 1);
 		s.setExitPos(0, 3);
 
-		s.setDragonChoice(options.dragonChoice);
+		s.setDragonChoice(JMazeOptions.gameOpt.dragonChoice);
 		s.setMazeChoice(2);
 
 		this.grabFocus();

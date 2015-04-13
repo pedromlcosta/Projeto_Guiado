@@ -35,19 +35,16 @@ package maze.gui;
 //}
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.DefaultComboBoxModel;
+import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
-
-import maze.gui.EditorPanel.Element;
-
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import javax.swing.JButton;
 
 public class MazeEditor extends JDialog {
 
@@ -82,7 +79,7 @@ public class MazeEditor extends JDialog {
 		elementBox = new JComboBox<EditorPanel.Element>();
 
 		elementBox.setModel(new DefaultComboBoxModel<EditorPanel.Element>(EditorPanel.Element.values()));
-		elementBox.setSelectedIndex(0);
+		elementBox.setSelectedIndex(1);
 
 		elementBox.addMouseListener(new MouseAdapter() {
 			public void mouseClicked(MouseEvent arg0) {

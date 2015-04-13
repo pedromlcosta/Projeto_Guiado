@@ -34,7 +34,8 @@ public class MazeGUI implements MouseListener, MouseMotionListener, KeyListener 
 	JButton optionsButton;
 	JButton mazeEditorButton;
 
-	GameIO gameInputOutput; // Associated with the load and save buttons
+	GameIO gameInputOutput; // Associated with the load and save buttons~
+	final int defaultRandomSize = 13;
 	JMazeOptions gameOptions; // Associated with the options button
 	MazeEditor mazeEditorPanel;// Associated with the maze editor button
 
@@ -77,7 +78,7 @@ public class MazeGUI implements MouseListener, MouseMotionListener, KeyListener 
 		buttonPanel = new JPanel();
 		gamePanel = new JMaze();
 		gameOptions = new JMazeOptions();
-		gameInputOutput = new GameIO(gamePanel.s);
+		gameInputOutput = new GameIO(gamePanel.s, JMazeOptions.gameOpt);
 
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setPreferredSize(new Dimension(700, 500));
@@ -166,6 +167,13 @@ public class MazeGUI implements MouseListener, MouseMotionListener, KeyListener 
 
 		optionsButton.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg) {
+				JMazeOptions temp;
+				
+//				if ((temp = gameInputOutput.loadOptions()) == null) {
+//					//There was no file, nothing happens
+//				} else {
+//					gameOptions = temp;
+//				}
 				gameOptions.setModal(true);
 				gameOptions.setVisible(true);
 				gameOptions.buttonPane.setVisible(true);
@@ -176,7 +184,10 @@ public class MazeGUI implements MouseListener, MouseMotionListener, KeyListener 
 				gamePanel.K_UP = gameOptions.getKeyUp();
 				gamePanel.K_LEFT = gameOptions.getKeyLeft();
 				gamePanel.K_RIGHT = gameOptions.getKeyRight();
-
+				gamePanel.s.setDragonChoice(JMazeOptions.gameOpt.dragonChoice);
+//				gameInputOutput.saveOptions(gameOptions);
+				gamePanel.grabFocus();
+				
 			}
 		});
 
