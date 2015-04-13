@@ -875,6 +875,7 @@ public class Status implements Serializable {
 	 */
 	private void updateStatus() {
 
+		System.out.println("update");
 		int dragonRange = 1;
 		if (mazeChoice == 2) {
 			if (hero.hasShield)
@@ -883,36 +884,37 @@ public class Status implements Serializable {
 				dragonRange = 3;
 		}
 
-		for (int i = 0; i < getDragons().size(); i++) {
+		if (getDragons().size() != 0) {
+			for (int i = 0; i < getDragons().size(); i++) {
 
-			if (dragons.get(i).isDragonAlive()) {
+				if (dragons.get(i).isDragonAlive()) {
 
-				if (insideRange(hero.getX(), hero.getY(), dragons.get(i).getX(), dragons.get(i).getY(), 1) && hero.isArmed()) {
+					if (insideRange(hero.getX(), hero.getY(), dragons.get(i).getX(), dragons.get(i).getY(), 1) && hero.isArmed()) {
 
-					maze.getMaze()[dragons.get(i).getY()][dragons.get(i).getX()] = ' ';
-					dragons.get(i).setDragonAlive(false);
+						maze.getMaze()[dragons.get(i).getY()][dragons.get(i).getX()] = ' ';
+						dragons.get(i).setDragonAlive(false);
 
-				} else if (insideRange(hero.getX(), hero.getY(), dragons.get(i).getX(), dragons.get(i).getY(), dragonRange) && !dragons.get(i).isAsleep) {
-					if (!obstacles(hero.getX(), hero.getY(), dragons.get(i).getX(), dragons.get(i).getY())) {
-						maze.getMaze()[hero.getY()][hero.getX()] = ' ';
-						hero.setHeroAlive(false);
+					} else if (insideRange(hero.getX(), hero.getY(), dragons.get(i).getX(), dragons.get(i).getY(), dragonRange) && !dragons.get(i).isAsleep) {
+						if (!obstacles(hero.getX(), hero.getY(), dragons.get(i).getX(), dragons.get(i).getY())) {
+							maze.getMaze()[hero.getY()][hero.getX()] = ' ';
+							hero.setHeroAlive(false);
+						}
 					}
 				}
 			}
+		}
+		// CHECKS IF GAME IS OVER
+		System.out.println(hero.isArmed() + "  " + !dragonsAlive());
+		if (hero.isArmed() && !dragonsAlive()) {
 
-			// CHECKS IF GAME IS OVER
-			System.out.println(hero.isArmed() + "  " + !dragonsAlive());
-			if (hero.isArmed() && !dragonsAlive()) {
+			if (hero.getX() == exit.getX() && hero.getY() == exit.getY()) {
 
-				if (hero.getX() == exit.getX() && hero.getY() == exit.getY()) {
-
-					gameOver = true;
-				}
-			}
-
-			if (!hero.isHeroAlive()) {
 				gameOver = true;
 			}
+		}
+
+		if (!hero.isHeroAlive()) {
+			gameOver = true;
 		}
 	}
 
