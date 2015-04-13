@@ -15,7 +15,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-import maze.logic.Status;
+import maze.logic.*;
 
 @SuppressWarnings("serial")
 class EditorPanel extends JPanel implements MouseListener, MouseMotionListener,
@@ -198,7 +198,7 @@ class EditorPanel extends JPanel implements MouseListener, MouseMotionListener,
 				case Dragon:
 					if (s.getMaze().getMaze()[selectedMazeY][selectedMazeX] == ' ') {
 						s.getMaze().getMaze()[selectedMazeY][selectedMazeX] = 'D';
-						// ADICIONAR A S.DRAGONS
+						s.getDragons().add(new Dragon(selectedMazeX, selectedMazeY, 'D'));
 					}
 					break;
 				case Sword:
@@ -208,7 +208,7 @@ class EditorPanel extends JPanel implements MouseListener, MouseMotionListener,
 				case Darts:
 					if (s.getMaze().getMaze()[selectedMazeY][selectedMazeX] == ' ') {
 						s.getMaze().getMaze()[selectedMazeY][selectedMazeX] = '-';
-						// ADICIONAR A S.DARTS
+						s.getDarts().add(new Darts(selectedMazeX, selectedMazeY, '-'));
 					}
 					break;
 
@@ -267,7 +267,7 @@ class EditorPanel extends JPanel implements MouseListener, MouseMotionListener,
 				case Dragon:
 					if (s.getMaze().getMaze()[selectedMazeY][selectedMazeX] == ' ') {
 						s.getMaze().getMaze()[selectedMazeY][selectedMazeX] = 'D';
-						// ADICIONAR A S.DRAGONS
+						s.getDragons().add(new Dragon(selectedMazeX, selectedMazeY, 'D'));
 					}
 					break;
 				case Sword:
@@ -277,7 +277,7 @@ class EditorPanel extends JPanel implements MouseListener, MouseMotionListener,
 				case Darts:
 					if (s.getMaze().getMaze()[selectedMazeY][selectedMazeX] == ' ') {
 						s.getMaze().getMaze()[selectedMazeY][selectedMazeX] = '-';
-						// ADICIONAR A S.DARTS
+						s.getDarts().add(new Darts(selectedMazeX, selectedMazeY, '-'));
 					}
 					break;
 				case Exit:
