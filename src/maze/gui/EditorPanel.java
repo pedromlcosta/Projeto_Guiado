@@ -10,12 +10,15 @@ import java.awt.event.MouseListener;
 import java.awt.event.MouseMotionListener;
 import java.io.IOException;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
 import maze.logic.Status;
 
 @SuppressWarnings("serial")
-class EditorPanel extends JPanel implements MouseListener, MouseMotionListener, KeyListener {
+class EditorPanel extends JPanel implements MouseListener, MouseMotionListener,
+		KeyListener {
 
 	public static enum Element {
 		Walls, Hero, Dragon, Sword, Shield, Darts, Exit
@@ -44,6 +47,7 @@ class EditorPanel extends JPanel implements MouseListener, MouseMotionListener, 
 	public EditorPanel(JMazeOptions options) {
 
 		this.addMouseListener(this);
+		this.addMouseMotionListener(this);
 
 		s = new Status();
 
@@ -55,6 +59,8 @@ class EditorPanel extends JPanel implements MouseListener, MouseMotionListener, 
 
 		s.getMaze().setMaze(new char[options.mazeSize][options.mazeSize]);
 		s.createMazeWalls();
+
+		this.grabFocus();
 
 	}
 
@@ -87,7 +93,8 @@ class EditorPanel extends JPanel implements MouseListener, MouseMotionListener, 
 			e.printStackTrace();
 		}
 
-		g.drawString(offsetX + " " + offsetY + " " + size + " " + cursorX + " " + cursorY, 20, 50);
+		g.drawString(offsetX + " " + offsetY + " " + size + " " + cursorX + " "
+				+ cursorY, 20, 50);
 	}
 
 	public void mouseMoved(MouseEvent e) {
@@ -95,9 +102,6 @@ class EditorPanel extends JPanel implements MouseListener, MouseMotionListener, 
 		cursorY = e.getY();
 		repaint();
 
-	}
-
-	public void mouseDragged(MouseEvent e) {
 	}
 
 	@Override
@@ -120,7 +124,6 @@ class EditorPanel extends JPanel implements MouseListener, MouseMotionListener, 
 
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
-		// TODO Auto-generated method stub
 
 	}
 
@@ -136,44 +139,153 @@ class EditorPanel extends JPanel implements MouseListener, MouseMotionListener, 
 
 	}
 
-	@Override
-	public void mousePressed(MouseEvent arg0) {
-		// TODO Auto-generated method stub
+	public void mouseDragged(MouseEvent arg0) {
 
-	}
-
-	@Override
-	public void mouseReleased(MouseEvent arg0) {
-		setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
-
+		cursorX = arg0.getX();
+		cursorY = arg0.getY();
 		selectedMazeX = (arg0.getX() - offsetX) / size;
 		selectedMazeY = (arg0.getY() - offsetY) / size;
+		int mazeSize = s.getMaze().getMaze().length;
+
+		setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
 
 		// JOptionPane.showConfirmDialog(getParent(), selectedMazeX + " " +
 		// selectedMazeY, "", JOptionPane.YES_NO_OPTION,
 		// JOptionPane.WARNING_MESSAGE);
 
-		switch (selectedElement) {
-		case Hero:
+		if (SwingUtilities.isLeftMouseButton(arg0)) {
+			switch (selectedElement) {
+			case Hero:
 
-		case Dragon:
+			case Dragon:
 
-		case Sword:
+			case Sword:
 
-		case Shield:
+			case Shield:
 
-		case Darts:
+			case Darts:
 
-		case Walls:
-			if (s.getMaze().getMaze()[selectedMazeY][selectedMazeX] == ' ') {
-				s.getMaze().getMaze()[selectedMazeY][selectedMazeX] = 'X';
-			} else {
-				s.getMaze().getMaze()[selectedMazeY][selectedMazeX] = ' ';
+			case Walls:
+				if (selectedMazeX < mazeSize - 1 && selectedMazeX > 0
+						&& selectedMazeY < mazeSize - 1 && selectedMazeY > 0) // inside
+																				// acceptable
+																				// boundaries
+				{
+					if (s.getMaze().getMaze()[selectedMazeY][selectedMazeX] == ' ') {
+						s.getMaze().getMaze()[selectedMazeY][selectedMazeX] = 'X';
+					}
+				}
+			case Exit:
 			}
-		case Exit:
-		}
 
-		repaint();
+			repaint();
+		} else if (SwingUtilities.isRightMouseButton(arg0)) { 
+			switch (selectedElement) {
+			case Hero:
+
+			case Dragon:
+
+			case Sword:
+
+			case Shield:
+
+			case Darts:
+
+			case Walls:
+				if (selectedMazeX < mazeSize - 1 && selectedMazeX > 0
+						&& selectedMazeY < mazeSize - 1 && selectedMazeY > 0) // inside
+																				// acceptable
+																				// boundaries
+				{
+					//RIGHT BUTTON REMOVES WHEN DRAGGED
+					s.getMaze().getMaze()[selectedMazeY][selectedMazeX] = ' ';
+				}
+			case Exit:
+			}
+
+			repaint();
+		}
+	}
+
+	@Override
+	public void mousePressed(MouseEvent arg0) {
+
+		cursorX = arg0.getX();
+		cursorY = arg0.getY();
+		int mazeSize = s.getMaze().getMaze().length;
+		if (arg0.getButton() == MouseEvent.BUTTON1) { // LEFT MOUSE BUTTON
+			setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+
+			selectedMazeX = (arg0.getX() - offsetX) / size;
+			selectedMazeY = (arg0.getY() - offsetY) / size;
+
+			// JOptionPane.showConfirmDialog(getParent(), selectedMazeX + " " +
+			// selectedMazeY, "", JOptionPane.YES_NO_OPTION,
+			// JOptionPane.WARNING_MESSAGE);
+
+			switch (selectedElement) {
+			case Hero:
+
+			case Dragon:
+
+			case Sword:
+
+			case Shield:
+
+			case Darts:
+
+			case Walls:
+				if (selectedMazeX < mazeSize - 1 && selectedMazeX > 0
+						&& selectedMazeY < mazeSize - 1 && selectedMazeY > 0) { // inside
+																				// acceptable
+																				// boundaries
+					if (s.getMaze().getMaze()[selectedMazeY][selectedMazeX] == ' ') {
+						s.getMaze().getMaze()[selectedMazeY][selectedMazeX] = 'X';
+					}
+				}
+			case Exit:
+			}
+
+			repaint();
+		} else if (arg0.getButton() == MouseEvent.BUTTON3) { // RIGHT MOUSE
+			// BUTTON
+			setCursor(new Cursor(Cursor.DEFAULT_CURSOR));
+
+			selectedMazeX = (arg0.getX() - offsetX) / size;
+			selectedMazeY = (arg0.getY() - offsetY) / size;
+
+			// JOptionPane.showConfirmDialog(getParent(), selectedMazeX + " " +
+			// selectedMazeY, "", JOptionPane.YES_NO_OPTION,
+			// JOptionPane.WARNING_MESSAGE);
+
+			switch (selectedElement) {
+			case Hero:
+
+			case Dragon:
+
+			case Sword:
+
+			case Shield:
+
+			case Darts:
+
+			case Walls:
+				if (selectedMazeX < mazeSize - 1 && selectedMazeX > 0
+						&& selectedMazeY < mazeSize - 1 && selectedMazeY > 0) {
+
+					s.getMaze().getMaze()[selectedMazeY][selectedMazeX] = ' ';
+
+				}
+			case Exit:
+			}
+
+			repaint();
+		}
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0) {
+
 	}
 
 }

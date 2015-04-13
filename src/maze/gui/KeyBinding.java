@@ -4,12 +4,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
 import javax.swing.JDialog;
-import javax.swing.JPanel;
-import javax.swing.JToggleButton;
-
-import java.awt.BorderLayout;
-import java.awt.Dialog;
-
 import javax.swing.JLabel;
 
 public class KeyBinding extends JDialog implements KeyListener {
