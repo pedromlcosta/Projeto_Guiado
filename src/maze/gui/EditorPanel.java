@@ -75,6 +75,31 @@ class EditorPanel extends JPanel implements MouseListener, MouseMotionListener,
 		selectedElement = element;
 	}
 
+	public void removeDart(int x, int y) {
+		//If there is a dart on the location, attempt to remove from arrayList
+		if (s.getMaze().getMaze()[y][x] == '-') {
+			for (int i = 0; i < s.getDarts().size(); i++) {
+				if(s.getDarts().get(i).getX() == x && s.getDarts().get(i).getY() == y){
+					//Found the dart we wanted to remove, at index i
+					s.getDarts().remove(i);
+				}
+			}
+		}
+	}
+
+	public void removeDragon(int x, int y) {
+		//If there is a dragon on the location, attempt to remove from arrayList
+		if (s.getMaze().getMaze()[y][x] == 'D') {
+			for (int i = 0; i < s.getDragons().size(); i++) {
+				if(s.getDragons().get(i).getX() == x && s.getDarts().get(i).getY() == y){
+					//Found the dragon we wanted to remove, at index i
+					s.getDragons().remove(i);
+				}
+			}
+
+		}
+	}
+
 	public void paintComponent(Graphics g) {
 
 		super.paintComponent(g);
@@ -173,7 +198,7 @@ class EditorPanel extends JPanel implements MouseListener, MouseMotionListener,
 				case Dragon:
 					if (s.getMaze().getMaze()[selectedMazeY][selectedMazeX] == ' ') {
 						s.getMaze().getMaze()[selectedMazeY][selectedMazeX] = 'D';
-						//ADICIONAR A S.DRAGONS
+						// ADICIONAR A S.DRAGONS
 					}
 					break;
 				case Sword:
@@ -183,7 +208,7 @@ class EditorPanel extends JPanel implements MouseListener, MouseMotionListener,
 				case Darts:
 					if (s.getMaze().getMaze()[selectedMazeY][selectedMazeX] == ' ') {
 						s.getMaze().getMaze()[selectedMazeY][selectedMazeX] = '-';
-						//ADICIONAR A S.DARTS
+						// ADICIONAR A S.DARTS
 					}
 					break;
 
@@ -193,37 +218,15 @@ class EditorPanel extends JPanel implements MouseListener, MouseMotionListener,
 
 				repaint();
 			} else if (SwingUtilities.isRightMouseButton(arg0)) {
-				switch (selectedElement) {
-				case Walls:
-					if (selectedMazeX < mazeSize - 1 && selectedMazeX > 0
-							&& selectedMazeY < mazeSize - 1
-							&& selectedMazeY > 0) { // inside
-													// acceptable
-													// boundaries
-						// RIGHT BUTTON REMOVES WHEN DRAGGED
-						s.getMaze().getMaze()[selectedMazeY][selectedMazeX] = ' ';
-					}
-					break;
-				case Hero:
+				
+				//Attempts to remove dart or dragon, if the user clicked on any of them
+				removeDart(selectedMazeX, selectedMazeY);
+				removeDragon(selectedMazeX, selectedMazeY);
+				
+				if (selectedMazeX < mazeSize - 1 && selectedMazeX > 0
+						&& selectedMazeY < mazeSize - 1
+						&& selectedMazeY > 0) {
 					s.getMaze().getMaze()[selectedMazeY][selectedMazeX] = ' ';
-					break;
-				case Dragon:
-					s.getMaze().getMaze()[selectedMazeY][selectedMazeX] = ' ';
-					break;
-				case Sword:
-					s.getMaze().getMaze()[selectedMazeY][selectedMazeX] = ' ';
-					break;
-				case Shield:
-					s.getMaze().getMaze()[selectedMazeY][selectedMazeX] = ' ';
-					break;
-				case Darts:
-					s.getMaze().getMaze()[selectedMazeY][selectedMazeX] = ' ';
-					//
-					break;
-				case Exit:
-					//Substitutes exit for a wall, since exits are only on the sides
-					s.getMaze().getMaze()[selectedMazeY][selectedMazeX] = 'X';
-					break;
 				}
 
 				repaint();
@@ -264,7 +267,7 @@ class EditorPanel extends JPanel implements MouseListener, MouseMotionListener,
 				case Dragon:
 					if (s.getMaze().getMaze()[selectedMazeY][selectedMazeX] == ' ') {
 						s.getMaze().getMaze()[selectedMazeY][selectedMazeX] = 'D';
-						//ADICIONAR A S.DRAGONS
+						// ADICIONAR A S.DRAGONS
 					}
 					break;
 				case Sword:
@@ -274,7 +277,7 @@ class EditorPanel extends JPanel implements MouseListener, MouseMotionListener,
 				case Darts:
 					if (s.getMaze().getMaze()[selectedMazeY][selectedMazeX] == ' ') {
 						s.getMaze().getMaze()[selectedMazeY][selectedMazeX] = '-';
-						//ADICIONAR A S.DARTS
+						// ADICIONAR A S.DARTS
 					}
 					break;
 				case Exit:
@@ -282,38 +285,18 @@ class EditorPanel extends JPanel implements MouseListener, MouseMotionListener,
 				}
 
 				repaint();
-			} else if (arg0.getButton() == MouseEvent.BUTTON3) { //RIGHT MOUSE BUTTON
-
-				selectedMazeX = (arg0.getX() - offsetX) / size;
-				selectedMazeY = (arg0.getY() - offsetY) / size;
-
-				switch (selectedElement) {
-				case Walls:
-					if (selectedMazeX < mazeSize - 1 && selectedMazeX > 0
-							&& selectedMazeY < mazeSize - 1
-							&& selectedMazeY > 0) {
-						s.getMaze().getMaze()[selectedMazeY][selectedMazeX] = ' ';
-					}
-					break;
-				case Hero:
+			} else if (arg0.getButton() == MouseEvent.BUTTON3) { // RIGHT MOUSE
+																	// BUTTON
+				//Attempts to remove dart or dragon, if the user clicked on any of them
+				removeDart(selectedMazeX, selectedMazeY);
+				removeDragon(selectedMazeX, selectedMazeY);
+				
+				if (selectedMazeX < mazeSize - 1 && selectedMazeX > 0
+						&& selectedMazeY < mazeSize - 1
+						&& selectedMazeY > 0) {
 					s.getMaze().getMaze()[selectedMazeY][selectedMazeX] = ' ';
-					break;
-				case Dragon:
-					s.getMaze().getMaze()[selectedMazeY][selectedMazeX] = ' ';
-					break;
-				case Sword:
-					s.getMaze().getMaze()[selectedMazeY][selectedMazeX] = ' ';
-					break;
-				case Shield:
-					s.getMaze().getMaze()[selectedMazeY][selectedMazeX] = ' ';
-					break;
-				case Darts:
-					s.getMaze().getMaze()[selectedMazeY][selectedMazeX] = ' ';
-					break;
-				case Exit:
-					s.getMaze().getMaze()[selectedMazeY][selectedMazeX] = 'X';
-					break;
 				}
+
 
 				repaint();
 			}

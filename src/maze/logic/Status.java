@@ -108,7 +108,7 @@ public class Status implements Serializable {
 	public ArrayList<Dragon> getDragons() {
 		return dragons;
 	}
-
+	
 	// TODO: mudar para "i"
 	public void initNumbers() {
 		// dragons = new Dragon[Main.random(maze.getMaze().length / 2) + 1];
