@@ -40,6 +40,9 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JPanel;
+
+import maze.gui.EditorPanel.Element;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -78,7 +81,7 @@ public class MazeEditor extends JDialog {
 
 		elementBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				EditorPanel.setElement(elementBox.getItemAt(elementBox.getSelectedIndex()));
+				editor.setElement(elementBox.getItemAt(elementBox.getSelectedIndex()));
 			}
 		});
 		buttonPanel.add(elementBox);

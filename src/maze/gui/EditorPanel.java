@@ -24,8 +24,8 @@ class EditorPanel extends JPanel implements MouseListener, MouseMotionListener,
 		Walls, Hero, Dragon, Sword, Shield, Darts, Exit
 	}
 
-	static Element selectedElement = Element.values()[0]; // Default value is
-															// the Hero
+	 Element selectedElement; // Default value is the wall
+															
 	Status s;
 	int cursorX = 0, cursorY = 0;
 	int selectedMazeX;
@@ -49,6 +49,7 @@ class EditorPanel extends JPanel implements MouseListener, MouseMotionListener,
 		this.addMouseListener(this);
 		this.addMouseMotionListener(this);
 
+		selectedElement = Element.Walls;
 		s = new Status();
 
 		s.getMaze().setMaze(new char[options.mazeSize][options.mazeSize]);
@@ -68,7 +69,7 @@ class EditorPanel extends JPanel implements MouseListener, MouseMotionListener,
 		return selectedElement;
 	}
 
-	public static void setElement(Element element) {
+	public void setElement(Element element) {
 		selectedElement = element;
 	}
 
