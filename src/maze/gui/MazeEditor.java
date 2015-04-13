@@ -63,6 +63,8 @@ public class MazeEditor extends JDialog {
 	int mazeSize = 21; // Defaults to 21
 
 	int cursorX = 0, cursorY = 0;
+	JButton DoneButton;
+	JButton cancelButton;
 
 	public MazeEditor(JMazeOptions options, JMaze game) {
 		// Panel and other design stuff
@@ -78,7 +80,6 @@ public class MazeEditor extends JDialog {
 		getContentPane().add(editor, BorderLayout.CENTER);
 
 		elementBox = new JComboBox<EditorPanel.Element>();
-		
 
 		elementBox.setModel(new DefaultComboBoxModel<EditorPanel.Element>(EditorPanel.Element.values()));
 		elementBox.setSelectedIndex(0);
@@ -89,18 +90,33 @@ public class MazeEditor extends JDialog {
 			}
 		});
 		buttonPanel.add(elementBox);
-		
+
+		DoneButton = new JButton("Done");
+		buttonPanel.add(DoneButton);
+
+		cancelButton = new JButton("Cancel");
+		buttonPanel.add(cancelButton);
+
+		// ACTION LISTENERS
+
 		elementBox.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				editor.setElement(elementBox.getItemAt(elementBox.getSelectedIndex()));
 			}
 		});
-
-		// Saving the JMaze game reference to pass the status when editing is
-		// finished
-		gamePanel = game;
-
-		// ACTION LISTENERS
+		DoneButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				// Saving the JMaze game reference to pass the status when
+				// editing is
+				// finished
+				gamePanel = game;
+			}
+		});
+		cancelButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				setVisible(false);
+			}
+		});
 
 	}
 

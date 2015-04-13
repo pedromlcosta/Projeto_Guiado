@@ -172,9 +172,10 @@ public class MazeGUI implements MouseListener, MouseMotionListener, KeyListener 
 				gameOptions.setAutoRequestFocus(true);
 				gameOptions.contentPanel.setVisible(true);
 				gameOptions.requestFocusInWindow();
-				// gamePanel.wa
-				// gamePanel.setFocusable(false);
-				// gameOptions.paint(gameOptions.getGraphics());
+				gamePanel.K_DOWN = gameOptions.getKeyDown();
+				gamePanel.K_UP = gameOptions.getKeyUp();
+				gamePanel.K_LEFT = gameOptions.getKeyLeft();
+				gamePanel.K_RIGHT = gameOptions.getKeyRight();
 
 			}
 		});
@@ -190,7 +191,10 @@ public class MazeGUI implements MouseListener, MouseMotionListener, KeyListener 
 				}
 			}
 		});
-
+		gamePanel.K_DOWN = gameOptions.getKeyDown();
+		gamePanel.K_UP = gameOptions.getKeyUp();
+		gamePanel.K_LEFT = gameOptions.getKeyLeft();
+		gamePanel.K_RIGHT = gameOptions.getKeyRight();
 		gamePanel.grabFocus();
 	}
 
